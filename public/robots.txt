@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://amymeij.web.id
+
+# Sitemaps
+Sitemap: https://amymeij.web.id/sitemap.xml
+Sitemap: https://myportfolio-yasir.vercel.app/sitemap.xml
