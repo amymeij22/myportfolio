@@ -85,7 +85,7 @@ export default function Hero() {
         </motion.h1>
         <div></div>
         <motion.div
-          className="text-xl md:text-4xl"
+          className="text-xl md:text-4xl mt-1"
           initial={{ opacity: 1, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}

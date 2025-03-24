@@ -1,68 +1,69 @@
+/* filepath: c:\Users\yasir\Documents\STMKG\Personal\personal-portfolio\app\globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 217.2 32.6% 17.5%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
-    --card: 210 40% 96.1%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 3.9%;
 
-    --popover: 210 40% 98%;
-    --popover-foreground: 217.2 32.6% 17.5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
 
-    --primary: 215.4 16.3% 46.9%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 214.3 31.8% 91.4%;
-    --secondary-foreground: 215.3 19.3% 34.5%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 214.3 31.8% 91.4%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
 
-    --accent: 212.7 26.8% 83.9%;
-    --accent-foreground: 215.3 19.3% 34.5%;
+    --accent: 222.2 47.4% 11.2%;
+    --accent-foreground: 222.2 47.4% 20%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 215.4 16.3% 46.9%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 222.2 47.4% 11.2%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 217.2 32.6% 17.5%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 47.4% 11.2%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 215.4 16.3% 46.9%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 215.3 25% 26.7%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
 
-    --accent: 215.3 19.3% 34.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 215.3 25% 26.7%;
-    --input: 215.3 25% 26.7%;
-    --ring: 215.4 16.3% 46.9%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 100%;
   }
 }
 
@@ -86,7 +87,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-400 dark:to-slate-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-400 dark:to-slate-200;
   }
 
   .hover-lift {
@@ -105,8 +106,9 @@
     @apply w-12 h-12 mx-auto mb-2 text-primary;
   }
 
+  /* Update the skill card styling for better contrast */
   .skill-card {
-    @apply p-4 rounded-lg bg-card shadow-sm border border-border/50 hover:border-primary/30 transition-all duration-300 flex flex-col items-center justify-center text-center hover-lift;
+    @apply p-4 rounded-lg bg-card shadow-sm border border-primary/20 hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center text-center hover-lift;
   }
 }
 
@@ -128,7 +130,7 @@
 }
 
 .elegant-gradient::before {
-  background: radial-gradient(circle, rgba(148, 163, 184, 0.1) 0%, rgba(148, 163, 184, 0) 70%);
+  background: radial-gradient(circle, rgba(222.2, 47.4%, 11.2%, 0.1) 0%, rgba(222.2, 47.4%, 11.2%, 0) 70%);
 }
 
 /* Glow effect for interactive elements */
@@ -150,3 +152,15 @@
   opacity: 1;
 }
 
+/* Update the glow animation for better visibility */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

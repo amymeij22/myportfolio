@@ -1,9 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { SiGithub, SiLinkedin, SiInstagram, SiFacebook } from "react-icons/si"
+import { SiGithub, SiLinkedin, SiInstagram } from "react-icons/si"
 import { MdEmail } from "react-icons/md"
-import { FaWhatsapp } from "react-icons/fa"
 
 export default function Footer() {
   const handleScrollToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -50,14 +49,6 @@ export default function Footer() {
           <a href="https://www.instagram.com/amymeij_22/" className="text-muted-foreground hover:text-foreground transition-colors">
             <span className="sr-only">Instagram</span>
             <SiInstagram className="h-6 w-6" />
-          </a>
-          <a href="https://facebook.com/amymeij22" className="text-muted-foreground hover:text-foreground transition-colors">
-            <span className="sr-only">Facebook</span>
-            <SiFacebook className="h-6 w-6" />
-          </a>
-          <a href="http://wa.me/6282283475043" className="text-muted-foreground hover:text-foreground transition-colors">
-            <span className="sr-only">WhatsApp</span>
-            <FaWhatsapp className="h-6 w-6" />
           </a>
           <a href="mailto:yasirahmad220504@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
             <span className="sr-only">Email</span>

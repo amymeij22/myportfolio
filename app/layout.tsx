@@ -3,14 +3,14 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
+import { Toaster } from "@/components/ui/toaster"
 import type React from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Ahmad Meijlan Yasir | Personal Portfolio",
+  title: "Portfolio Yasir",
   description: "Personal portfolio of Ahmad Meijlan Yasir, Instrumentation Student & Tech Enthusiast",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -23,14 +23,12 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <Header />
-          <main>{children}</main>
+          <main className="pt-0">{children}</main>
           <Footer />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
   )
 }
 
-
-
-import './globals.css'

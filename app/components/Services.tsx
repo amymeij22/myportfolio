@@ -5,6 +5,7 @@ import { SiHtml5, SiCss3, SiJavascript, SiPhp, SiPython, SiQgis } from "react-ic
 import { RiMicrosoftFill, RiEnglishInput, RiTeamFill, RiLightbulbFlashLine, RiDatabase2Fill } from "react-icons/ri"
 import { IoHardwareChip } from "react-icons/io5"
 import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
 const skills = [
   {
@@ -59,6 +60,15 @@ const skills = [
 
 export default function Skills() {
   const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <section className="min-h-screen flex items-center py-20 px-4 sm:px-6 lg:px-8 bg-background elegant-section elegant-dots">
