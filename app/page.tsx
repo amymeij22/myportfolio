@@ -22,9 +22,6 @@ export default function Home() {
       <section id="projects">
         <PortfolioGrid />
       </section>
-      <section id="journey">
-        <Timeline />
-      </section>
       <section id="marquee">
         <Marquee />
       </section>
