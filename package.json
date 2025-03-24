@@ -1,12 +1,13 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "kabagaskeren-website",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap" 
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
@@ -45,12 +46,14 @@
     "emailjs-com": "^3.2.0",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "latest",
+    "gsap": "^3.12.7",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "next": "15.1.0",
+    "next": "^15.2.3",
+    "next-sitemap": "^4.2.3",
     "next-themes": "latest",
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "^18",
+    "react-dom": "^18",
     "react-hook-form": "latest",
     "react-icons": "latest",
     "react-resizable-panels": "^2.1.7",
