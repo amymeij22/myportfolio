@@ -165,7 +165,9 @@ export default function Skills() {
     const animateHardSkills = () => {
       if (hardSkillsRef.current && !isPaused && !isManualScrolling) {
         setHardSkillsPosition(prev => {
-          const newPosition = prev + 1.2
+          // Gunakan animasi yang lebih lambat di mobile untuk mengurangi beban rendering
+          const increment = window.innerWidth < 768 ? 0.5 : 1.2
+          const newPosition = prev + increment
           // Reset position when we've scrolled through the first set of items
           if (newPosition >= hardSkillsWidth) {
             return 0
@@ -183,7 +185,9 @@ export default function Skills() {
     const animateSoftSkills = () => {
       if (softSkillsRef.current && !isPaused && !isManualScrolling) {
         setSoftSkillsPosition(prev => {
-          const newPosition = prev + 1.2
+          // Gunakan animasi yang lebih lambat di mobile untuk mengurangi beban rendering
+          const increment = window.innerWidth < 768 ? 0.5 : 1.2
+          const newPosition = prev + increment
           // Reset position when we've scrolled through the first set of items
           if (newPosition >= softSkillsWidth) {
             return 0
@@ -252,13 +256,16 @@ export default function Skills() {
               setIsManualScrolling(true)
             }}
             onTouchEnd={() => {
+              // Meningkatkan delay sebelum memulai ulang animasi otomatis
+              // untuk mencegah gerakan yang tidak diinginkan setelah touch event
               setTimeout(() => {
                 if (hardSkillsRef.current) {
                   setHardSkillsPosition(hardSkillsRef.current.scrollLeft)
                 }
                 setIsPaused(false)
-                setTimeout(() => setIsManualScrolling(false), 3000)
-              }, 100)
+                // Berikan waktu lebih lama sebelum melanjutkan animasi otomatis
+                setTimeout(() => setIsManualScrolling(false), 5000)
+              }, 300)
             }}
             onWheel={handleWheel}
             onMouseDown={(e) => handleMouseDown(e, hardSkillsRef)}
@@ -313,14 +320,17 @@ export default function Skills() {
               setIsManualScrolling(true)
             }}
             onTouchEnd={() => {
+              // Meningkatkan delay sebelum memulai ulang animasi otomatis
+              // untuk mencegah gerakan yang tidak diinginkan setelah touch event
               setTimeout(() => {
                 if (softSkillsRef.current && softSkillsRef.current.scrollWidth) {
                   const width = softSkillsRef.current.scrollWidth / 3
                   setSoftSkillsPosition(width - softSkillsRef.current.scrollLeft)
                 }
                 setIsPaused(false)
-                setTimeout(() => setIsManualScrolling(false), 3000)
-              }, 100)
+                // Berikan waktu lebih lama sebelum melanjutkan animasi otomatis
+                setTimeout(() => setIsManualScrolling(false), 5000)
+              }, 300)
             }}
             onWheel={handleWheel}
             onMouseDown={(e) => handleMouseDown(e, softSkillsRef)}
@@ -361,6 +371,8 @@ export default function Skills() {
           width: 100%;
           user-select: none; /* Prevent text selection during drag */
           touch-action: pan-x; /* Optimize for horizontal touch actions */
+          -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+          overscroll-behavior-x: contain; /* Prevent scroll chaining */
         }
         
         .skills-scroll-container::-webkit-scrollbar {
@@ -373,6 +385,13 @@ export default function Skills() {
         
         .cursor-grabbing {
           cursor: grabbing !important;
+        }
+        
+        @media (max-width: 768px) {
+          .skills-scroll-container > div {
+            padding-left: 5%;
+            padding-right: 5%;
+          }
         }
       `}</style>
     </section>

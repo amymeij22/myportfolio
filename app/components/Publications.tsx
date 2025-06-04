@@ -95,16 +95,18 @@ export default function Publications() {
                 <CardContent className="flex-grow">
                   <p className="text-sm text-muted-foreground line-clamp-4 text-justify">{publication.abstract}</p>
                 </CardContent>
-                <CardFooter className="flex justify-between pt-4">
+                <CardFooter className="flex sm:justify-between pt-4 flex-col sm:flex-row gap-3 sm:gap-0">
                   <Button 
                     variant="outline" 
                     onClick={() => setSelectedPublication(publication)}
+                    className="w-full sm:w-auto"
                   >
                     Read More
                   </Button>
                   <Button 
                     variant="default"
                     onClick={() => window.open(publication.url, '_blank')}
+                    className="w-full sm:w-auto"
                   >
                     View Publication
                   </Button>
