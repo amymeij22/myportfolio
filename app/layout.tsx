@@ -6,6 +6,7 @@ import Footer from "./components/Footer"
 import { Toaster } from "@/components/ui/toaster"
 import Head from "next/head"
 import type React from "react"
+import ChatbotWrapper from "@/components/ChatbotWrapper"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -48,6 +49,7 @@ export default function RootLayout({
           <main className="pt-0">{children}</main>
           <Footer />
           <Toaster />
+          <ChatbotWrapper />
         </ThemeProvider>
       </body>
     </html>

@@ -388,3 +388,71 @@
 .see-more-button.expanded svg {
   transform: rotate(180deg);
 }
+
+/* Custom styling for chat button */
+.chat-pulse {
+  position: relative;
+}
+
+/* Vertical text for chat button */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  line-height: 1.1;
+  font-weight: 600;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Chat button styling with improved visual */
+.chat-pulse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0.5rem 0 0 0.5rem;
+  box-shadow: 0 0 0 0 rgba(var(--primary), 0.7);
+  animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 12px rgba(var(--primary), 0);
+  }
+}
+
+/* Chat window styling */
+.message-bubble-in {
+  animation: fade-slide-in 0.3s ease-out;
+}
+
+.message-bubble-out {
+  animation: fade-slide-out 0.3s ease-out;
+}
+
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-slide-out {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
