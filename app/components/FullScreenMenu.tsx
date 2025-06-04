@@ -25,6 +25,12 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
         <Link href="#projects" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
           Projects
         </Link>
+        <Link href="#publications" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
+          Publications
+        </Link>
+        <Link href="#timeline" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
+          Journey
+        </Link>
         <Link href="#contact" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
           Contact
         </Link>

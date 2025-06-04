@@ -65,6 +65,18 @@ export default function Header() {
               Projects
             </Link>
             <Link
+              href="#publications"
+              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+            >
+              Publications
+            </Link>
+            <Link
+              href="#timeline"
+              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+            >
+              Journey
+            </Link>
+            <Link
               href="#contact"
               className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
             >

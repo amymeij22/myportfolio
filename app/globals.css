@@ -106,9 +106,32 @@
     @apply w-12 h-12 mx-auto mb-2 text-primary;
   }
 
+  /* Long text content - automatically justify for better readability */
+  .long-text {
+    @apply text-justify;
+  }
+  
   /* Update the skill card styling for better contrast */
   .skill-card {
     @apply p-4 rounded-lg bg-card shadow-sm border border-primary/20 hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center text-center hover-lift;
+  }
+  
+  /* Timeline card styling for mobile and desktop */
+  .timeline-card {
+    @apply p-6 bg-card rounded-lg shadow-md border border-primary/20 h-full transition-all duration-300;
+  }
+  
+  /* Timeline dot styling */
+  .timeline-dot {
+    @apply bg-primary rounded-full flex items-center justify-center;
+  }
+  
+  /* Skills scroll container */
+  .skills-scroll-container {
+    @apply flex space-x-4 py-8 overflow-x-auto scrollbar-hide touch-pan-x cursor-grab w-full;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    will-change: transform, scroll-position;
   }
 }
 
@@ -163,4 +186,205 @@
     opacity: 1;
     transform: scale(1.1);
   }
+}
+
+/* Custom modal styles for consistency */
+.dialog-content {
+  max-width: min(calc(100vw - 2rem), 550px) !important;
+  width: 100%;
+  max-height: min(calc(100vh - 5rem), 80vh) !important;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(var(--border), 0.2);
+}
+
+@media (max-width: 640px) {
+  .dialog-content {
+    max-width: calc(100vw - 2rem) !important;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    margin: 0.5rem;
+  }
+}
+
+/* Dialog content scrollbar styling */
+.dialog-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dialog-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dialog-content::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--muted-foreground), 0.3);
+  border-radius: 20px;
+}
+
+.dialog-content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(var(--muted-foreground), 0.5);
+}
+
+/* Ensure elegant scrolling for all elements */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Ensure skill cards are consistent */
+.skill-card {
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Enhance the timeline connection for both mobile and desktop */
+.timeline-dot::before,
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background-color: hsl(var(--primary) / 0.2);
+  z-index: -1;
+}
+
+/* Desktop timeline styling */
+@media (min-width: 768px) {
+  .timeline-dot::before {
+    top: -100%;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .timeline-dot::after {
+    top: 50%;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile timeline styling */
+@media (max-width: 767px) {
+  .timeline-dot::before {
+    top: -100%;
+    bottom: 50%;
+    left: 4px;
+  }
+  
+  .timeline-dot::after {
+    top: 50%;
+    bottom: -100%;
+    left: 4px;
+  }
+  
+  .timeline-card-container {
+    padding-left: 1.5rem;
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  mix-blend-mode: difference;
+}
+
+/* Elegant hover lift animation */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Elegant section backgrounds */
+.elegant-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.elegant-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 500px;
+  background: radial-gradient(circle at top center, hsl(var(--primary) / 0.1), transparent 70%);
+  z-index: -1;
+}
+
+.elegant-dots {
+  background-image: radial-gradient(hsl(var(--primary) / 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Text gradient effect */
+.text-gradient {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Elegant glow effect */
+.elegant-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.elegant-glow:hover {
+  box-shadow: 0 0 15px hsl(var(--primary) / 0.3);
+}
+
+/* Hide scrollbar for skills section */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Infinite scroll animation optimization */
+@media (prefers-reduced-motion: no-preference) {
+  .skills-scroll-container {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+}
+
+/* Timeline card consistent height */
+.timeline-card {
+  min-height: 200px;
+}
+
+/* See more button styling */
+.see-more-button {
+  display: inline-flex;
+  align-items: center;
+  color: hsl(var(--primary));
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.see-more-button:hover {
+  color: hsl(var(--primary) / 0.8);
+}
+
+.see-more-button svg {
+  transition: transform 0.3s ease;
+}
+
+.see-more-button.expanded svg {
+  transform: rotate(180deg);
 }

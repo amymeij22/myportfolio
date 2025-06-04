@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { TextPlugin } from 'gsap/TextPlugin'
 import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { RiDownload2Line, RiArrowDownLine } from "react-icons/ri"
 
 gsap.registerPlugin(TextPlugin)
 
@@ -48,8 +50,28 @@ export default function Hero() {
     }
   }, [])
 
+  const handleExploreClick = () => {
+    const aboutSection = document.getElementById('about')
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const handleDownloadCV = () => {
+    // Replace with your actual CV file URL
+    const cvUrl = '/Ahmad_Meijlan_Yasir_CV.pdf'
+    
+    // Create a temporary link element
+    const link = document.createElement('a')
+    link.href = cvUrl
+    link.download = 'Ahmad_Meijlan_Yasir_CV.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
-    <div className="relative isolate overflow-hidden bg-background min-h-screen flex items-center justify-center">
+    <div className="relative isolate overflow-hidden bg-background min-h-screen flex items-center justify-center py-2">
       <div
         className="absolute inset-x-0 top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true"
@@ -76,21 +98,46 @@ export default function Hero() {
       <section className="h-screen flex flex-col justify-center items-center transition-colors duration-200">
         <motion.h1
           ref={nameRef}
-          className="text-3xl md:text-7xl font-bold mb-1 md:mb-4 text-center text-current"
+          className="text-3xl md:text-7xl font-bold mb-2 md:mb-4 text-center text-current"
           initial={{ opacity: 1, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <span className="text-gradient">Ahmad Meijlan Yasir</span>
         </motion.h1>
-        <div></div>
+        <div className="h-3 md:h-0"></div>
         <motion.div
-          className="text-xl md:text-4xl mt-1"
+          className="text-xl md:text-4xl mt-2 md:mt-1 mb-8"
           initial={{ opacity: 1, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           I am <span ref={skillsRef} className="font-semibold"></span>
+        </motion.div>
+
+        <motion.div 
+          className="flex flex-col sm:flex-row gap-4 mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <Button 
+            onClick={handleExploreClick}
+            className="group"
+            size="lg"
+          >
+            Explore Portfolio
+            <RiArrowDownLine className="ml-2 h-4 w-4 group-hover:animate-bounce" />
+          </Button>
+          <Button 
+            onClick={handleDownloadCV}
+            variant="outline"
+            className="group"
+            size="lg"
+          >
+            Download CV
+            <RiDownload2Line className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+          </Button>
         </motion.div>
       </section>
     </div>

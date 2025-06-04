@@ -66,7 +66,7 @@ export default function Marquee() {
               className="text-7xl sm:text-8xl md:text-9xl font-bold text-transparent px-4"
               style={{
                 WebkitTextStroke: "1px hsl(var(--secondary))",
-                fontFamily: "'Lobster', cursive",
+                fontFamily: "'Pacifico', cursive",
               }}
             >
               Ahmad Meijlan Yasir

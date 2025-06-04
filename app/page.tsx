@@ -7,6 +7,7 @@ import ContactForm from "./components/ContactForm"
 import FloatingActionButton from "./components/FloatingActionButton"
 import CustomCursor from "./components/CustomCursor"
 import Marquee from "./components/Marquee"
+import Publications from "./components/Publications"
 
 export default function Home() {
   return (
@@ -22,12 +23,19 @@ export default function Home() {
       <section id="projects">
         <PortfolioGrid />
       </section>
+      <section id="publications">
+        <Publications />
+      </section>
       <section id="marquee">
         <Marquee />
+      </section>
+      <section id="timeline">
+        <Timeline />
       </section>
       <section id="contact">
         <ContactForm />
       </section>
+
       <FloatingActionButton />
     </>
   )
