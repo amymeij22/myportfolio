@@ -195,36 +195,36 @@ export default function ContactForm() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="flex justify-center gap-8 mb-10"
+            className="flex justify-center gap-4 sm:gap-8 mb-10"
           >
             <Link href="https://github.com/amymeij22/" target="_blank" passHref>
               <div className="flex flex-col items-center group cursor-pointer">
-                <div className="p-6 bg-card/50 rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
-                  <SiGithub className="h-6 w-6 text-foreground" />
+                <div className="p-3 sm:p-6 bg-card/50 rounded-lg sm:rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
+                  <SiGithub className="h-4 w-4 sm:h-6 sm:w-6 text-foreground" />
                 </div>
                 <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"></span>
               </div>
             </Link>
             <Link href="https://id.linkedin.com/in/ahmad-meijlan-yasir-1b950a351" target="_blank" passHref>
               <div className="flex flex-col items-center group cursor-pointer">
-                <div className="p-6 bg-card/50 rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
-                  <SiLinkedin className="h-6 w-6 text-foreground" />
+                <div className="p-3 sm:p-6 bg-card/50 rounded-lg sm:rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
+                  <SiLinkedin className="h-4 w-4 sm:h-6 sm:w-6 text-foreground" />
                 </div>
                 <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"></span>
               </div>
             </Link>
             <Link href="https://www.instagram.com/amymeij_22/" target="_blank" passHref>
               <div className="flex flex-col items-center group cursor-pointer">
-                <div className="p-6 bg-card/50 rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
-                  <SiInstagram className="h-6 w-6 text-foreground" />
+                <div className="p-3 sm:p-6 bg-card/50 rounded-lg sm:rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
+                  <SiInstagram className="h-4 w-4 sm:h-6 sm:w-6 text-foreground" />
                 </div>
                 <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"></span>
               </div>
             </Link>
             <Link href="mailto:yasirahmad220504@gmail.com" passHref>
               <div className="flex flex-col items-center group cursor-pointer">
-                <div className="p-6 bg-card/50 rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
-                  <MdEmail className="h-6 w-6 text-foreground" />
+                <div className="p-3 sm:p-6 bg-card/50 rounded-lg sm:rounded-xl border border-border backdrop-blur-sm shadow-md flex items-center justify-center mb-2 group-hover:bg-primary/10 transition-colors">
+                  <MdEmail className="h-4 w-4 sm:h-6 sm:w-6 text-foreground" />
                 </div>
                 <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"></span>
               </div>

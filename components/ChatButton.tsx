@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar } from '@/components/ui/avatar';
 import { Textarea } from '@/components/ui/textarea';
@@ -22,6 +22,7 @@ export default function ChatButton() {
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
+  const [chatContext, setChatContext] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -32,6 +33,37 @@ export default function ChatButton() {
   // Auto scroll to bottom when new messages appear
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Load messages from local storage when component mounts
+  useEffect(() => {
+    const savedMessages = localStorage.getItem('chatMessages');
+    if (savedMessages) {
+      try {
+        const parsedMessages = JSON.parse(savedMessages);
+        // Convert string dates back to Date objects
+        const messagesWithDates = parsedMessages.map((msg: any) => ({
+          ...msg,
+          timestamp: new Date(msg.timestamp)
+        }));
+        setMessages(messagesWithDates);
+        
+        // Extract chat context from the messages
+        const contexts = parsedMessages
+          .map((msg: any) => `${msg.sender === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+          .slice(-5); // Keep only the last 5 messages for context
+        setChatContext(contexts);
+      } catch (error) {
+        console.error('Error parsing saved messages:', error);
+      }
+    }
+  }, []);
+
+  // Save messages to local storage when they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('chatMessages', JSON.stringify(messages));
+    }
   }, [messages]);
 
   // Efek untuk menampilkan button setelah scroll tertentu
@@ -61,12 +93,12 @@ export default function ChatButton() {
   const toggleChat = () => {
     setIsOpen(!isOpen);
     
-    // Menambahkan pesan pembuka dari bot jika ini pertama kali chat dibuka
+    // Menambahkan pesan pembuka dari bot jika ini pertama kali chat dibuka dan belum ada pesan
     if (!isOpen && messages.length === 0) {
       setMessages([
         {
           id: Date.now().toString(),
-          content: 'Halo! Saya asisten virtual Yasir. Ada yang bisa saya bantu tentang Ahmad Meijlan Yasir atau portofolionya?',
+          content: 'Halo! Saya asisten virtual Yasir. Ada yang bisa saya bantu tentang Yasir atau portofolionya?',
           sender: 'bot',
           timestamp: new Date(),
         },
@@ -91,13 +123,20 @@ export default function ChatButton() {
     setIsLoading(true);
 
     try {
-      // Mengirim permintaan ke API endpoint
+      // Update context with the new user message
+      const updatedContext = [...chatContext, `User: ${newMessage}`].slice(-5);
+      setChatContext(updatedContext);
+
+      // Mengirim permintaan ke API endpoint dengan context
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: newMessage }),
+        body: JSON.stringify({ 
+          message: newMessage,
+          context: updatedContext 
+        }),
       });
 
       if (!response.ok) {
@@ -117,6 +156,8 @@ export default function ChatButton() {
         timestamp: new Date(),
       };
 
+      // Update context with bot response
+      setChatContext([...updatedContext, `Assistant: ${data.response}`].slice(-5));
       setMessages(prevMessages => [...prevMessages, botMessage]);
     } catch (error) {
       console.error('Error saat mengirim pesan:', error);
@@ -135,9 +176,56 @@ export default function ChatButton() {
     }
   };
 
-  // Format teks untuk mengubah **text** menjadi <b>text</b>
+  // Refresh percakapan
+  const refreshConversation = () => {
+    setMessages([
+      {
+        id: Date.now().toString(),
+        content: 'Halo! Saya asisten virtual Yasir. Ada yang bisa saya bantu tentang Yasir atau portofolionya?',
+        sender: 'bot',
+        timestamp: new Date(),
+      },
+    ]);
+    setChatContext([]);
+    localStorage.removeItem('chatMessages');
+  };
+
+  // Format teks untuk mengubah **text** menjadi <b>text</b> dan URL menjadi link
   const formatBoldText = (text: string): string => {
-    return text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    let formattedText = text;
+    
+    // Format bold text
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    
+    // Pola untuk "*Instagram: [URL](URL)" - menggunakan fungsi replacer khusus
+    const socialMediaPattern = /\*\s+([\w\s]+):\s+\[(https?:\/\/[^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+    formattedText = formattedText.replace(socialMediaPattern, (match, platform, displayUrl, actualUrl) => {
+      return `• <b>${platform}:</b> <a href="${actualUrl}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">${platform}</a>`;
+    });
+
+    // Pola untuk "*Instagram: URL" - list sosial media biasa
+    formattedText = formattedText.replace(/\*\s+([\w\s]+):\s+(https?:\/\/[^\s]+)/g, (match, platform, url) => {
+      return `• <b>${platform}:</b> <a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">${platform}</a>`;
+    });
+    
+    // Format URL dalam format markdown [label](url)
+    formattedText = formattedText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, url) => {
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">${label}</a>`;
+    });
+    
+    // Ubah URL standalone menjadi tautan
+    const urlRegex = /https?:\/\/[^\s<>)"']+/g;
+    formattedText = formattedText.replace(urlRegex, (match) => {
+      // Periksa apakah URL ini berada dalam tag HTML <a>
+      // Jika kita mendapati 'href="' sebelum URL, kemungkinan URL sudah ada di anchor tag
+      const beforeMatch = formattedText.substring(Math.max(0, formattedText.indexOf(match) - 20), formattedText.indexOf(match));
+      if (beforeMatch.includes('href="')) {
+        return match; // Biarkan URL ini karena sudah dalam tag anchor
+      }
+      return `<a href="${match}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">${match}</a>`;
+    });
+    
+    return formattedText;
   };
 
   // Render konten dengan format HTML untuk bold text
@@ -211,7 +299,7 @@ export default function ChatButton() {
                   {mounted && (
                     <Image 
                       src={logoUrl}
-                      alt="Ahmad Meijlan Yasir"
+                      alt="Yasir"
                       width={32}
                       height={32}
                       className="w-full h-auto object-contain"
@@ -220,17 +308,28 @@ export default function ChatButton() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Yasir&apos;s Assistant</h3>
-                  <p className="text-xs opacity-80">Siap membantu menjawab pertanyaan Anda</p>
+                  <p className="text-xs opacity-80">Siap membantu menjawab pertanyaan Kamu</p>
                 </div>
               </div>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={toggleChat}
-                className="text-primary-foreground hover:bg-primary/90 rounded-full h-8 w-8"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={refreshConversation}
+                  title="Refresh percakapan"
+                  className="text-primary-foreground hover:bg-primary/90 rounded-full h-8 w-8"
+                >
+                  <RefreshCw className="h-4 w-4" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={toggleChat}
+                  className="text-primary-foreground hover:bg-primary/90 rounded-full h-8 w-8"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
 
             {/* Body chat - pesan */}
@@ -247,11 +346,11 @@ export default function ChatButton() {
                       message.sender === 'user'
                         ? 'bg-primary text-primary-foreground rounded-tr-none message-bubble-in'
                         : 'bg-muted rounded-tl-none message-bubble-out'
-                    }`}
+                    } break-words`}
                   >
                     {message.sender === 'bot' 
                       ? renderFormattedContent(message.content)
-                      : <p className="text-sm">{message.content}</p>
+                      : <p className="text-sm overflow-hidden break-words">{message.content}</p>
                     }
                     <span className="text-[10px] opacity-70 block text-right mt-1">
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

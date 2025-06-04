@@ -11,15 +11,15 @@ export async function POST(req: NextRequest) {
       }, { status: 200 });
     }
 
-    // Mendapatkan pesan dari body permintaan
-    const { message } = await req.json();
+    // Mendapatkan pesan dan context dari body permintaan
+    const { message, context = [] } = await req.json();
 
     if (!message) {
       return NextResponse.json({ error: 'Pesan tidak boleh kosong' }, { status: 400 });
     }
 
-    // Mendapatkan respons dari Gemini
-    const response = await getGeminiResponse(message);
+    // Mendapatkan respons dari Gemini dengan menyertakan context
+    const response = await getGeminiResponse(message, context);
 
     // Mengembalikan respons sebagai JSON
     return NextResponse.json({ response });

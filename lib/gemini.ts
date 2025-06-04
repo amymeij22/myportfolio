@@ -17,7 +17,7 @@ Pengalaman Profesional:
 
 - Web Developer di Sekolah Tinggi Meteorologi, Klimatologi, dan Geofisika (STMKG) – Tangerang, Banten (Agustus 2024 - Sekarang)
   * Mengembangkan dan memelihara situs web institusi menggunakan WordPress dan Elementor
-  * Mengelola pembaruan konten akademik dan portal layanan mahasiswa
+  * Mengelola pembaruan konten akademik dan portal layanan taruna
 
 - Chief Financial Officer di Kabagas Keren – Tangerang, Banten (Juni 2024 - Sekarang)
   * Mengelola penganggaran, laporan keuangan, dan alokasi dana untuk proyek-proyek teknologi dan IoT
@@ -33,7 +33,7 @@ Pengalaman Profesional:
   * Mengembangkan platform berbasis web untuk manajemen inventaris
 
 - Team Manager di AURORA STMKG – Aircraft Division (Megadirga) – Tangerang, Banten (Januari 2023 - Januari 2025)
-  * Memimpin kelompok riset mahasiswa yang berfokus pada sistem tanpa awak dan penginderaan jauh
+  * Memimpin kelompok riset taruna yang berfokus pada sistem tanpa awak dan penginderaan jauh
 
 Keterampilan:
 - Keterampilan Teknis: HTML, CSS, JavaScript, React.js, TypeScript, Next.js, Tailwind CSS, WordPress, SQL, Python, Node.js, MongoDB, IoT, Git, GitHub, Docker, AWS, Linux, Microsoft Office, Web Development, SEO, Web Content Writing, AI Fundamentals
@@ -99,7 +99,7 @@ Kepribadian dan Pola Pikir:
 `;
 
 // Fungsi untuk mendapatkan respons dari Gemini
-export async function getGeminiResponse(userInput: string) {
+export async function getGeminiResponse(userInput: string, context: string[] = []) {
   const apiKey = getGeminiApiKey();
   
   if (!apiKey) {
@@ -111,6 +111,11 @@ export async function getGeminiResponse(userInput: string) {
     // URL endpoint API Gemini yang baru
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
     
+    // Menyiapkan konteks dari riwayat percakapan sebelumnya
+    const chatHistory = context.length > 0 
+      ? `\nBerikut adalah riwayat percakapan sebelumnya:\n${context.join('\n')}\n\nBerdasarkan riwayat percakapan di atas, tolong jawab pertanyaan berikut:`
+      : '';
+    
     // Data yang akan dikirim ke API
     const requestData = {
       contents: [
@@ -119,16 +124,31 @@ export async function getGeminiResponse(userInput: string) {
             {
               text: `Kamu adalah asisten virtual untuk Ahmad Meijlan Yasir.
               
+Penting: Pengguna harus memanggilmu dengan nama "Yasir", BUKAN "Ahmad" atau "Meijlan".
+
 Berikut adalah informasi tentang Ahmad Meijlan Yasir yang bisa kamu gunakan untuk menjawab pertanyaan:
 ${personalInfo}
+
+Informasi tambahan tentang website portfolio Yasir:
+- Bagian Hero: Menampilkan nama, profesi, dan keterampilan yang berputar seperti "Web Developer", "IoT Enthusiast", dll. dengan tombol "Explore Portfolio" dan "Download CV".
+- Bagian About Me: Menjelaskan bahwa Yasir adalah Taruna Instrumentasi di STMKG, tech enthusiast, dan novice researcher. Website dibuat dengan Next.js, React, Tailwind CSS, dan TypeScript.
+- Bagian Skills: Menampilkan hard skills (HTML, CSS, JavaScript, React, TypeScript, dll.) dan soft skills (Project Management, Leadership, Communication, dll.).
+- Bagian Projects: Menampilkan proyek-proyek seperti ACWS (Automatic Chains-D Weather Station), STMKG Website, INA-FOREWS (Indonesia Forest Fires Early Warning System), dll.
+- Bagian Publications: Menampilkan publikasi riset Yasir termasuk "Radiosonde System Using ESP32", "IoT-Based Air Quality Monitoring", dll.
+- Bagian Timeline: Menampilkan perjalanan profesional Yasir seperti Engineer Intern di BMKG, Web Developer di STMKG, dll.
+- Bagian Contact: Form kontak untuk menghubungi Yasir.
+
+${chatHistory}
 
 Berdasarkan informasi di atas, tolong jawab pertanyaan berikut dengan ramah, informatif, dan profesional.
 Gunakan gaya bahasa yang santai dan semi-formal (seperti menggunakan "aku", "kamu", "gue", "lo" sesekali tergantung gaya bahasa pengguna), tapi tetap menjaga profesionalisme.
 Hindari bahasa yang terlalu kaku atau formal. Jadilah ramah dan approachable, seolah-olah kamu adalah teman yang kebetulan tahu banyak tentang Ahmad Meijlan Yasir.
 
+Penting untuk format tautan: Jika kamu perlu menyertakan tautan seperti social media atau website, gunakan format markdown seperti [nama link](URL). Contoh: [Instagram Yasir](https://www.instagram.com/amymeij_22/). JANGAN menggunakan format seperti "* Instagram: [https://...](...)" karena ini akan menyulitkan pengguna untuk mengklik link.
+
 Pertanyaan: "${userInput}"
 
-Jika ditanya hal yang tidak ada di informasi di atas, katakan kamu tidak memiliki informasi tersebut tetapi bisa menghubungi Ahmad langsung melalui email atau sosial medianya.
+Jika ditanya hal yang tidak ada di informasi di atas, katakan kamu tidak memiliki informasi tersebut tetapi bisa menghubungi Yasir langsung melalui email atau sosial medianya.
 Jawaban dibawah 150 kata dan berbahasa Indonesia.`
             }
           ]

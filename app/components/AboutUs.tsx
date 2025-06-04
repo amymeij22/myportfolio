@@ -78,7 +78,7 @@ export default function AboutUs() {
               <div className="text-center">
                 <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/30">
                   <img
-                    src="https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/yasir-Zvk9FGAhZPwEqpHVDt2xPWfOrTlJNy"
+                    src="https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/foto-yasir-fMN26cOwR7dO8L4F1ykhZrp2sZngl8.png"
                     alt="Ahmad Meijlan Yasir"
                     className="w-full h-full object-cover"
                   />
