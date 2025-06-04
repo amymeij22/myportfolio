@@ -162,12 +162,21 @@ export default function Skills() {
     let hardSkillsAnimationId: number
     let softSkillsAnimationId: number
     
+    // Cek apakah layar mobile
+    const isMobile = window.innerWidth < 768
+    
+    // Jika mobile, tidak perlu menjalankan animasi otomatis
+    if (isMobile) {
+      setIsManualScrolling(true)
+    }
+    
     const animateHardSkills = () => {
+      // Tidak menjalankan animasi jika mobile
+      if (isMobile) return
+      
       if (hardSkillsRef.current && !isPaused && !isManualScrolling) {
         setHardSkillsPosition(prev => {
-          // Gunakan animasi yang lebih lambat di mobile untuk mengurangi beban rendering
-          const increment = window.innerWidth < 768 ? 0.5 : 1.2
-          const newPosition = prev + increment
+          const newPosition = prev + 1.2
           // Reset position when we've scrolled through the first set of items
           if (newPosition >= hardSkillsWidth) {
             return 0
@@ -183,11 +192,12 @@ export default function Skills() {
     }
     
     const animateSoftSkills = () => {
+      // Tidak menjalankan animasi jika mobile
+      if (isMobile) return
+      
       if (softSkillsRef.current && !isPaused && !isManualScrolling) {
         setSoftSkillsPosition(prev => {
-          // Gunakan animasi yang lebih lambat di mobile untuk mengurangi beban rendering
-          const increment = window.innerWidth < 768 ? 0.5 : 1.2
-          const newPosition = prev + increment
+          const newPosition = prev + 1.2
           // Reset position when we've scrolled through the first set of items
           if (newPosition >= softSkillsWidth) {
             return 0
@@ -202,12 +212,39 @@ export default function Skills() {
       softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
     }
     
-    hardSkillsAnimationId = requestAnimationFrame(animateHardSkills)
-    softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
+    // Hanya memulai animasi jika bukan mobile
+    if (!isMobile) {
+      hardSkillsAnimationId = requestAnimationFrame(animateHardSkills)
+      softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
+    }
+    
+    // Listener untuk window resize
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768
+      
+      // Jika berubah dari desktop ke mobile, hentikan animasi
+      if (newIsMobile && !isMobile) {
+        if (hardSkillsAnimationId) cancelAnimationFrame(hardSkillsAnimationId)
+        if (softSkillsAnimationId) cancelAnimationFrame(softSkillsAnimationId)
+        setIsManualScrolling(true)
+      }
+      
+      // Jika berubah dari mobile ke desktop, mulai animasi
+      if (!newIsMobile && isMobile) {
+        setIsManualScrolling(false)
+        hardSkillsAnimationId = requestAnimationFrame(animateHardSkills)
+        softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
+      }
+    }
+    
+    // Tambahkan event listener
+    window.addEventListener('resize', handleResize)
     
     return () => {
-      cancelAnimationFrame(hardSkillsAnimationId)
-      cancelAnimationFrame(softSkillsAnimationId)
+      // Bersihkan semua animasi dan listener
+      if (hardSkillsAnimationId) cancelAnimationFrame(hardSkillsAnimationId)
+      if (softSkillsAnimationId) cancelAnimationFrame(softSkillsAnimationId)
+      window.removeEventListener('resize', handleResize)
     }
   }, [isPaused, isManualScrolling, isDragging, hardSkillsPosition, softSkillsPosition])
 
@@ -391,6 +428,15 @@ export default function Skills() {
           .skills-scroll-container > div {
             padding-left: 5%;
             padding-right: 5%;
+          }
+          
+          /* Mobile: konten scrollable tetapi tidak otomatis */
+          .skills-scroll-container {
+            scroll-snap-type: x mandatory;
+          }
+          
+          .skills-scroll-container > div > div {
+            scroll-snap-align: center;
           }
         }
       `}</style>
