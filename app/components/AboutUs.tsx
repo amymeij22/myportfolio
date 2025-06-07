@@ -25,7 +25,7 @@ export default function AboutUs() {
   ]
 
   return (
-    <section className="min-h-screen flex items-center py-10 px-2 sm:py-20 sm:px-6 lg:px-8 bg-background elegant-section elegant-gradient">
+    <section className="min-h-screen flex items-center py-10 sm:py-20 sm:px-6 lg:px-8 bg-background elegant-section elegant-gradient">
       <div className="container mx-auto">
         <motion.h2
           className="text-5xl font-black mb-8 text-center text-foreground"
@@ -37,23 +37,23 @@ export default function AboutUs() {
         </motion.h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            className="order-2 md:order-1"
+            className="order-2 md:order-1 px-0 sm:px-2"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-foreground mb-6 text-justify">
+            <p className="text-foreground mb-6 text-justify md:text-justify">
               Hi, I'm Ahmad Meijlan Yasir, but feel free to call me "Mei" or "Yasir." I'm a tech enthusiast who loves
               exploring new things and keeping up with the latest trends in technology. Right now, I'm studying at the
               State College of Meteorology, Climatology, and Geophysics (STMKG) Indonesia, majoring in Instrumentation,
               which has made me even more interested in the technologies related to this field.
             </p>
-            <p className="text-foreground mb-6 text-justify">
+            <p className="text-foreground mb-6 text-justify md:text-justify">
               I'm also a novice researcher with a focus on web development, AI, and IoT. I enjoy learning, creating, and
               solving new challenges, whether it's building web applications, working on AI projects, or designing IoT
               systems. I'm always excited to collaborate and bring fresh ideas to life.
             </p>
-            <p className="text-foreground font-medium text-justify">Btw, this portfolio web is made using:</p>
+            <p className="text-foreground font-medium">Btw, this portfolio web is made using:</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
               {technologies.map((tech) => (
                 <div key={tech.name} className="flex flex-col items-center group">

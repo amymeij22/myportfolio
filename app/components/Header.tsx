@@ -7,13 +7,83 @@ import { motion } from "framer-motion"
 import { RiMoonFill, RiSunFill, RiMenuLine, RiCloseLine } from "react-icons/ri"
 import FullScreenMenu from "./FullScreenMenu"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import ThemeToggle from "@/components/theme-toggle"
 
 export default function Header() {
   const [mounted, setMounted] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
   const { theme, setTheme } = useTheme()
+  const pathname = usePathname()
 
   useEffect(() => setMounted(true), [])
+
+  // Mendeteksi section yang aktif berdasarkan scroll
+  useEffect(() => {
+    if (pathname !== "/") {
+      // Jika bukan di halaman utama, set section berdasarkan pathname
+      if (pathname.startsWith("/blog")) {
+        setActiveSection("blog")
+      }
+      return
+    }
+
+    const handleScroll = () => {
+      const sections = [
+        "about",
+        "skills",
+        "projects",
+        "publications",
+        "blog",
+        "timeline",
+        "contact"
+      ]
+
+      const sectionElements = sections.map(section => {
+        const element = document.getElementById(section)
+        if (!element) return { id: section, top: 0, bottom: 0 }
+        const rect = element.getBoundingClientRect()
+        return {
+          id: section,
+          top: rect.top,
+          bottom: rect.bottom
+        }
+      })
+
+      // Gunakan jendela viewport untuk menentukan section yang terlihat
+      const viewportHeight = window.innerHeight
+      const currentSection = sectionElements.find(section => {
+        return section.top < viewportHeight / 2 && section.bottom > viewportHeight / 2
+      })
+
+      if (currentSection) {
+        setActiveSection(currentSection.id)
+      } else if (window.scrollY < 100) {
+        setActiveSection("")
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll() // Panggil sekali untuk set initial state
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [pathname])
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -21,6 +91,21 @@ export default function Header() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  const isActive = (section: string) => {
+    if (section === "blog" && pathname.startsWith("/blog")) return true
+    return activeSection === section
+  }
+
+  // Fungsi untuk menentukan URL yang tepat berdasarkan pathname
+  const getNavHref = (href: string) => {
+    // Jika di halaman selain homepage, kembalikan ke homepage dengan anchor ke section
+    if (pathname !== "/") {
+      return `/${href}`
+    }
+    // Jika sudah di homepage, gunakan anchor biasa
+    return href
   }
 
   return (
@@ -45,43 +130,35 @@ export default function Header() {
               )}
             </Link>
           </div>
-          <div className="hidden md:flex gap-x-12">
-            <Link
-              href="#about"
-              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="#skills"
-              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-            >
-              Skills
-            </Link>
-            <Link
-              href="#projects"
-              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-            >
-              Projects
-            </Link>
-            <Link
-              href="#publications"
-              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-            >
-              Publications
-            </Link>
-            <Link
-              href="#timeline"
-              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-            >
-              Journey
-            </Link>
-            <Link
-              href="#contact"
-              className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </Link>
+          <div className="hidden md:flex gap-x-10">
+            {[
+              { name: "About", href: "#about", id: "about" },
+              { name: "Skills", href: "#skills", id: "skills" },
+              { name: "Projects", href: "#projects", id: "projects" },
+              { name: "Publications", href: "#publications", id: "publications" },
+              { name: "Blog", href: "#blog", id: "blog" },
+              { name: "Journey", href: "#timeline", id: "timeline" },
+              { name: "Contact", href: "#contact", id: "contact" }
+            ].map((item) => (
+              <Link
+                key={item.name}
+                href={getNavHref(item.href)}
+                className="text-sm font-semibold leading-6 relative group"
+              >
+                <span className={`${isActive(item.id) ? "text-primary" : "text-foreground"} transition-colors duration-300 group-hover:text-primary`}>
+                  {item.name}
+                </span>
+                {isActive(item.id) && (
+                  <motion.span
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                    layoutId="activeSection"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </Link>
+            ))}
           </div>
           <div className="flex flex-1 justify-end items-center gap-4">
             {mounted && (
@@ -99,7 +176,12 @@ export default function Header() {
           </div>
         </nav>
       </motion.header>
-      <FullScreenMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <FullScreenMenu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)} 
+        activeSection={activeSection} 
+        pathname={pathname}
+      />
     </>
   )
 }

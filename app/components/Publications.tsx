@@ -1,66 +1,52 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { getPublications } from "@/lib/supabase"
 
-// Publications data
-const publications = [
-  {
-    id: 1,
-    title: "Radiosonde System Using ESP32 and LoRa Ra-02 Web-Based for Upper-Air Profile Observation",
-    year: 2024,
-    publisher: "Institute of Electrical and Electronics Engineers (IEEE)",
-    abstract: "This study explores upper air profile observation using a radiosonde system based on ESP32 and LoRa Ra-02 technology. The system measures atmospheric parameters like temperature, humidity, pressure, and wind speed at various heights above the earth's surface. The developed web-based system provides a cost-effective alternative to traditional expensive radiosonde solutions, transmitting observation data from balloon-carried sensors to ground stations for weather forecasting and atmospheric analysis.",
-    url: "https://ieeexplore.ieee.org/abstract/document/10762300/",
-  },
-  {
-    id: 2,
-    title: "IoT-Based Air Quality Monitoring System Design and Development Using ESP32",
-    year: 2024,
-    publisher: "Institute of Electrical and Electronics Engineers (IEEE)",
-    abstract: "This study develops an ESP32-based Internet of Things (IoT) air quality monitoring system that detects air contaminants and transmits real-time data to a web platform. The system reliably monitors air quality and calculates Air Pollution Index (API) values. Testing revealed strong correlations with standard equipment, with the DFRobot Air Quality sensor showing R² values of 0.9402 and 0.9175 for measured parameters, while the MiCS-4514 sensor achieved an R² value of 0.8315 for CO measurement.",
-    url: "https://ieeexplore.ieee.org/abstract/document/10956737/",
-  },
-  {
-    id: 3,
-    title: "Redesign of User Interface and Experience with Brand Identity Enhancement for the STMKG Website through WordPress Implementation",
-    year: 2025,
-    publisher: "Journal of Computation Physics and Earth Science (JoCPES)",
-    abstract: "This paper presents the redesign of the STMKG website using WordPress and Elementor. The project modernized the institution's digital presence by enhancing layout consistency, mobile responsiveness, and brand identity. Key improvements included structured program sections, modern news layout, and standardized footer. The project, completed by a sixth-semester cadet, demonstrates the application of accessible web technologies to deliver scalable, branded, and user-centered digital solutions in educational settings.",
-    url: "https://journal.physan.org/index.php/jocpes/article/view/63",
-  },
-  {
-    id: 4,
-    title: "PM2.5 Concentration Prediction Model in Jakarta Area Using Random Forest Algorithm",
-    year: 2025,
-    publisher: "Journal of Computation Physics and Earth Science (JoCPES)",
-    abstract: "This study predicts PM2.5 concentrations in Jakarta using the Random Forest algorithm with data from 2015-2024. The model achieved a Mean Absolute Error of 14.44, Root Mean Square Error of 18.75, and R² Score of 0.61. Analysis showed average PM2.5 concentration of 94.46 µg/m³, with peaks up to 209 µg/m³, exceeding healthy thresholds. The model can support real-time monitoring systems and data-driven policies, with potential for enhancement through incorporation of meteorological variables.",
-    url: "https://journal.physan.org/index.php/jocpes/article/view/52",
-  },
-  {
-    id: 5,
-    title: "The Carbon Dioxide Filtration System Using Chlorella Pyrenoidosa Microalgae IoT-based for Air Quality Improvement",
-    year: 2024,
-    publisher: "Institute of Electrical and Electronics Engineers (IEEE)",
-    abstract: "This project aims to lower CO2 levels using green microalgae (Chlorella pyrenoidosa) and IoT monitoring. The system combines an MG-811 CO2 sensor with an ESP32 microcontroller, with data processed on the ThingSpeak platform. During observation, average CO2 concentration decreased from 707.07 ppm to 677.90 ppm. Statistical analysis revealed a significant trend of decreasing CO2 levels, though data showed inconsistency with a standard deviation of 81.44 ppm.",
-    url: "https://ieeexplore.ieee.org/abstract/document/10957176/",
-  },
-  {
-    id: 6,
-    title: "Model of Lightning Strike Risk to Humans Based on Spatial Analysis and Environmental Factors",
-    year: 2023,
-    publisher: "Journal of Computation Physics and Earth Science (JoCPES)",
-    abstract: "This study develops a predictive model of lightning strike risk to humans using spatial analysis and environmental data. The model utilizes lightning distribution, land use, population density, and meteorological parameters to identify key risk factors. Results show densely populated areas in Java and Sumatra are particularly vulnerable. The generated risk maps provide insights for disaster mitigation planning and infrastructure protection, highlighting the correlation between lightning density, land use, and population exposure.",
-    url: "https://journal.physan.org/index.php/jocpes/article/view/23",
-  },
-]
+// Publication type definition
+interface Publication {
+  id: number;
+  title: string;
+  authors: string[];
+  journal: string;
+  publication_date: string;
+  doi?: string;
+  abstract: string;
+  link: string;
+  image_url?: string;
+  created_at: string;
+}
 
 export default function Publications() {
-  const [selectedPublication, setSelectedPublication] = useState<typeof publications[0] | null>(null)
+  const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null)
+  const [publications, setPublications] = useState<Publication[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Fetch publications from Supabase
+  useEffect(() => {
+    async function fetchPublications() {
+      try {
+        const publicationsData = await getPublications();
+        setPublications(publicationsData);
+      } catch (error) {
+        console.error("Error fetching publications:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchPublications();
+  }, []);
+
+  // Format date to year
+  const formatYear = (dateString: string) => {
+    return new Date(dateString).getFullYear().toString();
+  };
 
   return (
     <section className="relative isolate overflow-hidden bg-background min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
@@ -75,6 +61,11 @@ export default function Publications() {
           <p className="mt-4 text-lg text-muted-foreground">My research and academic contributions</p>
         </motion.div>
 
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {publications.map((publication, index) => (
             <motion.div
@@ -87,10 +78,10 @@ export default function Publications() {
               <Card className="h-full flex flex-col hover-lift transition-all duration-300 ease-in-out border border-primary/20 hover:border-primary/50 elegant-glow">
                 <CardHeader>
                   <div className="flex justify-between items-start">
-                    <Badge variant="outline" className="mb-2">{publication.year}</Badge>
+                    <Badge variant="outline" className="mb-2">{formatYear(publication.publication_date)}</Badge>
                   </div>
                   <CardTitle className="line-clamp-2 text-lg">{publication.title}</CardTitle>
-                  <CardDescription>{publication.publisher}</CardDescription>
+                  <CardDescription>{publication.journal}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="text-sm text-muted-foreground line-clamp-4 text-justify">{publication.abstract}</p>
@@ -100,13 +91,15 @@ export default function Publications() {
                     variant="outline" 
                     onClick={() => setSelectedPublication(publication)}
                     className="w-full sm:w-auto"
+                    aria-label="Read More"
                   >
                     Read More
                   </Button>
                   <Button 
                     variant="default"
-                    onClick={() => window.open(publication.url, '_blank')}
+                    onClick={() => window.open(publication.link, '_blank')}
                     className="w-full sm:w-auto"
+                    aria-label="View Publication"
                   >
                     View Publication
                   </Button>
@@ -115,6 +108,7 @@ export default function Publications() {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
 
       <Dialog open={!!selectedPublication} onOpenChange={() => setSelectedPublication(null)}>
@@ -123,20 +117,31 @@ export default function Publications() {
             <DialogHeader className="pb-2 border-b border-border/30">
               <DialogTitle className="text-xl font-bold">{selectedPublication.title}</DialogTitle>
               <div className="flex justify-between items-center mt-2">
-                <DialogDescription className="text-sm">{selectedPublication.publisher}</DialogDescription>
-                <Badge variant="outline" className="ml-2 shrink-0">{selectedPublication.year}</Badge>
+                <DialogDescription className="text-sm">{selectedPublication.journal}</DialogDescription>
+                <Badge variant="outline" className="ml-2 shrink-0">{formatYear(selectedPublication.publication_date)}</Badge>
               </div>
             </DialogHeader>
             <div className="mt-4 flex flex-col space-y-4 overflow-y-auto max-h-[50vh] pr-1">
               <div>
+                <h4 className="text-sm font-medium mb-2">Authors</h4>
+                <p className="text-sm text-muted-foreground">{selectedPublication.authors.join(', ')}</p>
+              </div>
+              <div>
                 <h4 className="text-sm font-medium mb-2">Abstract</h4>
                 <p className="text-sm text-muted-foreground text-justify">{selectedPublication.abstract}</p>
               </div>
+              {selectedPublication.doi && (
+                <div>
+                  <h4 className="text-sm font-medium mb-2">DOI</h4>
+                  <p className="text-sm text-primary">{selectedPublication.doi}</p>
+                </div>
+              )}
             </div>
             <div className="mt-6 pt-4 border-t border-border/30 flex justify-end">
               <Button 
-                onClick={() => window.open(selectedPublication.url, '_blank')}
+                onClick={() => window.open(selectedPublication.link, '_blank')}
                 className="transition-all hover:scale-105"
+                aria-label="View Full Publication"
               >
                 View Full Publication
               </Button>

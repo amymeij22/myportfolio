@@ -1,71 +1,25 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, useInView, useScroll, useSpring } from "framer-motion"
 import { RiBookOpenLine, RiBriefcaseLine } from "react-icons/ri"
+import { getTimelineEvents } from "@/lib/supabase"
 
-const timelineEvents = [
-  {
-    startDate: "Mar 2025",
-    endDate: "Present",
-    position: "Engineer Intern",
-    company: "Indonesian Agency for Meteorology, Climatology, and Geophysics",
-    location: "Medan, North Sumatra",
-    description: "Calibration of meteorological instruments and developing tracking applications.",
-    details:
-      "Participated in the calibration of meteorological, climatological, and geophysical instruments. Gained hands-on experience in interpreting calibration data and maintaining national measurement standards. Developed a real-time, website-based application to track the calibration status of field instruments, improving data transparency and internal coordination for calibration schedules across departments.",
-  },
-  {
-    startDate: "Aug 2024",
-    endDate: "Present",
-    position: "Web Developer",
-    company: "State College of Meteorology, Climatology, and Geophysics",
-    location: "Tangerang, Banten",
-    description: "Managing institutional website using WordPress and Elementor.",
-    details:
-      "Developed and maintained institutional website using WordPress and Elementor. Managed academic content updates and student service portals. Applied skills in WordPress, Elementor, Project Management, and Web Content Writing.",
-  },
-  {
-    startDate: "Jun 2024",
-    endDate: "Present",
-    position: "Chief Financial Officer",
-    company: "Kabagas Keren",
-    location: "Tangerang, Banten",
-    description: "Managing budgeting, financial reports, and funding allocations for tech projects.",
-    details:
-      "Managed budgeting, financial reports, and funding allocations for ongoing tech and IoT projects. Oversaw project timelines and resource planning from a financial perspective. Collaborated closely with technical leads to align project costs with development goals. Applied skills in Financial Reporting, Budget Management, and Project Coordination.",
-  },
-  {
-    startDate: "Jun 2024",
-    endDate: "Present",
-    position: "Web Developer",
-    company: "Kabagas Keren",
-    location: "Tangerang, Banten",
-    description: "Designing and developing websites for technology and IoT clients.",
-    details:
-      "Designed and deployed websites for client projects focused on technology, IoT, and education. Implemented SEO strategies to improve search visibility and performance. Collaborated on UI/UX planning and frontend execution. Applied skills in Web Development, SEO, and Responsive Design.",
-  },
-  {
-    startDate: "Nov 2023",
-    endDate: "Present",
-    position: "Electronics Lab Assistant",
-    company: "State College of Meteorology, Climatology, and Geophysics",
-    location: "Tangerang, Banten",
-    description: "Managing lab inventory and supporting students in practical sessions.",
-    details:
-      "Managed inventory of lab instruments and electronic components. Assisted in writing and revising practical modules for students. Supervised and guided students during hands-on lab sessions. Developed a web-based platform for inventory management, equipment borrowing, and scheduling practical sessions using Next.js, React.js, Tailwind CSS, and TypeScript.",
-  },
-  {
-    startDate: "Jan 2023",
-    endDate: "Jan 2025",
-    position: "Team Manager",
-    company: "AURORA STMKG – Aircraft Division (Megadirga)",
-    location: "Tangerang, Banten",
-    description: "Leading student research group focused on unmanned systems and remote sensing.",
-    details:
-      "Led a student research group focused on unmanned systems and remote sensing. Coordinated team deliverables and ensured technical milestones were met. Assisted in managing field testing and prototyping activities.",
-  },
-]
+// Timeline event type definition
+interface TimelineEvent {
+  id: number;
+  title: string;
+  organization: string;
+  start_date: string;
+  end_date?: string;
+  is_current: boolean;
+  description: string;
+  location: string;
+  type: string;
+  image_url?: string;
+  created_at: string;
+  details?: string;
+}
 
 const BriefcaseIcon = ({ progress }: { progress: number }) => (
   <RiBriefcaseLine className="w-6 h-6" style={{ transform: `scale(${progress})` }} />
@@ -74,6 +28,8 @@ const BriefcaseIcon = ({ progress }: { progress: number }) => (
 export default function Timeline() {
   const [expandedEvent, setExpandedEvent] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const [timelineEvents, setTimelineEvents] = useState<TimelineEvent[]>([])
+  const [loading, setLoading] = useState(true)
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -85,6 +41,34 @@ export default function Timeline() {
     damping: 30,
     restDelta: 0.001,
   })
+
+  // Fetch timeline events from Supabase
+  useEffect(() => {
+    async function fetchTimelineEvents() {
+      try {
+        const events = await getTimelineEvents();
+        setTimelineEvents(events);
+      } catch (error) {
+        console.error("Error fetching timeline events:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchTimelineEvents();
+  }, []);
+
+  // Format date for display
+  const formatDate = (dateString?: string, isCurrent: boolean = false) => {
+    if (!dateString && isCurrent) return "Present";
+    if (!dateString) return "";
+    
+    const date = new Date(dateString);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    
+    return `${month} ${year}`;
+  };
 
   return (
     <section
@@ -99,9 +83,14 @@ export default function Timeline() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-xl md:text-3xl font-bold text-foreground sm:text-4xl">Professional Journey</h2>
-          <p className="mt-2 md:mt-4 text-sm md:text-lg text-muted-foreground">My career path and professional development in technology and meteorology</p>
+          <p className="mt-2 md:mt-4 text-sm md:text-lg text-muted-foreground">My career path and professional development in technology</p>
         </motion.div>
 
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+          </div>
+        ) : (
         <div className="relative">
           {/* Vertical line - positioned differently on mobile vs desktop - grows/shrinks with scroll */}
           <motion.div
@@ -115,14 +104,16 @@ export default function Timeline() {
 
           {timelineEvents.map((event, index) => (
             <TimelineEvent
-              key={`${event.company}-${event.position}-${event.startDate}`}
+              key={`${event.organization}-${event.title}-${event.start_date}`}
               event={event}
               index={index}
               isExpanded={expandedEvent === index}
               onToggle={() => setExpandedEvent(expandedEvent === index ? null : index)}
+              formatDate={formatDate}
             />
           ))}
         </div>
+        )}
       </div>
     </section>
   )
@@ -133,11 +124,13 @@ function TimelineEvent({
   index,
   isExpanded,
   onToggle,
+  formatDate,
 }: {
-  event: (typeof timelineEvents)[0]
+  event: TimelineEvent
   index: number
   isExpanded: boolean
   onToggle: () => void
+  formatDate: (dateString?: string, isCurrent?: boolean) => string
 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
@@ -175,11 +168,11 @@ function TimelineEvent({
             <div>
               <div className="flex justify-between items-start mb-1.5">
                 <span className="px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs font-medium bg-primary/10 text-primary rounded-full">
-                  {event.startDate} - {event.endDate}
+                  {formatDate(event.start_date)} - {event.is_current ? "Present" : formatDate(event.end_date)}
                 </span>
               </div>
-              <h3 className="text-sm md:text-lg font-semibold mb-0.5 md:mb-1 text-card-foreground">{event.position}</h3>
-              <h4 className="text-[10px] md:text-sm font-medium text-primary mb-0.5 md:mb-1">{event.company}</h4>
+              <h3 className="text-sm md:text-lg font-semibold mb-0.5 md:mb-1 text-card-foreground">{event.title}</h3>
+              <h4 className="text-[10px] md:text-sm font-medium text-primary mb-0.5 md:mb-1">{event.organization}</h4>
               <div className="flex items-center mb-1.5 md:mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 md:h-3.5 md:w-3.5 text-muted-foreground mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

@@ -5,9 +5,23 @@ import Link from "next/link"
 interface FullScreenMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  activeSection: string;
+  pathname: string;
 }
 
-export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
+export default function FullScreenMenu({ isOpen, onClose, activeSection, pathname }: FullScreenMenuProps) {
+  const isActive = (section: string) => activeSection === section
+
+  // Fungsi untuk menentukan URL yang tepat berdasarkan pathname
+  const getNavHref = (href: string) => {
+    // Jika di halaman selain homepage, kembalikan ke homepage dengan anchor ke section
+    if (pathname !== "/") {
+      return `/${href}`
+    }
+    // Jika sudah di homepage, gunakan anchor biasa
+    return href
+  }
+
   return (
     <motion.div
       className={`fixed inset-0 z-40 bg-background/90 backdrop-blur-md ${isOpen ? "block" : "hidden"}`}
@@ -16,24 +30,33 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
       transition={{ duration: 0.3 }}
     >
       <div className="flex flex-col items-center justify-center h-full">
-        <Link href="#about" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
-          About
-        </Link>
-        <Link href="#skills" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
-          Skills
-        </Link>
-        <Link href="#projects" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
-          Projects
-        </Link>
-        <Link href="#publications" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
-          Publications
-        </Link>
-        <Link href="#timeline" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
-          Journey
-        </Link>
-        <Link href="#contact" className="text-2xl font-semibold text-foreground mb-4" onClick={onClose}>
-          Contact
-        </Link>
+        {[
+          { name: "About", href: "#about", id: "about" },
+          { name: "Skills", href: "#skills", id: "skills" },
+          { name: "Projects", href: "#projects", id: "projects" },
+          { name: "Publications", href: "#publications", id: "publications" },
+          { name: "Blog", href: "#blog", id: "blog" },
+          { name: "Journey", href: "#timeline", id: "timeline" },
+          { name: "Contact", href: "#contact", id: "contact" }
+        ].map((item) => (
+          <Link 
+            key={item.name}
+            href={getNavHref(item.href)} 
+            className={`text-2xl font-semibold mb-6 relative ${isActive(item.id) ? "text-primary" : "text-foreground"}`}
+            onClick={onClose}
+          >
+            {item.name}
+            {isActive(item.id) && (
+              <motion.span
+                className="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-primary rounded-full"
+                layoutId="activeMobileSection"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            )}
+          </Link>
+        ))}
       </div>
     </motion.div>
   )

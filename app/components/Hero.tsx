@@ -64,14 +64,14 @@ export default function Hero() {
     // Create a temporary link element
     const link = document.createElement('a')
     link.href = cvUrl
-    link.download = 'https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/gsas-cvs-and-cover-letters-Wrgxcmar1JqAAI8G44F2yReotbLpom.pdf'
+    link.download = 'Ahmad_Meijlan_Yasir_CV.pdf'
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
   }
 
   return (
-    <div className="relative isolate overflow-hidden bg-background min-h-screen flex items-center justify-center py-2">
+    <header className="relative isolate overflow-hidden bg-background min-h-screen flex items-center justify-center py-2">
       <div
         className="absolute inset-x-0 top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true"
@@ -106,14 +106,14 @@ export default function Hero() {
           <span className="text-gradient">Ahmad Meijlan Yasir</span>
         </motion.h1>
         <div className="h-3 md:h-0"></div>
-        <motion.div
+        <motion.h2
           className="text-xl md:text-4xl mt-2 md:mt-1 mb-8"
           initial={{ opacity: 1, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           I am <span ref={skillsRef} className="font-semibold"></span>
-        </motion.div>
+        </motion.h2>
 
         <motion.div 
           className="flex flex-col sm:flex-row gap-4 mt-4"
@@ -125,21 +125,23 @@ export default function Hero() {
             onClick={handleExploreClick}
             className="group"
             size="lg"
+            aria-label="Explore Portfolio"
           >
             Explore Portfolio
-            <RiArrowDownLine className="ml-2 h-4 w-4 group-hover:animate-bounce" />
+            <RiArrowDownLine className="ml-2 h-4 w-4 group-hover:animate-bounce" aria-hidden="true" />
           </Button>
           <Button 
             onClick={handleDownloadCV}
             variant="outline"
             className="group"
             size="lg"
+            aria-label="Download CV"
           >
             Download CV
-            <RiDownload2Line className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+            <RiDownload2Line className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" aria-hidden="true" />
           </Button>
         </motion.div>
       </section>
-    </div>
+    </header>
   )
 }

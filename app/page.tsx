@@ -8,6 +8,17 @@ import FloatingActionButton from "./components/FloatingActionButton"
 import CustomCursor from "./components/CustomCursor"
 import Marquee from "./components/Marquee"
 import Publications from "./components/Publications"
+import Blog from "./components/Blog"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Home | Personal Portfolio",
+  description: "Welcome to Ahmad Meijlan Yasir's personal portfolio. Explore my projects, skills, publications, and professional journey in technology and instrumentation.",
+  keywords: ["home", "portfolio", "Ahmad Meijlan Yasir", "projects", "skills", "publications", "contact"],
+  alternates: {
+    canonical: 'https://amymeij.web.id',
+  },
+}
 
 export default function Home() {
   return (
@@ -25,6 +36,9 @@ export default function Home() {
       </section>
       <section id="publications">
         <Publications />
+      </section>
+      <section id="blog">
+        <Blog />
       </section>
       <section id="marquee">
         <Marquee />

@@ -1,120 +1,57 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Badge } from "@/components/ui/badge"
 import { useMobile } from "@/hooks/use-mobile"
+import { getProjects } from "@/lib/supabase"
 
-const projects = [
-	{
-		id: 1,
-		title: "ACWS",
-		caption: "Automatic Chains-D Weather Station",
-		description:
-			"The Automatic Chains-D Weather Station is a prototype that uses ESP32 and LoRa technology for real-time environmental monitoring. Data is transmitted wirelessly and displayed on a web dashboard, enabling easy access to current weather conditions for remote monitoring and analysis.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/ACWS-XsKb5VAh1tjk5SeZhURMAmgJbMJ28p",
-		category: "Microcontroller",
-		viewProjectUrl: "https://acws.vercel.app",
-	},
-	{
-		id: 2,
-		title: "STMKG Website",
-		caption: "A Professional Website for STMKG",
-		description:
-			"This is a WordPress-based website aimed at enhancing the university's online presence. This responsive and user-friendly website features an intuitive design, showcasing academic programs, faculty profiles, and student resources. It provides essential information for prospective students and the community, ensuring easy navigation and access to university services.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/stmkg-VVbpmxqJj3kueyPNmGD2CX3bjgGAvM",
-		category: "Website",
-		viewProjectUrl: "https://stmkg.ac.id",
-	},
-	{
-		id: 3,
-		title: "INA-FOREWS",
-		caption: "Indonesia Forest Fires Early Warning System",
-		description:
-			"Indonesia Forest Fires Early Warning System is a project designed to monitor and prevent forest fires in Indonesia. Utilizing multisite sensors, this system collects real-time data on environmental conditions. The information is displayed on a user-friendly web dashboard, providing timely alerts and insights to help authorities and communities respond effectively to potential fire threats. This proactive approach aims to protect Indonesia's forests and promote sustainable management practices.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/INA-FOREWS-QY1fnIEW6brXH0JkAuacJ8N7u6Pqi4",
-		category: "IoT",
-		viewProjectUrl: "https://forest-fires-ews.web.app/",
-	},
-	{
-		id: 4,
-		title: "Election App",
-		caption: "STMKG Regiment Commander Voting Application",
-		description: "I am made this application for the election of the STMKG Regiment Commander. This application is built using CodeIgniter.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/pemira-VKjP5dddhc6J2HCpAejAcepNZRa7Pc",
-		category: "Website",
-		viewProjectUrl: "https://stmkg.ac.id",
-	},
-	{
-		id: 5,
-		title: "Kabagas Keren",
-		caption: "A Professional Startup Kabagas Keren",
-		description:
-			"KABAGAS KEREN is an innovative startup in the education and research sector, focused on assisting both school and professional projects. By providing a platform for collaboration, resources, and guidance, KABAGAS KEREN empowers students and professionals to achieve their goals, enhancing the quality of education and research in Indonesia.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/kabagas-X0fbqYnaRdoFcViApE1In1E1fM4nLv",
-		category: "Other",
-		viewProjectUrl: "https://kabagaskeren.web.id",
-	},
-	{
-		id: 6,
-		title: "Library Attendance System",
-		caption: "A RFID Based Library Attendance System",
-		description: "A RFID Based Library Attendance System for Educational Institutions.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Perpustakaan-djzLBPYjeHHv56jImGxwFoDFlIWrNW",
-		category: "Website",
-		viewProjectUrl: "https://perpus.stmkg.ac.id",
-	},
-	{
-		id: 7,
-		title: "Chatbot Assistant",
-		caption: "STMKG Chatbot Assistant",
-		description:
-			"It is a chatbot assistant that can help you find information about STMKG. This chatbot is built using Vue.js, integrated with Gemini API and BMKG Weather - Earthquake API.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/chatbot-kTxbEz42OoOIHfYHxNZJm7WiRylMRD",
-		category: "Website",
-		viewProjectUrl: "https://stmkg-chatbot.amymeij.web.id",
-	},
-	{
-		id: 8,
-		title: "Research",
-		caption: "Explore my research paper!",
-		description:
-			"I am also an active novice researcher, having published several papers in various academic fields. My research interests focus on meteorology and climatology instruments, and I am committed to contributing to the advancement of knowledge through rigorous study and analysis. Engaging in research allows me to explore new ideas and collaborate with fellow scholars, further enriching my academic journey.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/research-d2P1GMjI6VbFhCNx1IgtP9EGrapVkS",
-		category: "Other",
-		viewProjectUrl: "https://orcid.org/0009-0004-4498-2082",
-	},
-	{
-		id: 9,
-		title: "COMING SOON",
-		caption: "Life is about creating; every step adds meaning.",
-		description:
-			"Coming Soon – Exciting new developments are on the horizon! As I prepare to launch, remember: 'Life is about creating; every step adds meaning.' Stay tuned for my journey, where each moment brings me closer to making a meaningful impact.",
-		imageUrl:
-			"https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/ONGOING-54KphNzUwqow2jVwZyMwnxUIGRpdxx",
-		category: "Other",
-		viewProjectUrl: "#",
-	},
-]
-
-const categories = ["All", ...new Set(projects.map((project) => project.category))]
+// Project type definition
+interface Project {
+	id: number;
+	title: string;
+	caption: string;
+	description: string;
+	image_url: string;
+	category: string;
+	demo_url?: string;
+	github_url?: string;
+	featured: boolean;
+	created_at: string;
+}
 
 export default function PortfolioGrid() {
 	const [filter, setFilter] = useState("All")
 	const [selectedProject, setSelectedProject] = useState<number | null>(null)
 	const [modalOpen, setModalOpen] = useState(false)
-	const [currentProject, setCurrentProject] = useState<(typeof projects)[0] | null>(null)
+	const [currentProject, setCurrentProject] = useState<Project | null>(null)
+	const [projects, setProjects] = useState<Project[]>([])
+	const [categories, setCategories] = useState<string[]>(["All"])
+	const [loading, setLoading] = useState(true)
 	const isMobile = useMobile()
+
+	// Fetch projects from Supabase
+	useEffect(() => {
+		async function fetchProjects() {
+			try {
+				const projectsData = await getProjects();
+				setProjects(projectsData);
+				
+				// Extract unique categories
+				const uniqueCategories = ["All", ...Array.from(new Set(projectsData.map((project: Project) => project.category)))];
+				setCategories(uniqueCategories);
+			} catch (error) {
+				console.error("Error fetching projects:", error);
+			} finally {
+				setLoading(false);
+			}
+		}
+		
+		fetchProjects();
+	}, []);
 
 	const filteredProjects = filter === "All" ? projects : projects.filter((project) => project.category === filter)
 
@@ -128,7 +65,7 @@ export default function PortfolioGrid() {
 		}
 	}
 
-	const openProjectModal = (project: (typeof projects)[0]) => {
+	const openProjectModal = (project: Project) => {
 		setCurrentProject(project)
 		setModalOpen(true)
 	}
@@ -162,6 +99,11 @@ export default function PortfolioGrid() {
 					))}
 				</div>
 
+				{loading ? (
+					<div className="flex justify-center items-center py-20">
+						<div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+					</div>
+				) : (
 				<motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
 					<AnimatePresence>
 						{filteredProjects.map((project) => (
@@ -179,7 +121,7 @@ export default function PortfolioGrid() {
 									onClick={() => handleProjectClick(project.id)}
 								>
 									<Image
-										src={project.imageUrl || "/placeholder.svg"}
+										src={project.image_url || "/placeholder.svg"}
 										alt={project.title}
 										layout="fill"
 										objectFit="cover"
@@ -199,11 +141,17 @@ export default function PortfolioGrid() {
 								</div>
 								<div className="p-6">
 									<div className="text-sm font-medium text-primary mb-1">{project.category}</div>
-									<h3 className="text-xl font-semibold text-card-foreground mb-2">{project.title}</h3>
+									<h3 className="text-lg font-semibold text-card-foreground mb-2 line-clamp-2">{project.title}</h3>
+									{project.caption && (
+										<p className="text-muted-foreground mb-3 text-sm line-clamp-2 text-justify">{project.caption}</p>
+									)}
 									<div className="flex justify-between items-center">
 										<a
-											href={project.viewProjectUrl}
+											href={project.demo_url || "#"}
 											className="text-primary hover:underline inline-flex items-center font-medium"
+											target="_blank"
+											rel="noopener noreferrer"
+											aria-label="View Project"
 										>
 											View Project
 											<svg
@@ -226,6 +174,7 @@ export default function PortfolioGrid() {
 											size="sm"
 											className="text-primary hover:text-primary/80 hover:bg-primary/10"
 											onClick={() => openProjectModal(project)}
+											aria-label="Details"
 										>
 											Details
 										</Button>
@@ -235,6 +184,7 @@ export default function PortfolioGrid() {
 						))}
 					</AnimatePresence>
 				</motion.div>
+				)}
 			</div>
 
 			{/* Project Details Modal */}
@@ -243,38 +193,64 @@ export default function PortfolioGrid() {
 					{currentProject && (
 						<>
 							<DialogHeader className="pb-2 border-b border-border/30">
-								<DialogTitle className="text-2xl font-bold text-center">
-									{currentProject.title}
-								</DialogTitle>
-								<div className="text-sm font-medium text-primary mt-2 text-center">
-									{currentProject.category}
+								<DialogTitle className="text-xl font-bold">{currentProject.title}</DialogTitle>
+								<div className="flex justify-between items-center mt-2">
+									<DialogDescription className="text-sm">{currentProject.caption}</DialogDescription>
+									<Badge variant="outline" className="ml-2 shrink-0">{currentProject.category}</Badge>
 								</div>
 							</DialogHeader>
-							<div className="mt-4 overflow-y-auto max-h-[60vh] pr-1">
-								<div
-									className="relative w-full mb-4 overflow-hidden rounded-lg shadow-md mx-auto"
-									style={{ paddingTop: "56.25%" }}
-								>
+							<div className="mt-4 flex flex-col space-y-4 overflow-y-auto max-h-[50vh] pr-1">
+								<div className="relative w-full h-56 mb-2 overflow-hidden rounded-lg">
 									<Image
-										src={currentProject.imageUrl || "/placeholder.svg"}
+										src={currentProject.image_url || "/placeholder.svg"}
 										alt={currentProject.title}
 										layout="fill"
 										objectFit="cover"
-										className="absolute inset-0 w-full h-full rounded-lg"
 									/>
 								</div>
-								<DialogDescription className="text-foreground text-base text-justify mt-4">
-									{currentProject.description}
-								</DialogDescription>
+								<div>
+									<h4 className="text-sm font-medium mb-2">Description</h4>
+									<p className="text-sm text-muted-foreground text-justify">{currentProject.description}</p>
+								</div>
+								{currentProject.github_url && (
+									<div>
+										<h4 className="text-sm font-medium mb-2">GitHub Repository</h4>
+										<p className="text-sm text-primary">
+											<a 
+												href={currentProject.github_url} 
+												target="_blank" 
+												rel="noopener noreferrer"
+												className="hover:underline inline-flex items-center"
+												aria-label="GitHub Repository"
+											>
+												{currentProject.github_url}
+												<svg
+													className="w-4 h-4 ml-1"
+													fill="none"
+													stroke="currentColor"
+													viewBox="0 0 24 24"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														strokeWidth={2}
+														d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+													/>
+												</svg>
+											</a>
+										</p>
+									</div>
+								)}
 							</div>
-							<div className="mt-6 pt-4 border-t border-border/30 flex justify-center">
-								<a
-									className="bg-primary hover:bg-primary/90 text-black dark:text-black px-6 py-2 rounded-md inline-block transition-all hover:scale-105 font-medium"
-									href={currentProject.viewProjectUrl}
-									target="_blank"
+							<div className="mt-6 pt-4 border-t border-border/30 flex justify-end">
+								<Button 
+									onClick={() => window.open(currentProject.demo_url || "#", "_blank")}
+									className="transition-all hover:scale-105"
+									aria-label="View Project"
 								>
-									View Full Project
-								</a>
+									View Project
+								</Button>
 							</div>
 						</>
 					)}
