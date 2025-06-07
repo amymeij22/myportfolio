@@ -80,11 +80,11 @@ export default function BlogPage() {
             <Link href="/">
               <Button variant="ghost" size="sm" className="group mb-4 hover:text-gray-500">
                 <ArrowLeftIcon className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                Kembali ke Beranda
+                Back to Home
               </Button>
             </Link>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Blog & Artikel</h2>
-            <p className="mt-4 text-lg text-muted-foreground">Berbagi pengetahuan dan pengalaman dalam dunia teknologi</p>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Blog & Articles</h2>
+            <p className="mt-4 text-lg text-muted-foreground">Sharing knowledge and experience in the technology world</p>
           </div>
         </div>
         
@@ -154,7 +154,7 @@ export default function BlogPage() {
             
             {filteredBlogs.length === 0 && !loading && (
               <div className="text-center py-12">
-                <p className="text-lg text-muted-foreground">Tidak ada artikel yang ditemukan dalam kategori ini.</p>
+                <p className="text-lg text-muted-foreground">No articles found in this category.</p>
               </div>
             )}
           </>

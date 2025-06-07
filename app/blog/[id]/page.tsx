@@ -148,7 +148,7 @@ export default function BlogDetail({ params }: { params: Promise<BlogParams> }) 
           <Link href="/blog">
             <Button variant="ghost" size="sm" className="group hover:text-gray-500">
               <ArrowLeftIcon className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              Kembali ke Blog
+              Back to Blog
             </Button>
           </Link>
           
