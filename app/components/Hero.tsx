@@ -59,7 +59,7 @@ export default function Hero() {
 
   const handleDownloadCV = () => {
     // Replace with your actual CV file URL
-    const cvUrl = 'https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/gsas-cvs-and-cover-letters-Wrgxcmar1JqAAI8G44F2yReotbLpom.pdf'
+    const cvUrl = 'https://drive.google.com/file/d/1PkEWx8Y2jHupY3J9Bdu4kPZiSzdlFq-u/view?usp=sharing'
     
     // Create a temporary link element
     const link = document.createElement('a')
