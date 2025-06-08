@@ -1,9 +1,19 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { SiNextdotjs, SiReact, SiTailwindcss, SiTypescript } from "react-icons/si"
+import {
+  SiNextdotjs,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+  SiGreensock,
+  SiYoutube,
+  SiRadixui,
+} from "react-icons/si"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
+import { FaBoxes } from "react-icons/fa" // Icon alternatif untuk ShadCN
 
 export default function AboutUs() {
   const { theme } = useTheme()
@@ -20,9 +30,50 @@ export default function AboutUs() {
   const technologies = [
     { name: "Next.js", icon: <SiNextdotjs /> },
     { name: "React", icon: <SiReact /> },
-    { name: "Tailwind CSS", icon: <SiTailwindcss /> },
     { name: "TypeScript", icon: <SiTypescript /> },
+    { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+    {
+      name: "Supabase",
+      icon: (
+        <img
+          src="https://cdn.prod.website-files.com/66842e04d18971242a294872/669e87d174d190a8ba60b861_supabase-TAiY.png"
+          alt="Supabase"
+          className={`w-8 h-8 transition-all duration-300 filter brightness-0 saturate-100 ${
+            theme === "dark" ? "invert" : ""
+          }`}
+        />
+      ),
+    },
+    {
+      name: "GSAP",
+      icon: (
+        <img
+          src="https://www.wappalyzer.com/images/icons/GSAP.svg"
+          alt="GSAP"
+          className={`w-8 h-8 transition-all duration-300 filter brightness-0 saturate-100 ${
+            theme === "dark" ? "invert" : ""
+          }`}
+        />
+      ),
+    },
+    
+    {
+      name: "ShadCN UI",
+      icon: (
+        <img
+          src="https://erfanevis.ir/wp-content/uploads/2024/08/shadcn-ui-logo.png"
+          alt="ShadCN UI"
+          className={`w-8 h-8 transition-all duration-300 filter brightness-0 saturate-100 ${
+            theme === "dark" ? "invert" : ""
+          }`}
+        />
+      ),
+    },
+    { name: "Radix UI", icon: <SiRadixui /> },
+    { name: "YouTube Embed", icon: <SiYoutube /> },
+    { name: "Vercel", icon: <SiVercel /> },
   ]
+  
 
   return (
     <section className="min-h-screen flex items-center py-10 sm:py-20 sm:px-6 lg:px-8 bg-background elegant-section elegant-gradient">
@@ -53,8 +104,10 @@ export default function AboutUs() {
               solving new challenges, whether it's building web applications, working on AI projects, or designing IoT
               systems. I'm always excited to collaborate and bring fresh ideas to life.
             </p>
-            <p className="text-foreground font-medium">Btw, this portfolio web is made using:</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <p className="text-foreground font-medium">
+              Btw, this portfolio web is made using a combination of modern web technologies, including:
+            </p>
+            <div className="grid grid-cols-5 md:grid-cols-5 gap-4 mt-6">
               {technologies.map((tech) => (
                 <div key={tech.name} className="flex flex-col items-center group">
                   <div className={`${theme === "dark" ? "text-white" : "text-black"} text-4xl`}>
