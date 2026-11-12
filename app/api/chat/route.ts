@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getGeminiResponse } from '@/lib/gemini';
+import { createGeminiStream } from '@/lib/gemini';
 import { isGeminiConfigured } from './gemini-config';
 
-// Simple in-memory sliding window rate limiter
+// Jalankan di Node.js runtime standar Next.js 16 dengan streaming SSE & batas durasi 60s (bebas 504)
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
+
+// Simple in-memory sliding window rate limiter per isolate
 const rateLimitMap = new Map<string, { count: number; expiresAt: number }>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 12; // 12 requests / min
@@ -11,7 +15,6 @@ function checkRateLimit(ip: string): boolean {
   const now = Date.now();
   const record = rateLimitMap.get(ip);
 
-  // Periodic cleanup
   if (rateLimitMap.size > 1000) {
     for (const [key, val] of rateLimitMap.entries()) {
       if (val.expiresAt < now) {
@@ -104,15 +107,30 @@ export async function POST(req: NextRequest) {
           .map((item) => item.slice(0, 500))
       : [];
 
-    // Get response from Gemini 3.5 Flash-Lite
-    const response = await getGeminiResponse(message.trim(), safeContext);
+    // Stream response from Gemini 3.5 Flash-Lite
+    const result = await createGeminiStream(message.trim(), safeContext);
 
-    return NextResponse.json({ response });
+    if (!result.ok || !result.stream) {
+      return NextResponse.json(
+        {
+          response:
+            result.message ||
+            'Maaf ya, asisten sedang butuh jeda sebentar 😊 Silakan coba tanyakan lagi beberapa saat lagi.',
+        },
+        { status: 200 }
+      );
+    }
+
+    return new Response(result.stream, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache, no-transform',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
   } catch (error) {
-    // Log detailed error on server-side only
     console.error('Error handling chat request:', error);
-
-    // Friendly message without exposing internal stack/system errors
     return NextResponse.json(
       {
         error:

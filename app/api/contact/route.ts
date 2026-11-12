@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createRateLimiter, verifySignedChallenge, sanitizePlainText } from '@/lib/security';
 
+export const maxDuration = 30;
+export const dynamic = 'force-dynamic';
+
 // Rate Limiter: Max 3 emails per 10 minutes per IP
 const contactRateLimiter = createRateLimiter({
   windowMs: 10 * 60 * 1000,

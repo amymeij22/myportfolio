@@ -149,42 +149,97 @@ export default function ChatButton() {
         }),
       });
 
-      const data = await response.json().catch(() => null);
+      const contentType = response.headers.get('content-type') || '';
 
-      if (!response.ok) {
-        const friendlyNotice =
-          (data && (data.error || data.response)) ||
-          'Maaf ya, asisten lagi menerima banyak pesan nih 😊 Silakan tunggu sebentar lalu coba lagi ya.';
+      // Tangani error HTTP (termasuk HTML 502/504 dari proxy) maupun respons JSON non-stream
+      if (!response.ok || contentType.includes('application/json') || !response.body) {
+        const data = contentType.includes('application/json')
+          ? await response.json().catch(() => null)
+          : null;
 
-        const noticeMessage: Message = {
+        if (!response.ok) {
+          const friendlyNotice =
+            (data && (data.error || data.response)) ||
+            'Maaf ya, asisten lagi butuh jeda sebentar karena antrean server 😊 Silakan tunggu beberapa saat lalu kirim ulang ya.';
+
+          const noticeMessage: Message = {
+            id: nextMessageId(),
+            content: formatBoldText(friendlyNotice),
+            sender: 'bot',
+            timestamp: new Date(),
+          };
+
+          setMessages(prevMessages => [...prevMessages, noticeMessage]);
+          return;
+        }
+
+        const rawBotText =
+          data?.response ||
+          'Maaf ya, asisten lagi butuh jeda sebentar 😊 Silakan coba kirim ulang pertanyaanmu ya.';
+
+        const botMessage: Message = {
           id: nextMessageId(),
-          content: formatBoldText(friendlyNotice),
+          content: formatBoldText(rawBotText),
           sender: 'bot',
           timestamp: new Date(),
         };
 
-        setMessages(prevMessages => [...prevMessages, noticeMessage]);
+        setChatContext([...updatedContext, `Assistant: ${rawBotText}`].slice(-5));
+        setMessages(prevMessages => [...prevMessages, botMessage]);
         return;
       }
 
-      const rawBotText =
-        data?.response ||
-        'Maaf ya, asisten lagi butuh jeda sebentar 😊 Silakan coba kirim ulang pertanyaanmu ya.';
+      // Streaming mode: tampilkan teks asisten secara real-time saat chunk pertama tiba
+      const botMessageId = nextMessageId();
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulatedText = '';
+      let hasStartedBubble = false;
 
-      // Format teks untuk membuat ** menjadi bold
-      const formattedResponse = formatBoldText(rawBotText);
-
-      // Menambahkan respons bot ke state
-      const botMessage: Message = {
-        id: nextMessageId(),
-        content: formattedResponse,
-        sender: 'bot',
-        timestamp: new Date(),
+      const upsertStreamingBubble = (formatted: string) => {
+        if (!hasStartedBubble) {
+          hasStartedBubble = true;
+          setIsLoading(false);
+          setMessages(prevMessages => [
+            ...prevMessages,
+            {
+              id: botMessageId,
+              content: formatted,
+              sender: 'bot',
+              timestamp: new Date(),
+            },
+          ]);
+        } else {
+          setMessages(prevMessages =>
+            prevMessages.map(msg =>
+              msg.id === botMessageId ? { ...msg, content: formatted } : msg
+            )
+          );
+        }
       };
 
-      // Update context with bot response
-      setChatContext([...updatedContext, `Assistant: ${rawBotText}`].slice(-5));
-      setMessages(prevMessages => [...prevMessages, botMessage]);
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) continue;
+
+        accumulatedText += chunk;
+        upsertStreamingBubble(formatBoldText(accumulatedText));
+      }
+
+      const finalChunk = decoder.decode();
+      if (finalChunk) {
+        accumulatedText += finalChunk;
+      }
+
+      if (!accumulatedText.trim()) {
+        accumulatedText =
+          'Maaf ya, asisten sedang butuh waktu memproses pertanyaan tersebut 😊 Silakan coba kirim ulang ya.';
+      }
+
+      upsertStreamingBubble(formatBoldText(accumulatedText));
+      setChatContext([...updatedContext, `Assistant: ${accumulatedText}`].slice(-5));
     } catch {
       // Pesan error jaringan yang ramah tanpa membocorkan detail teknis
       const errorMessage: Message = {
