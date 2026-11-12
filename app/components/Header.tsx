@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
@@ -8,37 +8,23 @@ import { RiMoonFill, RiSunFill, RiMenuLine, RiCloseLine } from "react-icons/ri"
 import FullScreenMenu from "./FullScreenMenu"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import ThemeToggle from "@/components/theme-toggle"
+
+const emptySubscribe = () => () => {}
 
 export default function Header() {
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
 
-  useEffect(() => setMounted(true), [])
-
   // Mendeteksi section yang aktif berdasarkan scroll
   useEffect(() => {
     if (pathname !== "/") {
-      // Jika bukan di halaman utama, set section berdasarkan pathname
-      if (pathname.startsWith("/blog")) {
-        setActiveSection("blog")
-      }
       return
     }
 
@@ -120,14 +106,22 @@ export default function Header() {
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Ahmad Meijlan Yasir</span>
-              {mounted && (
-                <Image
-                  src={theme === "dark" ? "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/dark-icon-L4NkA4vRax43syY662ZzUSbJJl0hXE.png" : "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/light-icon-lXlcWDU3iByqVcjnoHVSUaZAOt8jZK.png"}
-                  alt="Ahmad Meijlan Yasir"
-                  width={40}
-                  height={40}
-                />
-              )}
+              <Image
+                src="https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/dark-icon-L4NkA4vRax43syY662ZzUSbJJl0hXE.png"
+                alt="Ahmad Meijlan Yasir"
+                width={40}
+                height={40}
+                priority
+                className="hidden dark:block"
+              />
+              <Image
+                src="https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/light-icon-lXlcWDU3iByqVcjnoHVSUaZAOt8jZK.png"
+                alt="Ahmad Meijlan Yasir"
+                width={40}
+                height={40}
+                priority
+                className="block dark:hidden"
+              />
             </Link>
           </div>
           <div className="hidden md:flex gap-x-10">

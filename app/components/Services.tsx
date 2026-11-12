@@ -3,9 +3,10 @@
 import { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { 
-  SiHtml5, SiCss3, SiJavascript, SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiWordpress, 
-  SiMysql, SiGit, SiPython, SiNodedotjs, SiMongodb, SiDocker, SiAmazon, SiLinux, SiGithub
+  SiHtml5, SiCss, SiJavascript, SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiWordpress, 
+  SiMysql, SiGit, SiPython, SiNodedotjs, SiMongodb, SiDocker, SiLinux, SiGithub
 } from "react-icons/si"
+import { FaAws } from "react-icons/fa6"
 import { 
   RiEnglishInput, RiTeamFill, RiLightbulbFlashLine, RiComputerLine, 
   RiFileTextLine, RiRobot2Line, RiUserStarLine, RiBarChart2Line, RiMoneyDollarCircleLine,
@@ -16,7 +17,7 @@ import { useTheme } from "next-themes"
 
 const hardSkills = [
   { icon: <SiHtml5 className="w-8 h-8" />, name: "HTML" },
-  { icon: <SiCss3 className="w-8 h-8" />, name: "CSS" },
+  { icon: <SiCss className="w-8 h-8" />, name: "CSS" },
   { icon: <SiJavascript className="w-8 h-8" />, name: "JavaScript" },
   { icon: <SiReact className="w-8 h-8" />, name: "React.js" },
   { icon: <SiTypescript className="w-8 h-8" />, name: "TypeScript" },
@@ -31,7 +32,7 @@ const hardSkills = [
   { icon: <SiGit className="w-8 h-8" />, name: "Git" },
   { icon: <SiGithub className="w-8 h-8" />, name: "GitHub" },
   { icon: <SiDocker className="w-8 h-8" />, name: "Docker" },
-  { icon: <SiAmazon className="w-8 h-8" />, name: "AWS" },
+  { icon: <FaAws className="w-8 h-8" />, name: "AWS" },
   { icon: <SiLinux className="w-8 h-8" />, name: "Linux" },
   { icon: <RiMicrosoftFill className="w-8 h-8" />, name: "Microsoft Office" },
   { icon: <RiComputerLine className="w-8 h-8" />, name: "Web Development" },
@@ -164,11 +165,6 @@ export default function Skills() {
     
     // Cek apakah layar mobile
     const isMobile = window.innerWidth < 768
-    
-    // Jika mobile, tidak perlu menjalankan animasi otomatis
-    if (isMobile) {
-      setIsManualScrolling(true)
-    }
     
     const animateHardSkills = () => {
       // Tidak menjalankan animasi jika mobile

@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, RefreshCw } from 'lucide-react';
+import { X, Send, Loader2, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Avatar } from '@/components/ui/avatar';
 import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -16,6 +15,15 @@ type Message = {
   timestamp: Date;
 };
 
+type StoredMessage = {
+  id: string;
+  content: string;
+  sender: 'user' | 'bot';
+  timestamp: string | number;
+};
+
+const emptySubscribe = () => () => {};
+
 export default function ChatButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -24,11 +32,14 @@ export default function ChatButton() {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [chatContext, setChatContext] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const idCounterRef = useRef(0);
   const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
-  // Untuk memastikan komponen dimount sebelum mengakses theme
-  useEffect(() => setMounted(true), []);
+  const nextMessageId = () => {
+    idCounterRef.current += 1;
+    return `msg-${idCounterRef.current}`;
+  };
 
   // Auto scroll to bottom when new messages appear
   useEffect(() => {
@@ -37,26 +48,25 @@ export default function ChatButton() {
 
   // Load messages from local storage when component mounts
   useEffect(() => {
-    const savedMessages = localStorage.getItem('chatMessages');
-    if (savedMessages) {
+    queueMicrotask(() => {
+      const savedMessages = localStorage.getItem('chatMessages');
+      if (!savedMessages) return;
       try {
-        const parsedMessages = JSON.parse(savedMessages);
-        // Convert string dates back to Date objects
-        const messagesWithDates = parsedMessages.map((msg: any) => ({
+        const parsedMessages = JSON.parse(savedMessages) as StoredMessage[];
+        const messagesWithDates = parsedMessages.map((msg) => ({
           ...msg,
-          timestamp: new Date(msg.timestamp)
+          timestamp: new Date(msg.timestamp),
         }));
         setMessages(messagesWithDates);
-        
-        // Extract chat context from the messages
+
         const contexts = parsedMessages
-          .map((msg: any) => `${msg.sender === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
-          .slice(-5); // Keep only the last 5 messages for context
+          .map((msg) => `${msg.sender === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+          .slice(-5);
         setChatContext(contexts);
       } catch (error) {
         console.error('Error parsing saved messages:', error);
       }
-    }
+    });
   }, []);
 
   // Save messages to local storage when they change
@@ -97,7 +107,7 @@ export default function ChatButton() {
     if (!isOpen && messages.length === 0) {
       setMessages([
         {
-          id: Date.now().toString(),
+          id: nextMessageId(),
           content: 'Halo! Saya asisten virtual Yasir. Ada yang bisa saya bantu tentang Yasir atau portofolionya?',
           sender: 'bot',
           timestamp: new Date(),
@@ -112,7 +122,7 @@ export default function ChatButton() {
 
     // Menambahkan pesan pengguna ke state
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: nextMessageId(),
       content: newMessage,
       sender: 'user',
       timestamp: new Date(),
@@ -139,37 +149,52 @@ export default function ChatButton() {
         }),
       });
 
+      const data = await response.json().catch(() => null);
+
       if (!response.ok) {
-        throw new Error('Gagal mendapatkan respons');
+        const friendlyNotice =
+          (data && (data.error || data.response)) ||
+          'Maaf ya, asisten lagi menerima banyak pesan nih 😊 Silakan tunggu sebentar lalu coba lagi ya.';
+
+        const noticeMessage: Message = {
+          id: nextMessageId(),
+          content: formatBoldText(friendlyNotice),
+          sender: 'bot',
+          timestamp: new Date(),
+        };
+
+        setMessages(prevMessages => [...prevMessages, noticeMessage]);
+        return;
       }
 
-      const data = await response.json();
+      const rawBotText =
+        data?.response ||
+        'Maaf ya, asisten lagi butuh jeda sebentar 😊 Silakan coba kirim ulang pertanyaanmu ya.';
 
       // Format teks untuk membuat ** menjadi bold
-      const formattedResponse = formatBoldText(data.response);
+      const formattedResponse = formatBoldText(rawBotText);
 
       // Menambahkan respons bot ke state
       const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: nextMessageId(),
         content: formattedResponse,
         sender: 'bot',
         timestamp: new Date(),
       };
 
       // Update context with bot response
-      setChatContext([...updatedContext, `Assistant: ${data.response}`].slice(-5));
+      setChatContext([...updatedContext, `Assistant: ${rawBotText}`].slice(-5));
       setMessages(prevMessages => [...prevMessages, botMessage]);
-    } catch (error) {
-      console.error('Error saat mengirim pesan:', error);
-      
-      // Pesan error
+    } catch {
+      // Pesan error jaringan yang ramah tanpa membocorkan detail teknis
       const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: 'Maaf, terjadi kesalahan. Silakan coba lagi nanti.',
+        id: nextMessageId(),
+        content:
+          'Ups, koneksi internet ke asisten lagi kurang stabil nih 😅 Coba kirim ulang pertanyaanmu sebentar lagi ya, atau hubungi Yasir langsung lewat formulir kontak.',
         sender: 'bot',
         timestamp: new Date(),
       };
-      
+
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -180,7 +205,7 @@ export default function ChatButton() {
   const refreshConversation = () => {
     setMessages([
       {
-        id: Date.now().toString(),
+        id: nextMessageId(),
         content: 'Halo! Saya asisten virtual Yasir. Ada yang bisa saya bantu tentang Yasir atau portofolionya?',
         sender: 'bot',
         timestamp: new Date(),

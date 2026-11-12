@@ -1,40 +1,124 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getGeminiResponse } from '@/lib/gemini';
-import { isGeminiConfigured, geminiApiInstructions } from './gemini-config';
+import { isGeminiConfigured } from './gemini-config';
+
+// Simple in-memory sliding window rate limiter
+const rateLimitMap = new Map<string, { count: number; expiresAt: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 12; // 12 requests / min
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+
+  // Periodic cleanup
+  if (rateLimitMap.size > 1000) {
+    for (const [key, val] of rateLimitMap.entries()) {
+      if (val.expiresAt < now) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
+  if (!record || record.expiresAt < now) {
+    rateLimitMap.set(ip, { count: 1, expiresAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false;
+  }
+
+  record.count += 1;
+  return true;
+}
 
 export async function POST(req: NextRequest) {
   try {
-    // Cek apakah Gemini API dikonfigurasi
+    // Rate Limiting
+    const forwardedFor = req.headers.get('x-forwarded-for');
+    const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : 'anonymous';
+    const isAllowed = checkRateLimit(clientIp);
+
+    if (!isAllowed) {
+      return NextResponse.json(
+        {
+          error:
+            'Wah, kamu mengirim pesan cukup cepat nih 😊 Supaya asisten tetap nyaman melayani semuanya, silakan tunggu sekitar 1 menit dulu ya sebelum bertanya lagi.',
+        },
+        { status: 429 }
+      );
+    }
+
+    // Check Gemini API Configuration without leaking setup hints to visitors
     if (!isGeminiConfigured()) {
-      return NextResponse.json({ 
-        response: `API key untuk Gemini tidak ditemukan. ${geminiApiInstructions}` 
-      }, { status: 200 });
+      console.error('Gemini API key is missing in server environment variables (GEMINI_API_KEY).');
+      return NextResponse.json(
+        {
+          response:
+            'Maaf ya, layanan asisten virtual sedang dalam tahap penyesuaian sementara 🙏 Kamu masih dapat melihat seluruh karya di portofolio ini atau mengirim pesan lewat formulir kontak.',
+        },
+        { status: 200 }
+      );
     }
 
-    // Mendapatkan pesan dan context dari body permintaan
-    const { message, context = [] } = await req.json();
-
-    if (!message) {
-      return NextResponse.json({ error: 'Pesan tidak boleh kosong' }, { status: 400 });
+    // Parse Body
+    let body: { message?: unknown; context?: unknown };
+    try {
+      body = (await req.json()) as { message?: unknown; context?: unknown };
+    } catch {
+      return NextResponse.json(
+        {
+          error:
+            'Maaf, format pesan yang dikirim belum dapat diproses 😅 Coba kirim ulang pertanyaanmu ya.',
+        },
+        { status: 400 }
+      );
     }
 
-    // Mendapatkan respons dari Gemini dengan menyertakan context
-    const response = await getGeminiResponse(message, context);
+    const { message, context = [] } = body;
 
-    // Mengembalikan respons sebagai JSON
+    // Validate Input
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return NextResponse.json(
+        { error: 'Yuk tulis dulu pertanyaanmu sebelum dikirim 😊' },
+        { status: 400 }
+      );
+    }
+
+    if (message.length > 1000) {
+      return NextResponse.json(
+        {
+          error:
+            'Pertanyaannya lumayan panjang nih 😊 Supaya jawabannya tetap akurat dan ringkas, boleh dipersingkat hingga maksimal 1.000 karakter ya.',
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate Context
+    const safeContext = Array.isArray(context)
+      ? context
+          .filter((item): item is string => typeof item === 'string')
+          .slice(-10)
+          .map((item) => item.slice(0, 500))
+      : [];
+
+    // Get response from Gemini 3.5 Flash-Lite
+    const response = await getGeminiResponse(message.trim(), safeContext);
+
     return NextResponse.json({ response });
   } catch (error) {
-    console.error('Error mengelola permintaan chat:', error);
-    
-    // Menambahkan lebih banyak detail error untuk debugging
-    let errorMessage = 'Terjadi kesalahan dalam memproses permintaan Anda';
-    if (error instanceof Error) {
-      errorMessage += `: ${error.message}`;
-    }
-    
+    // Log detailed error on server-side only
+    console.error('Error handling chat request:', error);
+
+    // Friendly message without exposing internal stack/system errors
     return NextResponse.json(
-      { error: errorMessage },
+      {
+        error:
+          'Maaf ya, asisten sedang mengalami kendala koneksi sebentar 😅 Silakan coba tanyakan lagi beberapa saat nanti.',
+      },
       { status: 500 }
     );
   }
-} 
+}

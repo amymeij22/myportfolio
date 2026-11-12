@@ -12,9 +12,11 @@ import Blog from "./components/Blog"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Home | Personal Portfolio",
-  description: "Welcome to Ahmad Meijlan Yasir's personal portfolio. Explore my projects, skills, publications, and professional journey in technology and instrumentation.",
-  keywords: ["home", "portfolio", "Ahmad Meijlan Yasir", "projects", "skills", "publications", "contact"],
+  title: {
+    absolute: "Ahmad Meijlan Yasir - Personal Portfolio & Tech Projects",
+  },
+  description: "Official portfolio of Ahmad Meijlan Yasir, Taruna Instrumentasi STMKG & Web Developer. Explore my projects, research publications, IoT developments, and tech journey.",
+  keywords: ["Ahmad Meijlan Yasir", "portfolio", "instrumentation", "tech enthusiast", "STMKG", "developer", "projects", "publications"],
   alternates: {
     canonical: 'https://amymeij.web.id',
   },

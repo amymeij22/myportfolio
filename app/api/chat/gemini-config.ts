@@ -1,28 +1,22 @@
-// Catatan untuk deployment: 
-// Tambahkan Gemini API key ke variabel lingkungan dengan nama NEXT_PUBLIC_GEMINI_API_KEY
+// Konfigurasi Gemini API
+// Prioritaskan server-side GEMINI_API_KEY untuk keamanan (agar tidak terbocorkan ke client bundle),
+// dengan fallback ke NEXT_PUBLIC_GEMINI_API_KEY untuk kompatibilitas.
 
-// Cek apakah API key tersedia
-export function isGeminiConfigured(): boolean {
-  return process.env.NEXT_PUBLIC_GEMINI_API_KEY ? true : false;
-}
+export const DEFAULT_GEMINI_MODEL = 'gemini-3.5-flash-lite';
 
-// Mendapatkan API key untuk Gemini
 export function getGeminiApiKey(): string {
-  return process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
+  return process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
 }
 
-// Panduan untuk mendapatkan API key
-export const geminiApiInstructions = `
-Untuk menggunakan fitur chatbot pada website ini:
+export function getGeminiModel(): string {
+  const configured = (process.env.GEMINI_MODEL || '').trim();
+  // Validasi format nama model agar aman dipakai pada path endpoint REST API
+  if (configured && /^[a-z0-9._-]+$/i.test(configured)) {
+    return configured;
+  }
+  return DEFAULT_GEMINI_MODEL;
+}
 
-1. Dapatkan API key dari Google AI Studio:
-   - Kunjungi https://ai.google.dev/ 
-   - Daftar atau masuk ke akun Google
-   - Buat API key baru
-
-2. Tambahkan API key ke file .env.local:
-   NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
-
-3. Restart server development:
-   npm run dev
-`; 
+export function isGeminiConfigured(): boolean {
+  return Boolean(getGeminiApiKey());
+}

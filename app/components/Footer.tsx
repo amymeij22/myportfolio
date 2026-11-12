@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
-import { SiGithub, SiLinkedin, SiInstagram } from "react-icons/si"
+import { SiGithub, SiInstagram } from "react-icons/si"
+import { FaLinkedin } from "react-icons/fa6"
 import { MdEmail } from "react-icons/md"
 import { motion } from "framer-motion"
 
@@ -74,7 +74,7 @@ export default function Footer() {
               whileHover={{ scale: 1.2 }}
             >
               <span className="sr-only">LinkedIn</span>
-              <SiLinkedin className="h-5 w-5" />
+              <FaLinkedin className="h-5 w-5" />
             </motion.a>
             <motion.a 
               href="https://www.instagram.com/amymeij_22/" 
@@ -122,7 +122,7 @@ export default function Footer() {
               whileHover={{ scale: 1.2 }}
             >
               <span className="sr-only">LinkedIn</span>
-              <SiLinkedin className="h-5 w-5" />
+              <FaLinkedin className="h-5 w-5" />
             </motion.a>
             <motion.a 
               href="https://www.instagram.com/amymeij_22/" 

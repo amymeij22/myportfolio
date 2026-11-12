@@ -1,11 +1,11 @@
 {
   "name": "Ahmad Meijlan Yasir Portfolio",
-  "short_name": "AMY Portfolio",
-  "description": "Personal portfolio of Ahmad Meijlan Yasir, Instrumentation Student & Tech Enthusiast",
+  "short_name": "Ahmad Meijlan Yasir",
+  "description": "Personal portfolio of Ahmad Meijlan Yasir, Taruna Instrumentasi STMKG & Web Developer",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
   "icons": [
     {
       "src": "/favicon.ico",
@@ -23,4 +23,4 @@
       "type": "image/png"
     }
   ]
-} 
+}

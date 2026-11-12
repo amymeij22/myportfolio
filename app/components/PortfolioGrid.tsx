@@ -123,9 +123,9 @@ export default function PortfolioGrid() {
 									<Image
 										src={project.image_url || "/placeholder.svg"}
 										alt={project.title}
-										layout="fill"
-										objectFit="cover"
-										className="transition-transform duration-300 ease-in-out group-hover:scale-105"
+										fill
+										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+										className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
 									/>
 									<motion.div
 										className={`absolute inset-0 flex flex-col items-center justify-center p-6 transition-opacity duration-300 ${
