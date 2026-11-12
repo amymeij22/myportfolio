@@ -185,7 +185,7 @@ cp .env.example .env.local
 > Never prefix secret keys (`SUPABASE_SERVICE_ROLE_KEY`, `EMAILJS_PRIVATE_KEY`, `GEMINI_API_KEY`) with `NEXT_PUBLIC_`. Variables with `NEXT_PUBLIC_` are exposed in browser bundles.
 
 > [!TIP]
-> In EmailJS settings (*Account -> Security*), enable **"Require Access Token"** and set `EMAILJS_PRIVATE_KEY`. This ensures all external requests originating outside your server are completely rejected.
+> In EmailJS settings (*Account -> Security*), enable **"Allow EmailJS API for non-browser applications"** (required for server-side `/api/contact` requests) and set `EMAILJS_PRIVATE_KEY` with your Private Key (`accessToken`). This guarantees external browser scripts cannot abuse your quota outside your server.
 
 ---
 

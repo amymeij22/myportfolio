@@ -82,13 +82,15 @@ export async function POST(req: NextRequest) {
     const sanitizedEmail = sanitizePlainText(email);
 
     // 7. Read Credentials (Server-side priority, fallback to NEXT_PUBLIC_ for compatibility)
-    const serviceId = process.env.EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey =
+    const serviceId = (process.env.EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '').trim();
+    const templateId = (process.env.EMAILJS_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '').trim();
+    const publicKey = (
       process.env.EMAILJS_PUBLIC_KEY ||
       process.env.EMAILJS_USER_ID ||
-      process.env.NEXT_PUBLIC_EMAILJS_USER_ID;
-    const privateKey = process.env.EMAILJS_PRIVATE_KEY; // EmailJS Access Token for strict lockdown
+      process.env.NEXT_PUBLIC_EMAILJS_USER_ID ||
+      ''
+    ).trim();
+    const privateKey = (process.env.EMAILJS_PRIVATE_KEY || '').trim(); // EmailJS Access Token for strict lockdown
 
     if (!serviceId || !templateId || !publicKey) {
       console.warn(
@@ -97,13 +99,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           error:
-            'Layanan pengiriman email sedang dalam pemeliharaan konfigurasi. Silakan hubungi langsung melalui email/sosial media.',
+            'Maaf ya, layanan formulir kontak sedang dalam pemeliharaan konfigurasi 🙏 Silakan hubungi langsung melalui email atau LinkedIn yang tertera ya.',
         },
         { status: 503 }
       );
     }
 
-    // 8. Dispatch through EmailJS REST API from Server
+    // 8. Dispatch through EmailJS REST API from Server (with 12s timeout)
     const emailPayload: {
       service_id: string;
       template_id: string;
@@ -126,19 +128,31 @@ export async function POST(req: NextRequest) {
       emailPayload.accessToken = privateKey;
     }
 
-    const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(emailPayload),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+    let emailResponse: Response;
+    try {
+      emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailPayload),
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!emailResponse.ok) {
-      const errorText = await emailResponse.text();
-      console.error('EmailJS dispatch error from server:', errorText);
+      const errorText = await emailResponse.text().catch(() => '');
+      console.error(`EmailJS dispatch error (${emailResponse.status}):`, errorText);
       return NextResponse.json(
-        { error: 'Gagal mengirim email melalui penyedia layanan. Silakan coba kembali nanti.' },
+        {
+          error:
+            'Maaf ya, pesan belum dapat diteruskan oleh layanan email saat ini 😅 Silakan coba lagi sebentar lagi atau hubungi Yasir langsung lewat email yasirahmad220504@gmail.com.',
+        },
         { status: 502 }
       );
     }
@@ -147,10 +161,20 @@ export async function POST(req: NextRequest) {
       success: true,
       message: 'Pesan Anda telah berhasil dikirim! Terima kasih telah menghubungi.',
     });
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('EmailJS request timeout after 12s');
+      return NextResponse.json(
+        {
+          error:
+            'Koneksi ke layanan pengiriman email sedang agak lambat nih 😅 Silakan coba kirim ulang sebentar lagi ya.',
+        },
+        { status: 504 }
+      );
+    }
     console.error('Unexpected error in /api/contact:', error);
     return NextResponse.json(
-      { error: 'Terjadi kesalahan pada server saat memproses pesan Anda.' },
+      { error: 'Maaf, terjadi kendala sementara di server saat memproses pesan Anda. Silakan coba lagi beberapa saat nanti.' },
       { status: 500 }
     );
   }
