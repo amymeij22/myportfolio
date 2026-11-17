@@ -1,441 +1,182 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { 
-  SiHtml5, SiCss, SiJavascript, SiReact, SiTypescript, SiNextdotjs, SiTailwindcss, SiWordpress, 
-  SiMysql, SiGit, SiPython, SiNodedotjs, SiMongodb, SiDocker, SiLinux, SiGithub
-} from "react-icons/si"
-import { FaAws } from "react-icons/fa6"
-import { 
-  RiEnglishInput, RiTeamFill, RiLightbulbFlashLine, RiComputerLine, 
-  RiFileTextLine, RiRobot2Line, RiUserStarLine, RiBarChart2Line, RiMoneyDollarCircleLine,
-  RiMicrosoftFill, RiCustomerService2Line, RiPresentationLine, RiTimeLine, RiGroupLine, RiEmpathizeLine
+import {
+  RiPulseLine,
+  RiServerLine,
+  RiBrainLine,
+  RiTerminalBoxLine,
+  RiDatabase2Line,
+  RiCheckDoubleLine
 } from "react-icons/ri"
-import { IoLanguage, IoHardwareChip } from "react-icons/io5"
-import { useTheme } from "next-themes"
-
-const hardSkills = [
-  { icon: <SiHtml5 className="w-8 h-8" />, name: "HTML" },
-  { icon: <SiCss className="w-8 h-8" />, name: "CSS" },
-  { icon: <SiJavascript className="w-8 h-8" />, name: "JavaScript" },
-  { icon: <SiReact className="w-8 h-8" />, name: "React.js" },
-  { icon: <SiTypescript className="w-8 h-8" />, name: "TypeScript" },
-  { icon: <SiNextdotjs className="w-8 h-8" />, name: "Next.js" },
-  { icon: <SiTailwindcss className="w-8 h-8" />, name: "Tailwind CSS" },
-  { icon: <SiWordpress className="w-8 h-8" />, name: "WordPress" },
-  { icon: <SiMysql className="w-8 h-8" />, name: "SQL" },
-  { icon: <SiPython className="w-8 h-8" />, name: "Python" },
-  { icon: <SiNodedotjs className="w-8 h-8" />, name: "Node.js" },
-  { icon: <SiMongodb className="w-8 h-8" />, name: "MongoDB" },
-  { icon: <IoHardwareChip className="w-8 h-8" />, name: "IoT" },
-  { icon: <SiGit className="w-8 h-8" />, name: "Git" },
-  { icon: <SiGithub className="w-8 h-8" />, name: "GitHub" },
-  { icon: <SiDocker className="w-8 h-8" />, name: "Docker" },
-  { icon: <FaAws className="w-8 h-8" />, name: "AWS" },
-  { icon: <SiLinux className="w-8 h-8" />, name: "Linux" },
-  { icon: <RiMicrosoftFill className="w-8 h-8" />, name: "Microsoft Office" },
-  { icon: <RiComputerLine className="w-8 h-8" />, name: "Web Development" },
-  { icon: <RiBarChart2Line className="w-8 h-8" />, name: "SEO" },
-  { icon: <RiFileTextLine className="w-8 h-8" />, name: "Web Content Writing" },
-  { icon: <RiRobot2Line className="w-8 h-8" />, name: "AI Fundamentals" },
-]
-
-// Duplicate array for infinite scroll effect
-const duplicatedHardSkills = [...hardSkills, ...hardSkills, ...hardSkills]
-
-const softSkills = [
-  { icon: <RiUserStarLine className="w-8 h-8" />, name: "Project Management" },
-  { icon: <RiMoneyDollarCircleLine className="w-8 h-8" />, name: "Financial Reporting" },
-  { icon: <RiTeamFill className="w-8 h-8" />, name: "Team Coordination" },
-  { icon: <RiLightbulbFlashLine className="w-8 h-8" />, name: "Leadership" },
-  { icon: <IoLanguage className="w-8 h-8" />, name: "Indonesia (Native)" },
-  { icon: <RiEnglishInput className="w-8 h-8" />, name: "English (Limited Working)" },
-  { icon: <RiCustomerService2Line className="w-8 h-8" />, name: "Communication" },
-  { icon: <RiPresentationLine className="w-8 h-8" />, name: "Presentation" },
-  { icon: <RiTimeLine className="w-8 h-8" />, name: "Time Management" },
-  { icon: <RiGroupLine className="w-8 h-8" />, name: "Collaboration" },
-  { icon: <RiEmpathizeLine className="w-8 h-8" />, name: "Empathy" },
-  { icon: <RiLightbulbFlashLine className="w-8 h-8" />, name: "Problem Solving" },
-]
-
-// Duplicate array for infinite scroll effect
-const duplicatedSoftSkills = [...softSkills, ...softSkills, ...softSkills]
+import { IoHardwareChipOutline } from "react-icons/io5"
 
 export default function Skills() {
-  const { theme } = useTheme()
-  const hardSkillsRef = useRef<HTMLDivElement>(null)
-  const softSkillsRef = useRef<HTMLDivElement>(null)
-  const [isPaused, setIsPaused] = useState(false)
-  const [isManualScrolling, setIsManualScrolling] = useState(false)
-  const [hardSkillsPosition, setHardSkillsPosition] = useState(0)
-  const [softSkillsPosition, setSoftSkillsPosition] = useState(0)
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  
-  // Handle manual scrolling with wheel event
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault() // Prevent default scrolling behavior
-    
-    // Get the current target and handle the scrolling manually
-    const container = e.currentTarget as HTMLDivElement
-    container.scrollLeft += e.deltaY * 2 // Increase scroll speed
-    
-    setIsManualScrolling(true)
-    
-    // Clear any existing timeouts
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current)
+  const domains = [
+    {
+      id: "instrumentasi",
+      title: "Instrumentasi & Pengukuran",
+      icon: <RiPulseLine className="w-6 h-6 text-primary" />,
+      tagline: "Akuisisi data sensor dan kalibrasi meteorologi",
+      description: "Perancangan sistem akuisisi data sensor cuaca, kalibrasi instrumen operasional, perangkat telemetri IoT (ESP32 & LoRa), dan pemantauan real-time kondisi lingkungan.",
+      evidence: "Jaringan sensor BME280 & LoRa STMKG, sistem kalibrasi BBMKG Wilayah I Medan.",
+      keyTools: ["ESP32 & LoRa", "Sensor Cuaca", "Kalibrasi MKG", "Arduino / C++", "Hardware Interfacing"]
+    },
+    {
+      id: "sistem-digital",
+      title: "Sistem Digital & Otomasi",
+      icon: <RiServerLine className="w-6 h-6 text-primary" />,
+      tagline: "Arsitektur web end-to-end dan pipeline otomasi",
+      description: "Pengembangan sistem web modern berbasis Next.js, TypeScript, PostgreSQL, arsitektur workflow multi-peran, dan pipeline otomasi data cloud terjadwal.",
+      evidence: "JEJAK (sistem 10 tahap kalibrasi, 7 peran), Inventro (manajemen lab STMKG).",
+      keyTools: ["Next.js 16", "TypeScript", "PostgreSQL", "Supabase", "GitHub Actions / Cron"]
+    },
+    {
+      id: "data-riset",
+      title: "Data & Riset",
+      icon: <RiBrainLine className="w-6 h-6 text-primary" />,
+      tagline: "Pemodelan prediktif dan visualisasi geospasial",
+      description: "Pemodelan machine learning / deep learning, komputasi biometeorologi kenyamanan termal (PET), dan visualisasi data geospasial interaktif melalui WebGIS.",
+      evidence: "WebGIS Prakiraan PET 49 Destinasi Bali, model prediksi konsentrasi PM2.5 (TELKOMNIKA).",
+      keyTools: ["Python", "TensorFlow", "Biometeorology (PET)", "WebGIS / GIS", "Applied ML/DL"]
     }
-    
-    // Set a timeout to resume automatic scrolling after user stops scrolling
-    scrollTimeoutRef.current = setTimeout(() => {
-      // Update positions to current scroll positions to prevent jumping
-      if (hardSkillsRef.current) {
-        setHardSkillsPosition(hardSkillsRef.current.scrollLeft)
-      }
-      
-      if (softSkillsRef.current && softSkillsRef.current.scrollWidth) {
-        const width = softSkillsRef.current.scrollWidth / 3
-        setSoftSkillsPosition(width - softSkillsRef.current.scrollLeft)
-      }
-      
-      setIsManualScrolling(false)
-    }, 3000) // 3 second delay before auto-scrolling resumes
-  }
-  
-  // Add mouse drag scrolling functionality
-  const [isDragging, setIsDragging] = useState(false)
-  const [startX, setStartX] = useState(0)
-  const [scrollLeft, setScrollLeft] = useState(0)
-  
-  const handleMouseDown = (e: React.MouseEvent, containerRef: React.RefObject<HTMLDivElement>) => {
-    if (!containerRef.current) return
-    
-    setIsDragging(true)
-    setIsManualScrolling(true)
-    setStartX(e.pageX - containerRef.current.offsetLeft)
-    setScrollLeft(containerRef.current.scrollLeft)
-  }
-  
-  const handleMouseUp = () => {
-    setIsDragging(false)
-    
-    // Clear any existing timeouts
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current)
+  ]
+
+  const toolCategories = [
+    {
+      name: "Instrumentasi & Hardware",
+      icon: <IoHardwareChipOutline className="w-4 h-4 text-primary" />,
+      tools: ["ESP32", "LoRa Ra-02", "Sensor Meteorologi", "Kalibrasi Suhu/Tekanan/Kelembapan", "Linux OS", "Docker"]
+    },
+    {
+      name: "Perangkat Lunak & Basis Data",
+      icon: <RiTerminalBoxLine className="w-4 h-4 text-primary" />,
+      tools: ["TypeScript", "Next.js", "React", "Tailwind CSS", "PostgreSQL", "Supabase", "Git & GitHub"]
+    },
+    {
+      name: "Data & Sains",
+      icon: <RiDatabase2Line className="w-4 h-4 text-primary" />,
+      tools: ["Python", "TensorFlow", "Scikit-learn", "Biometeo (PET)", "WebGIS Spasial", "REST API & SSE"]
     }
-    
-    // Set a timeout to resume automatic scrolling after user stops dragging
-    scrollTimeoutRef.current = setTimeout(() => {
-      // Update positions to current scroll positions to prevent jumping
-      if (hardSkillsRef.current) {
-        setHardSkillsPosition(hardSkillsRef.current.scrollLeft)
-      }
-      
-      if (softSkillsRef.current && softSkillsRef.current.scrollWidth) {
-        const width = softSkillsRef.current.scrollWidth / 3
-        setSoftSkillsPosition(width - softSkillsRef.current.scrollLeft)
-      }
-      
-      setIsManualScrolling(false)
-    }, 3000) // 3 second delay before auto-scrolling resumes
-  }
-  
-  const handleMouseMove = (e: React.MouseEvent, containerRef: React.RefObject<HTMLDivElement>) => {
-    if (!isDragging || !containerRef.current) return
-    
-    e.preventDefault()
-    const x = e.pageX - containerRef.current.offsetLeft
-    const walk = (x - startX) * 2 // Scroll speed multiplier
-    containerRef.current.scrollLeft = scrollLeft - walk
-  }
-  
-  // Handle mouse leave to prevent stuck dragging state
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
-  
-  useEffect(() => {
-    // Calculate total width for hard skills
-    const hardSkillsWidth = hardSkillsRef.current ? hardSkillsRef.current.scrollWidth / 3 : 0
-    const softSkillsWidth = softSkillsRef.current ? softSkillsRef.current.scrollWidth / 3 : 0
-    
-    let hardSkillsAnimationId: number
-    let softSkillsAnimationId: number
-    
-    // Cek apakah layar mobile
-    const isMobile = window.innerWidth < 768
-    
-    const animateHardSkills = () => {
-      // Tidak menjalankan animasi jika mobile
-      if (isMobile) return
-      
-      if (hardSkillsRef.current && !isPaused && !isManualScrolling) {
-        setHardSkillsPosition(prev => {
-          const newPosition = prev + 1.2
-          // Reset position when we've scrolled through the first set of items
-          if (newPosition >= hardSkillsWidth) {
-            return 0
-          }
-          return newPosition
-        })
-        
-        if (hardSkillsRef.current) {
-          hardSkillsRef.current.scrollLeft = hardSkillsPosition
-        }
-      }
-      hardSkillsAnimationId = requestAnimationFrame(animateHardSkills)
-    }
-    
-    const animateSoftSkills = () => {
-      // Tidak menjalankan animasi jika mobile
-      if (isMobile) return
-      
-      if (softSkillsRef.current && !isPaused && !isManualScrolling) {
-        setSoftSkillsPosition(prev => {
-          const newPosition = prev + 1.2
-          // Reset position when we've scrolled through the first set of items
-          if (newPosition >= softSkillsWidth) {
-            return 0
-          }
-          return newPosition
-        })
-        
-        if (softSkillsRef.current) {
-          softSkillsRef.current.scrollLeft = softSkillsWidth - softSkillsPosition
-        }
-      }
-      softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
-    }
-    
-    // Hanya memulai animasi jika bukan mobile
-    if (!isMobile) {
-      hardSkillsAnimationId = requestAnimationFrame(animateHardSkills)
-      softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
-    }
-    
-    // Listener untuk window resize
-    const handleResize = () => {
-      const newIsMobile = window.innerWidth < 768
-      
-      // Jika berubah dari desktop ke mobile, hentikan animasi
-      if (newIsMobile && !isMobile) {
-        if (hardSkillsAnimationId) cancelAnimationFrame(hardSkillsAnimationId)
-        if (softSkillsAnimationId) cancelAnimationFrame(softSkillsAnimationId)
-        setIsManualScrolling(true)
-      }
-      
-      // Jika berubah dari mobile ke desktop, mulai animasi
-      if (!newIsMobile && isMobile) {
-        setIsManualScrolling(false)
-        hardSkillsAnimationId = requestAnimationFrame(animateHardSkills)
-        softSkillsAnimationId = requestAnimationFrame(animateSoftSkills)
-      }
-    }
-    
-    // Tambahkan event listener
-    window.addEventListener('resize', handleResize)
-    
-    return () => {
-      // Bersihkan semua animasi dan listener
-      if (hardSkillsAnimationId) cancelAnimationFrame(hardSkillsAnimationId)
-      if (softSkillsAnimationId) cancelAnimationFrame(softSkillsAnimationId)
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [isPaused, isManualScrolling, isDragging, hardSkillsPosition, softSkillsPosition])
+  ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-0 bg-background">
-      <div className="container mx-auto px-4 mb-4">
-        <motion.div
-          className="text-center mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-5xl font-black mb-4 text-center text-foreground">My Skills</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive overview of my technical expertise and personal capabilities.
+    <section id="fokus" className="relative py-20 sm:py-28 bg-background border-b border-border/50">
+      <div id="skills" className="sr-only" aria-hidden="true" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Section Header */}
+        <div className="max-w-3xl mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/80 border border-border text-xs font-mono font-medium text-foreground mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            <span>FOKUS & KAPABILITAS</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-4">
+            Tiga Domain Sistem Terapan
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Menghubungkan pengukuran fisik di lapangan dengan arsitektur perangkat lunak modern dan riset analitik untuk menghasilkan solusi yang teruji.
           </p>
-        </motion.div>
-      </div>
+        </div>
 
-      <div className="space-y-12 w-full">
-        {/* Technical Skills */}
-        <div>
-          <motion.h3
-            className="text-3xl font-bold mb-4 text-foreground text-center"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            Hard Skills
-          </motion.h3>
-          
-          <div className="relative w-full mb-2 overflow-hidden">
-            <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-primary/10 to-primary/50"></div>
-          </div>
-          
-          <div 
-            ref={hardSkillsRef} 
-            className={`skills-scroll-container ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => {
-              setIsPaused(false)
-              handleMouseLeave()
-            }}
-            onTouchStart={() => {
-              setIsPaused(true)
-              setIsManualScrolling(true)
-            }}
-            onTouchEnd={() => {
-              // Meningkatkan delay sebelum memulai ulang animasi otomatis
-              // untuk mencegah gerakan yang tidak diinginkan setelah touch event
-              setTimeout(() => {
-                if (hardSkillsRef.current) {
-                  setHardSkillsPosition(hardSkillsRef.current.scrollLeft)
-                }
-                setIsPaused(false)
-                // Berikan waktu lebih lama sebelum melanjutkan animasi otomatis
-                setTimeout(() => setIsManualScrolling(false), 5000)
-              }, 300)
-            }}
-            onWheel={handleWheel}
-            onMouseDown={(e) => handleMouseDown(e, hardSkillsRef)}
-            onMouseUp={handleMouseUp}
-            onMouseMove={(e) => handleMouseMove(e, hardSkillsRef)}
-          >
-            <div className="flex space-x-4 min-w-max">
-              {duplicatedHardSkills.map((skill, index) => (
-                <motion.div
-                  key={`${skill.name}-${index}`}
-                  className="flex flex-col items-center justify-center w-36 h-36 shrink-0 rounded-lg border border-primary/20 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all duration-200"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.1, delay: Math.min(index % hardSkills.length, 20) * 0.01 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <div className={`${theme === "dark" ? "text-primary" : "text-primary"} mb-3`}>
-                    {skill.icon}
+        {/* 3 Connected Domain Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+          {domains.map((domain, index) => (
+            <motion.div
+              key={domain.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="group relative flex flex-col justify-between rounded-2xl bg-card border border-border p-7 shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+            >
+              <div>
+                {/* Domain Icon & Index */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center border border-border/60 transition-colors group-hover:bg-secondary/70">
+                    {domain.icon}
                   </div>
-                  <p className="text-sm font-medium text-center px-2">{skill.name}</p>
-                </motion.div>
-              ))}
+                  <span className="text-xs font-mono font-medium text-muted-foreground">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                {/* Title & Tagline */}
+                <h3 className="text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors">
+                  {domain.title}
+                </h3>
+                <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-4">
+                  {domain.tagline}
+                </p>
+
+                {/* Description */}
+                <p className="text-sm text-foreground/80 leading-relaxed mb-6">
+                  {domain.description}
+                </p>
+              </div>
+
+              <div>
+                {/* Evidence Callout */}
+                <div className="pt-4 border-t border-border/60 mb-5">
+                  <div className="flex items-start gap-2 text-xs text-muted-foreground">
+                    <RiCheckDoubleLine className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                    <span><strong className="text-foreground font-medium">Bukti terapan:</strong> {domain.evidence}</span>
+                  </div>
+                </div>
+
+                {/* Key Tool Pills */}
+                <div className="flex flex-wrap gap-1.5">
+                  {domain.keyTools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="px-2.5 py-1 rounded-md bg-secondary/80 border border-border/70 text-[11px] font-mono text-foreground font-medium"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Practical Toolsets Overview */}
+        <div className="rounded-2xl bg-secondary/40 border border-border p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 className="text-lg font-semibold text-foreground">Alat & Instrumen Praktis</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Teknologi yang digunakan secara nyata dalam perancangan sistem dan riset.
+              </p>
             </div>
+            <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+              Teruji dalam Implementasi
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {toolCategories.map((cat) => (
+              <div key={cat.name} className="space-y-3">
+                <div className="flex items-center gap-2 text-xs font-mono font-medium text-foreground uppercase tracking-wide">
+                  {cat.icon}
+                  <span>{cat.name}</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {cat.tools.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-1 rounded bg-background border border-border text-xs text-foreground font-medium"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        
-        {/* Soft Skills */}
-        <div>
-          <motion.h3
-            className="text-3xl font-bold mb-4 text-foreground text-center"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            Soft Skills
-          </motion.h3>
-          
-          <div className="relative w-full mb-2 overflow-hidden">
-            <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-primary/50 to-primary/10"></div>
-          </div>
-          
-          <div 
-            ref={softSkillsRef} 
-            className={`skills-scroll-container ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => {
-              setIsPaused(false)
-              handleMouseLeave()
-            }}
-            onTouchStart={() => {
-              setIsPaused(true)
-              setIsManualScrolling(true)
-            }}
-            onTouchEnd={() => {
-              // Meningkatkan delay sebelum memulai ulang animasi otomatis
-              // untuk mencegah gerakan yang tidak diinginkan setelah touch event
-              setTimeout(() => {
-                if (softSkillsRef.current && softSkillsRef.current.scrollWidth) {
-                  const width = softSkillsRef.current.scrollWidth / 3
-                  setSoftSkillsPosition(width - softSkillsRef.current.scrollLeft)
-                }
-                setIsPaused(false)
-                // Berikan waktu lebih lama sebelum melanjutkan animasi otomatis
-                setTimeout(() => setIsManualScrolling(false), 5000)
-              }, 300)
-            }}
-            onWheel={handleWheel}
-            onMouseDown={(e) => handleMouseDown(e, softSkillsRef)}
-            onMouseUp={handleMouseUp}
-            onMouseMove={(e) => handleMouseMove(e, softSkillsRef)}
-          >
-            <div className="flex space-x-4 min-w-max">
-              {duplicatedSoftSkills.map((skill, index) => (
-                <motion.div
-                  key={`${skill.name}-${index}`}
-                  className="flex flex-col items-center justify-center w-36 h-36 shrink-0 rounded-lg border border-primary/20 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all duration-200"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.1, delay: Math.min(index % softSkills.length, 20) * 0.01 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <div className={`${theme === "dark" ? "text-primary" : "text-primary"} mb-3`}>
-                    {skill.icon}
-                  </div>
-                  <p className="text-sm font-medium text-center px-2">{skill.name}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        
-        .skills-scroll-container {
-          overflow-x: scroll;
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
-          padding: 1rem 0;
-          width: 100%;
-          user-select: none; /* Prevent text selection during drag */
-          touch-action: pan-x; /* Optimize for horizontal touch actions */
-          -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-          overscroll-behavior-x: contain; /* Prevent scroll chaining */
-        }
-        
-        .skills-scroll-container::-webkit-scrollbar {
-          display: none;
-        }
-        
-        .cursor-grab {
-          cursor: grab;
-        }
-        
-        .cursor-grabbing {
-          cursor: grabbing !important;
-        }
-        
-        @media (max-width: 768px) {
-          .skills-scroll-container > div {
-            padding-left: 5%;
-            padding-right: 5%;
-          }
-          
-          /* Mobile: konten scrollable tetapi tidak otomatis */
-          .skills-scroll-container {
-            scroll-snap-type: x mandatory;
-          }
-          
-          .skills-scroll-container > div > div {
-            scroll-snap-align: center;
-          }
-        }
-      `}</style>
+      </div>
     </section>
   )
 }

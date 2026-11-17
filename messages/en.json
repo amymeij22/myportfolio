@@ -1,0 +1,188 @@
+{
+  "nav": {
+    "hero": "Home",
+    "tentang": "About",
+    "karya": "Projects",
+    "riset": "Research",
+    "perjalanan": "Journey",
+    "blog": "Blog",
+    "kontak": "Contact",
+    "language": "Language",
+    "menuOpen": "Open navigation menu",
+    "menuClose": "Close navigation menu",
+    "switchLang": "Select language"
+  },
+  "hero": {
+    "badge": "SYSTEM ENGINEER",
+    "headlinePrefix": "Connecting",
+    "headlineWord1": "instrumentation,",
+    "headlineWord2": "data, and",
+    "headlineWord3": "technology into",
+    "headlineHighlight": "real solutions.",
+    "subtitle": "Grounded in MKG instrumentation, I engineer digital and automation systems for operational, scientific, and environmental needs.",
+    "ctaProjects": "View projects",
+    "ctaConnect": "Let's connect",
+    "imgAlt": "Meteorological and Environmental Instrumentation Representation"
+  },
+  "marquee": [
+    "15+ Scientific Publications",
+    "B.A.Sc. in MKG Instrumentation",
+    "System Engineer",
+    "JEJAK",
+    "Cum Laude",
+    "STMKG",
+    "PET",
+    "Intermediate Copyright Award",
+    "5+ Registered Copyrights",
+    "BMKG"
+  ],
+  "about": {
+    "eyebrow": "ABOUT ME",
+    "greeting": "Hello, I'm",
+    "name": "Ahmad Meijlan Yasir.",
+    "p1": "I am a System Engineer specializing in instrumentation integration, software engineering, and data processing to solve real-world operational, scientific, and environmental challenges.",
+    "p2": "With a foundation in Meteorology, Climatology, and Geophysics Instrumentation (STMKG), I enjoy architecting, building, and deploying pragmatic technology solutions that drive tangible impact.",
+    "focus1": "Instrumentation",
+    "focus1b": "& Measurement",
+    "focus2": "Digital Systems",
+    "focus2b": "& Automation",
+    "focus3": "Data &",
+    "focus3b": "Research",
+    "role": "System Engineer",
+    "imgAlt": "Indonesian Mountainous Atmospheric Landscape"
+  },
+  "portfolio": {
+    "eyebrow": "SELECTED PROJECTS",
+    "titlePart1": "Works & ",
+    "titleHighlight": "Projects",
+    "subtitle": "A curation of digital solutions, systems engineering, and research.",
+    "filters": {
+      "all": "All",
+      "website": "Website",
+      "tools": "Tools",
+      "other": "Other",
+      "iot": "IoT",
+      "microcontroller": "Microcontroller"
+    },
+    "viewProject": "View Project",
+    "details": "Details",
+    "preview": "Project Preview",
+    "dialog": {
+      "featured": "Featured Project",
+      "challenge": "Challenge:",
+      "contribution": "Contribution:",
+      "outcome": "Outcome / Impact:",
+      "description": "Project Description",
+      "repository": "Repository:",
+      "github": "View on GitHub",
+      "close": "Close",
+      "openProject": "Open Project"
+    }
+  },
+  "publications": {
+    "eyebrow": "PUBLICATIONS & RESEARCH",
+    "titlePart1": "Research ",
+    "titleHighlight": "Publications",
+    "subtitle": "A collection of scientific works and academic contributions.",
+    "readDetail": "Read Details",
+    "publication": "Publication",
+    "details": "Details",
+    "dialog": {
+      "authors": "Authors",
+      "abstract": "Abstract",
+      "doi": "Digital Object Identifier (DOI)",
+      "close": "Close",
+      "openDoc": "Official Document"
+    }
+  },
+  "timeline": {
+    "eyebrow": "PROFESSIONAL JOURNEY",
+    "headingPart1": "Growing through practice,",
+    "headingPart2": "research, and ",
+    "headingHighlight": "collaboration.",
+    "subtitle": "Chronicle of technical learning, engineering experience, and cross-disciplinary leadership over the years.",
+    "verifiedPanel": "Focus & Verified Achievements"
+  },
+  "blog": {
+    "eyebrow": "ARTICLES & STORIES",
+    "titlePart1": "Articles & ",
+    "titleHighlight": "Insights",
+    "subtitle": "Thoughts, experiences, and technical knowledge sharing.",
+    "readArticle": "Read Article",
+    "viewAll": "View All Articles",
+    "preview": "Article Preview",
+    "backHome": "Back to Home",
+    "backBlog": "Back to Blog",
+    "allArticles": "All Articles & ",
+    "allArticlesSubtitle": "Collected insights, research explorations, and engineering notes on technology, weather & environmental instrumentation, and digital system architecture.",
+    "allCategories": "All",
+    "emptyTitle": "No Articles",
+    "emptySubtitle": "No articles have been published in this category yet.",
+    "share": "Share",
+    "latestArticles": "Latest Articles",
+    "otherArticles": "Other Articles",
+    "categories": "Categories",
+    "prevArticle": "Previous Article",
+    "nextArticle": "Next Article",
+    "noLatest": "No recent articles."
+  },
+  "contact": {
+    "eyebrow": "CONTACT",
+    "headingPart1": "Let's ",
+    "headingPart2": "collaborate, ",
+    "headingPart3": "discuss, or ",
+    "headingHighlight": "exchange ideas.",
+    "subtitle": "Have a question, collaboration opportunity, or interesting idea? I am always open to discussions, technical research partnerships, and new technology projects.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "email@example.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Write your message here...",
+    "sendButton": "Send Message",
+    "sendingButton": "Sending Message...",
+    "connectLabel": "Connect On",
+    "challenge": {
+      "badge1": "Security",
+      "badge2": "Verification",
+      "title": "Security Verification",
+      "desc": "Please solve this quick math calculation to verify you are human before sending your message.",
+      "challengeLabel": "Challenge",
+      "refresh": "New Problem",
+      "generating": "Generating calculation...",
+      "answerLabel": "Your Answer",
+      "answerPlaceholder": "Enter the result...",
+      "cancel": "Cancel",
+      "submit": "Verify & Send"
+    },
+    "success": {
+      "badge": "Delivery Status",
+      "title": "Message Sent Successfully",
+      "desc": "Thank you for reaching out to Yasir. Your message has been received securely.",
+      "heading": "Prompt Response Coming Soon",
+      "body": "Yasir will review your message and get back to you shortly via the email address you provided.",
+      "button": "Done"
+    },
+    "error": {
+      "badge": "Notice",
+      "title": "Delivery Issue",
+      "desc": "There was an issue processing your contact form request.",
+      "button": "Understood"
+    }
+  },
+  "footer": {
+    "backToTop": "↑ Back to top ↑"
+  },
+  "chat": {
+    "trigger": "KNOW ME!",
+    "assistantTitle": "Yasir's Assistant",
+    "assistantSubtitle": "Portfolio & Research AI Assistant",
+    "placeholder": "Ask about Yasir's background, research, or projects...",
+    "poweredBy": "Powered by Gemini AI",
+    "pressEnter": "Press Enter to send",
+    "typing": "Typing response...",
+    "refreshTitle": "Clear conversation history",
+    "closeTitle": "Close AI assistant",
+    "openAria": "Open AI Assistant (KNOW ME!)"
+  }
+}

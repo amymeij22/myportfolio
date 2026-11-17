@@ -20,7 +20,7 @@ export const allBlogs: BlogPost[] = [
     category: "IoT",
     date: "12 Juni 2023",
     excerpt: "Sistem pemantauan cuaca berbasis Internet of Things (IoT) menjadi semakin penting di era informasi digital saat ini. Dengan menggabungkan sensor cuaca dan konektivitas internet, sistem ini memungkinkan pengumpulan data cuaca secara real-time dan analisis yang lebih akurat...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-1-CZKaYm0XhblkEVzHgAW7YGDWahNtmv.jpg",
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b01-fortifying-the-frontend-mitigating-xss-a.webp",
     content: `
       <h2>Pendahuluan</h2>
       <p>Sistem pemantauan cuaca berbasis Internet of Things (IoT) menjadi semakin penting di era informasi digital saat ini. Dengan menggabungkan sensor cuaca dan konektivitas internet, sistem ini memungkinkan pengumpulan data cuaca secara real-time dan analisis yang lebih akurat untuk berbagai aplikasi seperti pertanian presisi, peringatan dini bencana, dan penelitian iklim.</p>
@@ -72,7 +72,7 @@ export const allBlogs: BlogPost[] = [
     category: "AI & ML",
     date: "23 Juli 2023",
     excerpt: "Kemajuan dalam machine learning telah membuka peluang baru dalam memprediksi pola cuaca dengan akurasi yang lebih tinggi. Artikel ini membahas bagaimana algoritma machine learning seperti Random Forest dan LSTM dapat digunakan untuk menganalisis data cuaca historis...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-2-8jnHFXz9lDi4fhYcXJr5DuBxcQRQHk.jpg",
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b02-industrial-iot-revolution-leveraging-sen.webp",
     content: `
       <h2>Pendahuluan</h2>
       <p>Kemajuan dalam machine learning telah membuka peluang baru dalam memprediksi pola cuaca dengan akurasi yang lebih tinggi. Penggunaan algoritma seperti Random Forest, Support Vector Machines (SVM), dan jaringan saraf LSTM (Long Short-Term Memory) memungkinkan analisis data cuaca historis yang lebih komprehensif untuk menghasilkan prediksi yang lebih akurat.</p>
@@ -154,7 +154,7 @@ export const allBlogs: BlogPost[] = [
     category: "Web Dev",
     date: "5 Agustus 2023",
     excerpt: "Dalam era digital yang terus berkembang, pengembangan aplikasi web modern menghadapi berbagai tantangan seperti performa, keamanan, dan pengalaman pengguna. Artikel ini mengeksplorasi teknologi terkini seperti React, Next.js, dan strategi untuk mengatasi tantangan tersebut...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-3-UKZM5MZkSPHxMOFAB6ZAQgY68bP9lU.jpg",
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b03-unlocking-computer-vision-a-deep-dive-in.webp",
     content: `
       <h2>Pendahuluan</h2>
       <p>Pengembangan aplikasi web modern menghadapi berbagai tantangan yang kompleks, mulai dari performa dan keamanan hingga pengalaman pengguna yang optimal. Artikel ini akan mengeksplorasi tantangan utama yang dihadapi pengembang web saat ini dan strategi untuk mengatasinya menggunakan teknologi seperti React, Next.js, dan praktik terbaik dalam pengembangan web.</p>
@@ -223,7 +223,7 @@ export const allBlogs: BlogPost[] = [
     category: "IoT",
     date: "18 September 2023",
     excerpt: "Jaringan sensor nirkabel (WSN) menjadi komponen penting dalam sistem pemantauan lingkungan modern. Artikel ini membahas teknik optimalisasi untuk meningkatkan efisiensi energi, keandalan komunikasi, dan masa pakai sensor dalam penerapan WSN...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-4-RrVVjHU0LfDBDYQTp94dQWzKZRUyJp.jpg"
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b04-smart-home-automation-a-step-by-step-gui.webp"
   },
   {
     id: 5,
@@ -232,7 +232,7 @@ export const allBlogs: BlogPost[] = [
     category: "Data Science",
     date: "7 Oktober 2023",
     excerpt: "Python menjadi bahasa pemrograman pilihan untuk analisis data cuaca karena kemudahan penggunaan dan ekosistem pustaka yang kaya. Artikel ini menjelaskan langkah-langkah analisis data cuaca menggunakan pandas, matplotlib, dan pustaka lain yang relevan...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-5-mSAkIRsEJ3uJ1Lhy9ZsVg7NzX0HW5o.jpg"
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b05-building-resilient-habits-gentle-steps-t.webp"
   },
   {
     id: 6,
@@ -241,7 +241,7 @@ export const allBlogs: BlogPost[] = [
     category: "Web Dev",
     date: "15 November 2023",
     excerpt: "Next.js menawarkan pendekatan modern untuk pengembangan aplikasi web dengan fitur-fitur seperti rendering sisi server, routing otomatis, dan optimisasi gambar. Artikel ini mengeksplorasi cara menggunakan Next.js untuk membuat aplikasi web yang cepat dan interaktif...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-6-DXjxXXXeDztbmafZDSH4BgxrMxzpoi.jpg"
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b06-transforming-raw-data-into-compelling-na.webp"
   },
   {
     id: 7,
@@ -250,7 +250,7 @@ export const allBlogs: BlogPost[] = [
     category: "UI/UX",
     date: "3 Desember 2023",
     excerpt: "Desain antarmuka pengguna yang baik sangat penting dalam aplikasi meteorologi untuk memastikan informasi cuaca yang kompleks dapat diakses dan dipahami dengan mudah. Artikel ini membahas prinsip-prinsip desain UI/UX untuk aplikasi meteorologi...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-7-WDCpPZlYe6KdnQQqSUXfNEiOZwvXZ2.jpg"
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b07-beyond-the-basics-mastering-the-useeffec.webp"
   },
   {
     id: 8,
@@ -259,7 +259,7 @@ export const allBlogs: BlogPost[] = [
     category: "API",
     date: "19 Januari 2024",
     excerpt: "API (Application Programming Interface) menjadi kunci dalam distribusi data cuaca untuk berbagai aplikasi dan layanan. Artikel ini membahas praktik terbaik dalam merancang, membangun, dan mengelola API untuk layanan informasi cuaca...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-8-X8nECRcWAMlKHEgjkTkL9o8y12FLJa.jpg"
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b08-crush-your-tasks-with-the-pomodoro-metho.webp"
   },
   {
     id: 9,
@@ -268,7 +268,7 @@ export const allBlogs: BlogPost[] = [
     category: "Cyber Security",
     date: "28 Februari 2024",
     excerpt: "Keamanan siber menjadi aspek kritis dalam sistem pemantauan cuaca modern yang terhubung ke internet. Artikel ini mengidentifikasi potensi kerentanan dan strategi untuk meningkatkan keamanan dalam sistem pemantauan cuaca...",
-    image: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/blog-9-dkGxzJ4rlQtVzzD2KHYRqnDZDLRnP5.jpg"
+    image: "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b09-unlocking-blockchain-how-digital-ledgers.webp"
   }
 ];
 

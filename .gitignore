@@ -1,28 +1,64 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# Dependencies
 /node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
 
-# next.js
+# Next.js build & export outputs
 /.next/
 /out/
-
-# production
 /build
+/dist
 
-# debug
+# Production artifacts & build cache
+*.tsbuildinfo
+next-env.d.ts
+
+# Debug and runtime logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
-# env files
-.env*
+# Environment files & sensitive secrets
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 !.env.example
 
-# vercel
+# Vercel & serverless deployments
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Temporary / test scratch scripts
+check_db.js
+test_*.js
+*.tmp
+*.bak
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# IDE & Editor configurations
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~

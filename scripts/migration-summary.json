@@ -1,0 +1,227 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "ACWS",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/ACWS-XsKb5VAh1tjk5SeZhURMAmgJbMJ28p",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p01-acws.webp",
+      "originalSize": 79706,
+      "optimizedSize": 34102
+    },
+    {
+      "id": 2,
+      "title": "STMKG Website",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/stmkg-VVbpmxqJj3kueyPNmGD2CX3bjgGAvM",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p02-stmkg-website.webp",
+      "originalSize": 81929,
+      "optimizedSize": 30718
+    },
+    {
+      "id": 3,
+      "title": "INA-FOREWS",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/INA-FOREWS-QY1fnIEW6brXH0JkAuacJ8N7u6Pqi4",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p03-ina-forews.webp",
+      "originalSize": 1700208,
+      "optimizedSize": 103528
+    },
+    {
+      "id": 4,
+      "title": "Election App",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/pemira-VKjP5dddhc6J2HCpAejAcepNZRa7Pc",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p04-election-app.webp",
+      "originalSize": 100621,
+      "optimizedSize": 21200
+    },
+    {
+      "id": 5,
+      "title": "Kabagas Keren",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/kabagas-X0fbqYnaRdoFcViApE1In1E1fM4nLv",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p05-kabagas-keren.webp",
+      "originalSize": 254254,
+      "optimizedSize": 25570
+    },
+    {
+      "id": 6,
+      "title": "Library Attendance System",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Perpustakaan-djzLBPYjeHHv56jImGxwFoDFlIWrNW",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p06-library-attendance-system.webp",
+      "originalSize": 1688393,
+      "optimizedSize": 95930
+    },
+    {
+      "id": 7,
+      "title": "Chatbot Assistant",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/chatbot-kTxbEz42OoOIHfYHxNZJm7WiRylMRD",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p07-chatbot-assistant.webp",
+      "originalSize": 64169,
+      "optimizedSize": 39044
+    },
+    {
+      "id": 8,
+      "title": "Research",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/research-d2P1GMjI6VbFhCNx1IgtP9EGrapVkS",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p08-research.webp",
+      "originalSize": 503200,
+      "optimizedSize": 45864
+    },
+    {
+      "id": 9,
+      "title": "INVENTRO",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Screenshot%202025-05-07%20171054-cbwm0Hh4DvoqFmhTNFti5wVqapOWO1.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p09-inventro.webp",
+      "originalSize": 57448,
+      "optimizedSize": 18074
+    },
+    {
+      "id": 10,
+      "title": "Page Resumer",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Screenshot%202025-06-08%20120820-NvCii1ZzLhRvQKcAsKolNBHUvPI10N.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p10-page-resumer.webp",
+      "originalSize": 95591,
+      "optimizedSize": 42772
+    },
+    {
+      "id": 11,
+      "title": "Yasir's Portfolio Website",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Screenshot%202025-06-08%20120900-rOhW9pj6h5KF0LBCXStmvyk6mhsjGr.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p11-yasir-s-portfolio-website.webp",
+      "originalSize": 114293,
+      "optimizedSize": 16480
+    },
+    {
+      "id": 12,
+      "title": "COMING SOON",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/ONGOING-54KphNzUwqow2jVwZyMwnxUIGRpdxx",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/projects/p12-coming-soon.webp",
+      "originalSize": 777520,
+      "optimizedSize": 147910
+    }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "title": "Fortifying the Frontend: Mitigating XSS Attacks 🛡️💻",
+      "oldUrl": "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=1470&auto=format&fit=crop",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b01-fortifying-the-frontend-mitigating-xss-a.webp",
+      "originalSize": 202137,
+      "optimizedSize": 125242
+    },
+    {
+      "id": 2,
+      "title": "Industrial IoT Revolution: Leveraging Sensor Data for Proactive Machine Failure Prediction",
+      "oldUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b02-industrial-iot-revolution-leveraging-sen.webp",
+      "originalSize": 173738,
+      "optimizedSize": 76748
+    },
+    {
+      "id": 3,
+      "title": "Unlocking Computer Vision: A Deep Dive into Image Classification with Convolutional Neural Networks (CNNs)",
+      "oldUrl": "https://www-rishabhsoft-com.translate.goog/nitropack_static/YDvgvLbsGCOErAorXOnUelcLZzwIpWGd/assets/images/optimized/rev-89183eb/www.rishabhsoft.com/wp-content/uploads/2023/04/Blog-Banner-Computer-Vision.jpg?_x_tr_sl=en&_x_tr_tl=id&_x_tr_hl=id&_x_tr_pto=imgs",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b03-unlocking-computer-vision-a-deep-dive-in.webp",
+      "originalSize": 108119,
+      "optimizedSize": 48464
+    },
+    {
+      "id": 4,
+      "title": "Smart Home Automation: A Step-by-Step Guide to ESP32-Powered Lighting Control",
+      "oldUrl": "https://hendersonelectric.com/wp-content/uploads/2019/02/Smart-Home-Automation-1920x1126.jpg",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b04-smart-home-automation-a-step-by-step-gui.webp",
+      "originalSize": 193551,
+      "optimizedSize": 82844
+    },
+    {
+      "id": 5,
+      "title": "Building Resilient Habits: Gentle Steps Towards Lasting Change 🌱✨",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Gemini_Generated_Image_ahzhiwahzhiwahzh-MBMKqd8YhBXLd0l5d5C1O39bnrRIE3.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b05-building-resilient-habits-gentle-steps-t.webp",
+      "originalSize": 4568431,
+      "optimizedSize": 68898
+    },
+    {
+      "id": 6,
+      "title": "Transforming Raw Data into Compelling Narratives: The Art of Storytelling with Tableau Visualizations",
+      "oldUrl": "https://wp.sfdcdigital.com/tableau/en-us/wp-content/uploads/sites/47/2025/01/intuitive-products-Thumb@2x-cropped-1.webp?resize=1024,576",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b06-transforming-raw-data-into-compelling-na.webp",
+      "originalSize": 187584,
+      "optimizedSize": 22816
+    },
+    {
+      "id": 7,
+      "title": "Beyond the Basics: Mastering the useEffect Hook for Optimized React Components",
+      "oldUrl": "https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80&w=1480&auto=format&fit=crop",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b07-beyond-the-basics-mastering-the-useeffec.webp",
+      "originalSize": 276759,
+      "optimizedSize": 142568
+    },
+    {
+      "id": 8,
+      "title": "Crush Your Tasks with the Pomodoro Method 🍅⏲️",
+      "oldUrl": "https://website-cdn.studysmarter.de/sites/2/uk/Pomodoro-Technique2.webp",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b08-crush-your-tasks-with-the-pomodoro-metho.webp",
+      "originalSize": 84322,
+      "optimizedSize": 53570
+    },
+    {
+      "id": 9,
+      "title": "Unlocking Blockchain: How Digital Ledgers Are Quietly Changing the World 🔓🌍",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Gemini_Generated_Image_pwaoerpwaoerpwao-5fTbTxT1TfxDl50QL83yKFK9ZTV5e4.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b09-unlocking-blockchain-how-digital-ledgers.webp",
+      "originalSize": 5073067,
+      "optimizedSize": 66734
+    },
+    {
+      "id": 10,
+      "title": "Cybersecurity Essentials: Stay Safe in the Digital World 🔐💻",
+      "oldUrl": "https://ecommercefastlane.com/wp-content/uploads/2024/11/Business-person-explore-the-core-of-cyber-security-1024x536.jpeg",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b10-cybersecurity-essentials-stay-safe-in-th.webp",
+      "originalSize": 305909,
+      "optimizedSize": 245464
+    },
+    {
+      "id": 11,
+      "title": "What is a Proof of Concept? Turning Ideas into Real Possibilities 💡🧪",
+      "oldUrl": "https://cdn2.slidemodel.com/wp-content/uploads/01-proof-of-content-cover.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b11-what-is-a-proof-of-concept-turning-ideas.webp",
+      "originalSize": 53124,
+      "optimizedSize": 40010
+    },
+    {
+      "id": 12,
+      "title": "What is a Product Requirement Document (PRD)? 🤔",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Gemini_Generated_Image_ohoq4tohoq4tohoq-TO01mLaFCjwInLtR7bhrQy7oFVpLe1.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b12-what-is-a-product-requirement-document-p.webp",
+      "originalSize": 4840610,
+      "optimizedSize": 113940
+    },
+    {
+      "id": 13,
+      "title": "Staying Sharp as a Generalist: Thriving in a Specialist’s World 🧩🌍",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Gemini_Generated_Image_qwe24tqwe24tqwe2-ef7Jykiw1d3vqou7DwpddshyYs9D6c.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b13-staying-sharp-as-a-generalist-thriving-i.webp",
+      "originalSize": 666256,
+      "optimizedSize": 20792
+    },
+    {
+      "id": 14,
+      "title": "When the Internet Gets Overwhelmed: The Story of DoS and DDoS Attacks 🌐⚠️",
+      "oldUrl": "https://www.ipvanish.com/wp-content/uploads/2022/11/dos-vs-ddos_IPV-blog-1536x1024.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b14-when-the-internet-gets-overwhelmed-the-s.webp",
+      "originalSize": 53175,
+      "optimizedSize": 71040
+    },
+    {
+      "id": 15,
+      "title": "🔮 Vibe Coding: Cara Baru Bikin Aplikasi Tanpa Harus Jadi Jago Ngoding",
+      "oldUrl": "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/Gemini_Generated_Image_ysyri9ysyri9ysyr-4ttZMiNDccSkY4Fv7Ie4h4QE8ZjE6k.png",
+      "newUrl": "https://vzamvjeldyncrwmkasik.supabase.co/storage/v1/object/public/portfolio-assets/blogs/b15-vibe-coding-cara-baru-bikin-aplikasi-tan.webp",
+      "originalSize": 4835703,
+      "optimizedSize": 84516
+    }
+  ],
+  "stats": {
+    "totalOriginalBytes": 27139817,
+    "totalOptimizedBytes": 1884838,
+    "savedPercent": "93.1"
+  }
+}

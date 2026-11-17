@@ -3,7 +3,6 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 const config = {
-  darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -54,6 +53,12 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          primary: "var(--brand-primary, #214A40)",
+          secondary: "var(--brand-secondary, #E9EEE8)",
+          accent: "var(--brand-accent, #C7E76A)",
+        },
+        paper: "var(--background-primary, #F7F7F2)",
         // Custom blue-slate color palette
         slate: {
           50: "hsl(210, 40%, 98%)",
@@ -76,6 +81,7 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
       },
       keyframes: {
         "accordion-down": {

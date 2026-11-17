@@ -11,6 +11,16 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'vzamvjeldyncrwmkasik.supabase.co',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: '1h1v9ndzh4okzjrr.public.blob.vercel-storage.com',
         pathname: '/**',
       },
@@ -42,6 +52,26 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'erfanevis.ir',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.ipvanish.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'hendersonelectric.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ecommercefastlane.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.rishabhsoft.com',
         pathname: '/**',
       },
     ],

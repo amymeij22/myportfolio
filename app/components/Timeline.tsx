@@ -1,222 +1,570 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { motion, useInView, useScroll, useSpring } from "framer-motion"
-import { RiBookOpenLine, RiBriefcaseLine } from "react-icons/ri"
-import { getTimelineEvents } from "@/lib/supabase"
-
-// Timeline event type definition
-interface TimelineEvent {
-  id: number;
-  title: string;
-  organization: string;
-  start_date: string;
-  end_date?: string;
-  is_current: boolean;
-  description: string;
-  location: string;
-  type: string;
-  image_url?: string;
-  created_at: string;
-  details?: string;
-}
-
-const BriefcaseIcon = ({ progress }: { progress: number }) => (
-  <RiBriefcaseLine className="w-6 h-6" style={{ transform: `scale(${progress})` }} />
-)
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  GraduationCap,
+  Users,
+  Microscope,
+  Code2,
+  Laptop,
+  Layers,
+  Settings,
+  Cpu,
+  ChevronDown,
+  ChevronUp,
+  Tag
+} from "lucide-react"
+import { getVerifiedJourney, JourneyEntry } from "@/lib/timeline-data"
+import { useI18n } from "@/lib/i18n"
 
 export default function Timeline() {
-  const [expandedEvent, setExpandedEvent] = useState<number | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [timelineEvents, setTimelineEvents] = useState<TimelineEvent[]>([])
-  const [loading, setLoading] = useState(true)
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
-  
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  })
+  const [expandedId, setExpandedId] = useState<string | null>(null)
+  const { locale, t } = useI18n()
 
-  // Fetch timeline events from Supabase
-  useEffect(() => {
-    async function fetchTimelineEvents() {
-      try {
-        const events = await getTimelineEvents();
-        setTimelineEvents(events);
-      } catch (error) {
-        console.error("Error fetching timeline events:", error);
-      } finally {
-        setLoading(false);
-      }
+  const toggleExpand = (id: string) => {
+    setExpandedId(prev => (prev === id ? null : id))
+  }
+
+  const items = getVerifiedJourney(locale)
+
+  // Reverse chronological order of years: 2026 -> 2022
+  const years = ["2026", "2025", "2024", "2023", "2022"]
+  const itemsByYear = years.map(year => ({
+    year,
+    items: items.filter(item => item.year === year)
+  }))
+
+  const getIcon = (type: JourneyEntry["iconType"]) => {
+    const iconClass = "w-5 h-5 text-[#214A40]"
+    switch (type) {
+      case "education":
+        return <GraduationCap className={iconClass} />
+      case "team":
+        return <Users className={iconClass} />
+      case "lab":
+        return <Microscope className={iconClass} />
+      case "web":
+        return <Code2 className={iconClass} />
+      case "finance":
+        return <Laptop className={iconClass} />
+      case "leadership":
+        return <Layers className={iconClass} />
+      case "intern":
+        return <Settings className={iconClass} />
+      case "ai":
+        return <Cpu className={iconClass} />
+      default:
+        return <Code2 className={iconClass} />
     }
-    
-    fetchTimelineEvents();
-  }, []);
-
-  // Format date for display
-  const formatDate = (dateString?: string, isCurrent: boolean = false) => {
-    if (!dateString && isCurrent) return "Present";
-    if (!dateString) return "";
-    
-    const date = new Date(dateString);
-    const month = date.toLocaleString('default', { month: 'short' });
-    const year = date.getFullYear();
-    
-    return `${month} ${year}`;
-  };
+  }
 
   return (
     <section
-      ref={containerRef}
-      className="min-h-screen flex items-center py-8 md:py-20 bg-background overflow-hidden elegant-section elegant-gradient"
+      id="perjalanan"
+      className="relative isolate py-14 sm:py-18 lg:py-22 bg-[#F7F7F2] border-b border-[#DEE4DC]/80 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          className="text-center mb-6 md:mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-xl md:text-3xl font-bold text-foreground sm:text-4xl">Professional Journey</h2>
-          <p className="mt-2 md:mt-4 text-sm md:text-lg text-muted-foreground">My career path and professional development in technology</p>
-        </motion.div>
+      {/* Hidden anchor targets for navigation compatibility */}
+      <div id="timeline" className="sr-only" aria-hidden="true" />
+      <div id="journey" className="sr-only" aria-hidden="true" />
 
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      {/* Atmospheric Decorative Graphics: Compact Telemetry & Navigation Accents with Soft Ambient Glow */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        {/* Soft Ambient Depth Gradients */}
+        <div className="absolute -top-16 -left-16 w-72 sm:w-96 h-72 sm:h-96 bg-[#E2ECD8]/35 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-72 sm:w-96 h-72 sm:h-96 bg-[#C7E76A]/[0.06] rounded-full blur-3xl" />
+
+        {/* Atmospheric Top-Right Contour Lines (Compact Corner Accent) */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-8 w-36 sm:w-44 h-24 sm:h-28 select-none">
+          <svg
+            viewBox="0 0 180 110"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-full text-[#214A40]/12"
+          >
+            <path
+              d="M180 20 C130 25, 90 5, 40 35"
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
+            <path
+              d="M180 50 C135 55, 95 30, 45 60"
+              stroke="currentColor"
+              strokeWidth="1.2"
+            />
+            <path
+              d="M180 80 C140 85, 100 55, 50 85"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
+            <circle cx="100" cy="45" r="2" fill="currentColor" fillOpacity="0.4" />
+          </svg>
+        </div>
+
+        {/* Atmospheric Bottom-Left Contour Lines (Compact Corner Accent) */}
+        <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-8 w-32 sm:w-40 h-20 select-none hidden lg:block">
+          <svg
+            viewBox="0 0 160 80"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-full text-[#214A40]/10"
+          >
+            <path
+              d="M0 30 C50 15, 90 50, 160 30"
+              stroke="currentColor"
+              strokeWidth="1.2"
+            />
+            <path
+              d="M0 55 C50 40, 90 75, 160 55"
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
+          </svg>
+        </div>
+
+        {/* Subtle Decorative Crosshair (+) */}
+        <div className="absolute top-8 right-12 hidden lg:block text-[#214A40]/15 font-mono text-base select-none">
+          +
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+        
+        {/* Section Header (Left-aligned) */}
+        <div className="max-w-3xl mb-12 sm:mb-16">
+          {/* Eyebrow */}
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-5 h-1 rounded-full bg-[#C7E76A]" />
+            <span className="font-mono text-xs font-semibold tracking-[0.16em] uppercase text-[#1D2925]">
+              {t("timeline.eyebrow")}
+            </span>
           </div>
-        ) : (
-        <div className="relative">
-          {/* Vertical line - positioned differently on mobile vs desktop - grows/shrinks with scroll */}
-          <motion.div
-            className="absolute left-3.5 md:left-1/2 transform md:-translate-x-1/2 w-0.5 bg-primary/20 origin-top"
-            style={{ 
-              top: "8px", /* Position at first icon top */
-              height: "calc(100% - 8px)", /* Full height */
-              scaleY: scaleY /* This animates the height based on scroll progress */
-            }}
+
+          {/* Heading */}
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#1D2925] tracking-tight leading-tight sm:leading-[1.24] mb-4">
+            {t("timeline.headingPart1")} <br className="hidden sm:inline" />
+            {t("timeline.headingPart2")}
+            <span className="inline-block bg-[#DFEBBB] text-[#1D2925] px-2.5 py-0.5 rounded-lg align-baseline">
+              {t("timeline.headingHighlight")}
+            </span>
+          </h2>
+
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-[#68736D] leading-relaxed">
+            {t("timeline.subtitle")}
+          </p>
+        </div>
+
+        {/* ============================================================== */}
+        {/* DESKTOP VIEW (>= 1024px, lg) Perfectly Aligned Multi-Column    */}
+        {/* ============================================================== */}
+        <div className="hidden lg:block relative">
+          {/* Continuous vertical timeline spine: starts at Row 1 node, ends at Row 8 node */}
+          <div 
+            className="absolute left-[96px] w-[1.5px] bg-[#68855C]/35 top-[36px] bottom-[36px] -translate-x-1/2 pointer-events-none"
+            aria-hidden="true"
           />
 
-          {timelineEvents.map((event, index) => (
-            <TimelineEvent
-              key={`${event.organization}-${event.title}-${event.start_date}`}
-              event={event}
-              index={index}
-              isExpanded={expandedEvent === index}
-              onToggle={() => setExpandedEvent(expandedEvent === index ? null : index)}
-              formatDate={formatDate}
-            />
-          ))}
+          <div className="space-y-0">
+            {itemsByYear.map((group) => (
+              <div key={group.year} className="relative">
+                {group.items.map((item, itemIdx) => {
+                  const isFirstInYear = itemIdx === 0
+                  const isExpanded = expandedId === item.id
+
+                  return (
+                    <div 
+                      key={item.id}
+                      className="group border-b border-[#DEE4DC]/80 transition-colors hover:bg-[#E9EEE8]/25"
+                    >
+                      <div 
+                        onClick={() => toggleExpand(item.id)}
+                        className="flex items-center py-4 lg:py-5 min-h-[72px] cursor-pointer select-none"
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={isExpanded}
+                        aria-label={`Rincian untuk ${item.title}`}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault()
+                            toggleExpand(item.id)
+                          }
+                        }}
+                      >
+                        {/* 1. Year Column (Fixed width: 80px) */}
+                        <div className="w-[80px] flex-shrink-0 text-left">
+                          {isFirstInYear ? (
+                            <span className="font-bold text-2xl text-[#1D2925] font-sans tracking-tight">
+                              {group.year}
+                            </span>
+                          ) : (
+                            <span className="sr-only">{group.year}</span>
+                          )}
+                        </div>
+
+                        {/* 2. Timeline Node Column (Fixed width: 32px, centered) */}
+                        <div className="w-[32px] flex-shrink-0 flex items-center justify-center relative">
+                          <span 
+                            className="w-3 h-3 rounded-full bg-[#A3D139] ring-4 ring-[#F7F7F2] group-hover:scale-125 transition-transform duration-200"
+                            aria-hidden="true"
+                          />
+                        </div>
+
+                        {/* 3. Icon Box (Fixed width: 44px + 20px gap) */}
+                        <div className="ml-5 w-[44px] flex-shrink-0 flex items-center justify-center">
+                          <div className="w-11 h-11 rounded-xl bg-[#E9EFE7] flex items-center justify-center shadow-xs group-hover:bg-[#DFEBBB] transition-colors">
+                            {getIcon(item.iconType)}
+                          </div>
+                        </div>
+
+                        {/* 4. Period Pill Column (Fixed width: 160px for consistent divider alignment) */}
+                        <div className="ml-5 w-[160px] flex-shrink-0">
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#F4F6F2] border border-[#DEE4DC] font-mono text-xs text-[#214A40] font-medium whitespace-nowrap">
+                            {item.period}
+                          </span>
+                        </div>
+
+                        {/* 5. First Vertical Divider (Fixed position) */}
+                        <div className="ml-4 h-5 w-[1px] bg-[#DEE4DC] flex-shrink-0" aria-hidden="true" />
+
+                        {/* 6. Title & Organization Column (Fixed width: 280px xl:320px) */}
+                        <div className="ml-5 w-[280px] xl:w-[320px] flex-shrink-0">
+                          <h3 className="text-sm lg:text-[15px] font-bold text-[#1D2925] leading-snug group-hover:text-[#214A40] transition-colors">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs lg:text-[13px] text-[#68736D] mt-0.5 truncate">
+                            {item.organization}
+                          </p>
+                        </div>
+
+                        {/* 7. Second Vertical Divider (Fixed position) */}
+                        <div className="ml-5 h-6 w-[1px] bg-[#DEE4DC] flex-shrink-0" aria-hidden="true" />
+
+                        {/* 8. Description / Summary Column (Takes remaining flexible width, strictly equal left margin) */}
+                        <div className="ml-5 flex-1 min-w-0 pr-4">
+                          <p className="text-xs lg:text-[13px] text-[#68736D] leading-relaxed">
+                            {item.summary}
+                          </p>
+                        </div>
+
+                        {/* 9. Subtle Expand Indicator (Fixed width: 32px) */}
+                        <div className="w-[32px] flex-shrink-0 flex items-center justify-end pr-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                          {isExpanded ? (
+                            <ChevronUp className="w-4 h-4 text-[#214A40]" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4 text-[#68736D]" />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Expandable Content Panel */}
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pb-5 pt-1 pl-[136px] pr-4">
+                              <div className="p-4 sm:p-5 bg-[#F4F6F2] rounded-xl border border-[#DEE4DC] shadow-xs">
+                                <div className="text-xs font-mono font-semibold uppercase tracking-wider text-[#214A40] mb-2.5 flex items-center gap-2">
+                                  <span className="w-2 h-2 rounded-full bg-[#C7E76A]" />
+                                  <span>{t("timeline.verifiedPanel")}</span>
+                                </div>
+
+                                <ul className="space-y-1.5 mb-4">
+                                  {item.details.points.map((pt, idx) => (
+                                    <li 
+                                      key={idx}
+                                      className="text-xs lg:text-[13px] text-[#1D2925] leading-relaxed flex items-start gap-2"
+                                    >
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#214A40] mt-1.5 flex-shrink-0" />
+                                      <span>{pt}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+
+                                {item.details.tags && item.details.tags.length > 0 && (
+                                  <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#DEE4DC]/80">
+                                    <Tag className="w-3.5 h-3.5 text-[#68736D] mr-1" />
+                                    {item.details.tags.map((tag) => (
+                                      <span
+                                        key={tag}
+                                        className="px-2 py-0.5 rounded-md bg-[#E9EEE8] text-[#1D2925] font-mono text-[11px]"
+                                      >
+                                        #{tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                })}
+              </div>
+            ))}
+          </div>
         </div>
-        )}
+
+        {/* ============================================================== */}
+        {/* TABLET VIEW (768px - 1023px, md) Uniform Column Alignment      */}
+        {/* ============================================================== */}
+        <div className="hidden md:block lg:hidden relative">
+          {/* Continuous vertical timeline spine: from node 1 down to node 8 */}
+          <div 
+            className="absolute left-[76px] w-[1.5px] bg-[#68855C]/35 top-[28px] bottom-[28px] -translate-x-1/2 pointer-events-none"
+            aria-hidden="true"
+          />
+
+          <div className="space-y-0">
+            {itemsByYear.map((group) => (
+              <div key={group.year} className="relative">
+                {group.items.map((item, itemIdx) => {
+                  const isFirstInYear = itemIdx === 0
+                  const isExpanded = expandedId === item.id
+
+                  return (
+                    <div 
+                      key={item.id}
+                      className="group border-b border-[#DEE4DC]/80 transition-colors hover:bg-[#E9EEE8]/20"
+                    >
+                      <div 
+                        onClick={() => toggleExpand(item.id)}
+                        className="py-4 cursor-pointer select-none"
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={isExpanded}
+                      >
+                        <div className="flex items-center">
+                          {/* Year (Fixed width: 60px) */}
+                          <div className="w-[60px] flex-shrink-0 text-left">
+                            {isFirstInYear ? (
+                              <span className="font-bold text-xl text-[#1D2925] font-sans tracking-tight">
+                                {group.year}
+                              </span>
+                            ) : null}
+                          </div>
+
+                          {/* Node (Fixed width: 32px) */}
+                          <div className="w-[32px] flex-shrink-0 flex items-center justify-center">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#A3D139] ring-3 ring-[#F7F7F2]" />
+                          </div>
+
+                          {/* Icon (Fixed width: 40px) */}
+                          <div className="ml-3 w-[40px] flex-shrink-0 flex items-center justify-center">
+                            <div className="w-9 h-9 rounded-lg bg-[#E9EFE7] flex items-center justify-center">
+                              {getIcon(item.iconType)}
+                            </div>
+                          </div>
+
+                          {/* Period (Fixed width: 140px) */}
+                          <div className="ml-3 w-[140px] flex-shrink-0">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#F4F6F2] border border-[#DEE4DC] font-mono text-[11px] text-[#214A40] font-medium whitespace-nowrap">
+                              {item.period}
+                            </span>
+                          </div>
+
+                          {/* Title & Organization (Flexible width) */}
+                          <div className="ml-3 flex-1 min-w-0 pr-3">
+                            <h3 className="text-sm font-bold text-[#1D2925] truncate">
+                              {item.title}
+                            </h3>
+                            <p className="text-xs text-[#68736D] truncate">
+                              {item.organization}
+                            </p>
+                          </div>
+
+                          {/* Expand Icon */}
+                          <div className="w-[28px] flex-shrink-0 flex items-center justify-end pr-1 opacity-60">
+                            {isExpanded ? (
+                              <ChevronUp className="w-4 h-4 text-[#214A40]" />
+                            ) : (
+                              <ChevronDown className="w-4 h-4 text-[#68736D]" />
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Summary below */}
+                        <div className="pl-[148px] pr-8 mt-1.5">
+                          <p className="text-xs text-[#68736D] leading-relaxed line-clamp-2">
+                            {item.summary}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Expandable Content for Tablet */}
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pb-4 pl-[148px] pr-4">
+                              <div className="p-4 bg-[#F4F6F2] rounded-xl border border-[#DEE4DC]">
+                                <div className="text-xs font-mono font-semibold uppercase text-[#214A40] mb-2 flex items-center gap-1.5">
+                                  <span className="w-2 h-2 rounded-full bg-[#C7E76A]" />
+                                  <span>{t("timeline.verifiedPanel")}</span>
+                                </div>
+                                <ul className="space-y-1.5 mb-3">
+                                  {item.details.points.map((pt, idx) => (
+                                    <li key={idx} className="text-xs text-[#1D2925] flex items-start gap-2">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#214A40] mt-1.5 flex-shrink-0" />
+                                      <span>{pt}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                                {item.details.tags && (
+                                  <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#DEE4DC]/80">
+                                    {item.details.tags.map(tag => (
+                                      <span key={tag} className="px-2 py-0.5 rounded bg-[#E9EEE8] text-[#1D2925] font-mono text-[10px]">
+                                        #{tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ============================================================== */}
+        {/* MOBILE VIEW (< 768px) Clean Compact Card Layout                */}
+        {/* ============================================================== */}
+        <div className="md:hidden relative">
+          {/* Continuous vertical timeline spine: starts at Node 1, ends at Node 8 */}
+          <div 
+            className="absolute left-[16px] w-[1.5px] bg-[#68855C]/35 top-[24px] bottom-[24px] pointer-events-none"
+            aria-hidden="true"
+          />
+
+          <div className="space-y-6">
+            {itemsByYear.map((group) => (
+              <div key={group.year} className="relative">
+                {/* Year Marker */}
+                <div className="flex items-center gap-3 mb-3 pl-1">
+                  <div className="w-7 h-7 rounded-full bg-[#214A40] text-[#C7E76A] flex items-center justify-center font-bold text-xs font-mono shadow-xs z-10">
+                    {group.year.slice(2)}
+                  </div>
+                  <span className="font-bold text-lg text-[#1D2925] font-sans">
+                    {group.year}
+                  </span>
+                </div>
+
+                {/* Items in this year */}
+                <div className="space-y-3.5 pl-8">
+                  {group.items.map((item) => {
+                    const isExpanded = expandedId === item.id
+
+                    return (
+                      <div
+                        key={item.id}
+                        className="bg-white rounded-2xl border border-[#DEE4DC] p-4 shadow-xs transition-all"
+                      >
+                        {/* Period & Category Header */}
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#F4F6F2] border border-[#DEE4DC] font-mono text-[11px] text-[#214A40] font-medium">
+                            {item.period}
+                          </span>
+                          <span className="text-[10.5px] font-mono text-[#68736D]">
+                            {item.category}
+                          </span>
+                        </div>
+
+                        {/* Title & Organization with Icon */}
+                        <div className="flex items-start gap-3 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-[#E9EFE7] flex items-center justify-center shrink-0 mt-0.5">
+                            {getIcon(item.iconType)}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="text-sm font-bold text-[#1D2925] leading-snug">
+                              {item.title}
+                            </h3>
+                            <p className="text-xs text-[#68736D] mt-0.5">
+                              {item.organization}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Summary */}
+                        <p className="text-xs text-[#68736D] leading-relaxed mb-3">
+                          {item.summary}
+                        </p>
+
+                        {/* Mobile Expand Toggle Button */}
+                        <button
+                          type="button"
+                          onClick={() => toggleExpand(item.id)}
+                          className="w-full pt-2 border-t border-[#DEE4DC]/70 flex items-center justify-between text-xs font-medium text-[#214A40] cursor-pointer"
+                        >
+                          <span>{isExpanded ? "Tutup Rincian" : "Lihat Rincian"}</span>
+                          {isExpanded ? (
+                            <ChevronUp className="w-3.5 h-3.5" />
+                          ) : (
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+
+                        {/* Expandable Content for Mobile */}
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.25, ease: "easeInOut" }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pt-3 space-y-2.5">
+                                <ul className="space-y-1.5">
+                                  {item.details.points.map((pt, idx) => (
+                                    <li key={idx} className="text-xs text-[#1D2925] flex items-start gap-2">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#214A40] mt-1.5 shrink-0" />
+                                      <span>{pt}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                                {item.details.tags && (
+                                  <div className="flex flex-wrap gap-1 pt-2 border-t border-[#DEE4DC]/60">
+                                    {item.details.tags.map(tag => (
+                                      <span key={tag} className="px-1.5 py-0.5 rounded bg-[#E9EEE8] text-[#1D2925] font-mono text-[10px]">
+                                        #{tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )
 }
-
-function TimelineEvent({
-  event,
-  index,
-  isExpanded,
-  onToggle,
-  formatDate,
-}: {
-  event: TimelineEvent
-  index: number
-  isExpanded: boolean
-  onToggle: () => void
-  formatDate: (dateString?: string, isCurrent?: boolean) => string
-}) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
-
-  return (
-    <div ref={ref} className="mb-8 w-full relative">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.8, delay: index * 0.1 }}
-        className={`flex items-start ${index % 2 === 0 ? "md:justify-end" : "md:justify-start"} w-full`}
-      >
-        {/* Mobile timeline node (only visible on mobile) */}
-        <div className="z-20 flex-shrink-0 mr-3 flex md:hidden self-start mt-3">
-          <div className="flex items-center justify-center w-7 h-7 bg-primary rounded-full shadow-md">
-            <RiBriefcaseLine className="w-3.5 h-3.5 text-background" />
-          </div>
-        </div>
-        
-        {/* Desktop timeline node - positioned at the top of each card (only visible on desktop) */}
-        <div className="z-20 hidden md:flex md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:top-0 md:mt-3">
-          <div className="flex items-center justify-center w-10 h-10 bg-primary rounded-full shadow-md">
-            <RiBriefcaseLine className="w-5 h-5 text-background" />
-          </div>
-        </div>
-        
-        {/* Card */}
-        <motion.div
-          className={`flex-1 max-w-[calc(100%-40px)] md:max-w-none md:w-[45%] ${
-            index % 2 === 0 ? "md:mr-[calc(50%+24px)]" : "md:ml-[calc(50%+24px)]"
-          } elegant-glow`}
-          whileHover={{ scale: 1.02 }}
-        >
-          <div className={`p-3 md:p-5 bg-card rounded-lg shadow-md border border-primary/20 flex flex-col justify-between transition-all duration-300 ${isExpanded ? 'min-h-[auto]' : 'min-h-[auto]'}`}>
-            <div>
-              <div className="flex justify-between items-start mb-1.5">
-                <span className="px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs font-medium bg-primary/10 text-primary rounded-full">
-                  {formatDate(event.start_date)} - {event.is_current ? "Present" : formatDate(event.end_date)}
-                </span>
-              </div>
-              <h3 className="text-sm md:text-lg font-semibold mb-0.5 md:mb-1 text-card-foreground">{event.title}</h3>
-              <h4 className="text-[10px] md:text-sm font-medium text-primary mb-0.5 md:mb-1">{event.organization}</h4>
-              <div className="flex items-center mb-1.5 md:mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 md:h-3.5 md:w-3.5 text-muted-foreground mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span className="text-[9px] md:text-xs text-muted-foreground">{event.location}</span>
-              </div>
-              <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3 text-justify">{event.description}</p>
-            </div>
-            
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              <div className="border-t border-primary/10 pt-1.5 md:pt-2 mt-1 md:mt-1.5">
-                <p className="text-[10px] md:text-sm text-muted-foreground leading-relaxed text-justify">{event.details}</p>
-              </div>
-            </motion.div>
-            
-            <div className="mt-auto pt-2 md:pt-3">
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggle();
-                }}
-                className="text-[10px] md:text-sm font-medium px-2 md:px-4 py-1 md:py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-full flex items-center gap-1 md:gap-1.5 transition-colors"
-              >
-                {isExpanded ? "See less" : "See more"}
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className={`w-2.5 h-2.5 md:w-4 md:h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} 
-                  viewBox="0 0 20 20" 
-                  fill="currentColor"
-                >
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    </div>
-  )
-}
-

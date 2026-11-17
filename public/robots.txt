@@ -3,6 +3,41 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# GPTBot
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+# ChatGPT-User
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+# PerplexityBot
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+# ClaudeBot
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+# anthropic-ai
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+
+# Google-Extended
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+
 # Host
 Host: https://amymeij.web.id
 

@@ -5,65 +5,44 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --brand-primary: #214A40;
+    --brand-secondary: #E9EEE8;
+    --brand-accent: #C7E76A;
+    --background-primary: #F7F7F2;
+    --foreground-primary: #1D2925;
+    --foreground-secondary: #68736D;
+    --border-subtle: #DEE4DC;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    /* Light theme (default) - warm paper background and deep forest brand */
+    --background: 60 20% 96.5%;     /* #F7F7F2 */
+    --foreground: 158 17% 14%;      /* #1D2925 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --card: 60 22% 98.5%;           /* Soft warm paper card */
+    --card-foreground: 158 17% 14%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --popover: 60 22% 98.5%;
+    --popover-foreground: 158 17% 14%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --primary: 166 38% 21%;         /* #214A40 - Deep forest green */
+    --primary-foreground: 60 20% 98%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --secondary: 110 16% 92%;       /* #E9EEE8 - Muted sage surface */
+    --secondary-foreground: 158 17% 14%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --muted: 110 14% 91%;
+    --muted-foreground: 147 5% 43%; /* #68736D */
+
+    --accent: 75 73% 66%;           /* #C7E76A - Restrained lime accent */
+    --accent-foreground: 158 17% 14%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --border: 105 14% 88%;          /* #DEE4DC - Delicate subtle borders */
+    --input: 105 14% 88%;
+    --ring: 166 38% 21%;
 
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --radius: 0.75rem;
   }
 }
 
@@ -71,9 +50,16 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
   body {
     @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100svh;
   }
   .label.required::after,
   .required::after {
@@ -92,7 +78,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-400 dark:to-slate-200;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#214A40] via-[#2a594e] to-[#1D2925];
   }
 
   .hover-lift {
@@ -193,44 +179,124 @@
   }
 }
 
-/* Custom modal styles for consistency */
+/* Custom modal styles for consistency: 100% Centered on Desktop & Mobile */
 .dialog-content {
-  max-width: min(calc(100vw - 2rem), 550px) !important;
-  width: 100%;
-  max-height: min(calc(100vh - 5rem), 80vh) !important;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  overflow-y: auto;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(var(--border), 0.2);
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  width: calc(100vw - 2rem) !important;
+  max-height: min(calc(100vh - 3rem), 90vh) !important;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 10px 20px -8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 640px) {
+@media (min-width: 640px) {
   .dialog-content {
-    max-width: calc(100vw - 2rem) !important;
-    padding: 1.25rem;
-    border-radius: 0.75rem;
-    margin: 0.5rem;
+    width: 100% !important;
+    margin: 0 !important;
   }
 }
 
-/* Dialog content scrollbar styling */
-.dialog-content::-webkit-scrollbar {
-  width: 6px;
+/* Utility to completely hide scrollbar while keeping smooth scrolling */
+.scrollbar-none,
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
-.dialog-content::-webkit-scrollbar-track {
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* =============================================================================
+   CUSTOM SCROLLBAR STYLING (100% Theme Harmonized: Warm Paper & Forest Green)
+   ============================================================================= */
+
+/* Firefox / Modern CSS Standard */
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD8C7 #F7F7F2;
+}
+
+/* Chrome, Edge, Safari, Opera (Main Window / Root Scrollbar) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F7F7F2;
+  border-left: 1px solid rgba(222, 228, 220, 0.7);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #CBD8C7;
+  border-radius: 9999px;
+  border: 2px solid #F7F7F2;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #214A40;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #173830;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #F7F7F2;
+}
+
+/* Internal scrollable containers (Dialogs, Modals, Chat, Textarea, Code blocks) */
+.overflow-y-auto,
+.overflow-x-auto:not(.scrollbar-hide),
+.dialog-content,
+textarea,
+pre {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD8C7 transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar,
+.overflow-x-auto:not(.scrollbar-hide)::-webkit-scrollbar,
+.dialog-content::-webkit-scrollbar,
+textarea::-webkit-scrollbar,
+pre::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track,
+.overflow-x-auto:not(.scrollbar-hide)::-webkit-scrollbar-track,
+.dialog-content::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.dialog-content::-webkit-scrollbar-thumb {
-  background-color: rgba(var(--muted-foreground), 0.3);
-  border-radius: 20px;
+.overflow-y-auto::-webkit-scrollbar-thumb,
+.overflow-x-auto:not(.scrollbar-hide)::-webkit-scrollbar-thumb,
+.dialog-content::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
+  background-color: #CBD8C7;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease;
 }
 
-.dialog-content::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(var(--muted-foreground), 0.5);
+.overflow-y-auto::-webkit-scrollbar-thumb:hover,
+.overflow-x-auto:not(.scrollbar-hide)::-webkit-scrollbar-thumb:hover,
+.dialog-content::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover,
+pre::-webkit-scrollbar-thumb:hover {
+  background-color: #214A40;
 }
 
 /* Ensure elegant scrolling for all elements */
@@ -404,15 +470,15 @@
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   white-space: nowrap;
-  font-size: 0.75rem;
-  line-height: 1.1;
+  font-size: 0.72rem;
+  line-height: 1;
   font-weight: 600;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
-/* Chat button styling with improved visual */
+/* Chat button styling with improved visual pulse */
 .chat-pulse::before {
   content: '';
   position: absolute;
@@ -420,14 +486,21 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 0.5rem 0 0 0.5rem;
-  box-shadow: 0 0 0 0 rgba(var(--primary), 0.7);
-  animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+  border-radius: 0.75rem 0 0 0.75rem;
+  box-shadow: 0 0 0 0 rgba(33, 74, 64, 0.45);
+  animation: chat-pulse-ring 2.4s cubic-bezier(0.66, 0, 0, 1) infinite;
+  pointer-events: none;
 }
 
-@keyframes pulse {
-  to {
-    box-shadow: 0 0 0 12px rgba(var(--primary), 0);
+@keyframes chat-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(33, 74, 64, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(33, 74, 64, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(33, 74, 64, 0);
   }
 }
 
@@ -480,35 +553,6 @@
   hyphens: auto;
 }
 
-/* Style untuk vertical text pada tag chat */
-.vertical-text {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  letter-spacing: 0.12em;
-  white-space: nowrap;
-  font-size: 0.75rem;
-  line-height: 1.1;
-  font-weight: 600;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
-}
-
-/* Animasi pulsating untuk chat button */
-.chat-pulse {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(var(--primary), 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(var(--primary), 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(var(--primary), 0);
-  }
-}
 
 /* Styling untuk bubble chat */
 .message-bubble-in {

@@ -1,59 +1,89 @@
 import Hero from "./components/Hero"
 import AboutUs from "./components/AboutUs"
-import Skills from "./components/Services"
 import PortfolioGrid from "./components/PortfolioGrid"
 import Timeline from "./components/Timeline"
 import ContactForm from "./components/ContactForm"
 import FloatingActionButton from "./components/FloatingActionButton"
-import CustomCursor from "./components/CustomCursor"
 import Marquee from "./components/Marquee"
 import Publications from "./components/Publications"
 import Blog from "./components/Blog"
 import type { Metadata } from "next"
+import { getHomepageFaqSchema, getFeaturedWorksSchema } from "@/lib/seo-schema"
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Ahmad Meijlan Yasir - Personal Portfolio & Tech Projects",
+    absolute: "Ahmad Meijlan Yasir — System Engineer | Instrumentasi, IoT & Riset BMKG",
   },
-  description: "Official portfolio of Ahmad Meijlan Yasir, Taruna Instrumentasi STMKG & Web Developer. Explore my projects, research publications, IoT developments, and tech journey.",
-  keywords: ["Ahmad Meijlan Yasir", "portfolio", "instrumentation", "tech enthusiast", "STMKG", "developer", "projects", "publications"],
+  description:
+    "Portofolio resmi Ahmad Meijlan Yasir: System Engineer lulusan Cum Laude STMKG (BMKG) dengan 15+ publikasi ilmiah terindeks dan 5+ Hak Cipta, menghubungkan instrumentasi observasi, IoT telemetri, komputasi PET, dan rekayasa web.",
+  keywords: [
+    "Ahmad Meijlan Yasir",
+    "System Engineer",
+    "Meijlan Yasir",
+    "AMY",
+    "Taruna STMKG",
+    "Instrumentasi Meteorologi",
+    "BMKG",
+    "Web Developer Indonesia",
+    "IoT Developer",
+    "Next.js",
+    "PET Thermal Comfort Bali",
+    "JEJAK BBMKG",
+    "Research Publications",
+    "IEEE ICITCOM",
+  ],
   alternates: {
-    canonical: 'https://amymeij.web.id',
+    canonical: "https://amymeij.web.id",
+    languages: {
+      "id-ID": "https://amymeij.web.id",
+      "en-US": "https://amymeij.web.id/en",
+      "x-default": "https://amymeij.web.id",
+    },
   },
 }
 
 export default function Home() {
+  const faqSchema = getHomepageFaqSchema()
+  const worksSchema = getFeaturedWorksSchema()
+
   return (
     <>
-      <CustomCursor />
-      <Hero />
-      <section id="about">
-        <AboutUs />
-      </section>
-      <section id="skills">
-        <Skills />
-      </section>
-      <section id="projects">
-        <PortfolioGrid />
-      </section>
-      <section id="publications">
-        <Publications />
-      </section>
-      <section id="blog">
-        <Blog />
-      </section>
-      <section id="marquee">
-        <Marquee />
-      </section>
-      <section id="timeline">
-        <Timeline />
-      </section>
-      <section id="contact">
-        <ContactForm />
-      </section>
+      {/* Princeton GEO FAQ & Structured Works Schema for Generative AI & Search Engines */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(worksSchema) }}
+      />
 
+      {/* 1. Beranda / Hero */}
+      <Hero />
+      
+      {/* Metrics & Highlights Ribbon (Running Text) */}
+      <Marquee />
+      
+      {/* 2. Tentang & Pendekatan */}
+      <AboutUs />
+      
+      {/* 3. Karya Pilihan (Evidence-based Case Studies) */}
+      <PortfolioGrid />
+      
+      {/* 4. Riset & Publikasi (Peer-Reviewed Academic Output) */}
+      <Publications />
+      
+      {/* 5. Perjalanan & Pengalaman */}
+      <Timeline />
+      
+      {/* 6. Catatan Teknis & Artikel */}
+      <Blog />
+      
+      {/* 7. Kontak & Kolaborasi */}
+      <ContactForm />
+
+      {/* Floating Action Button (Kembali ke Atas) */}
       <FloatingActionButton />
     </>
   )
 }
-

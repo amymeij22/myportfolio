@@ -1,11 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
 import { allBlogs as fallbackBlogs, BlogPost as FallbackBlogPost } from './blog-data';
+import { fallbackProjects } from './project-data';
+import { fallbackPublications } from './publication-data';
+import { fallbackTimeline } from './timeline-data';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';
 
-// Create Supabase client safely
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Create Supabase client safely with revalidation support
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false,
+  },
+  global: {
+    fetch: (url, options = {}) => {
+      return fetch(url, {
+        ...options,
+        next: { revalidate: 60 },
+      });
+    },
+  },
+});
 
 function mapFallbackBlog(blog: FallbackBlogPost) {
   return {
@@ -34,14 +49,13 @@ export async function getProjects() {
       .order('created_at', { ascending: false });
 
     if (error || !data || data.length === 0) {
-      if (error) console.warn('Supabase projects query notice:', error.message);
-      return [];
+      return fallbackProjects;
     }
 
     return data;
   } catch (err) {
-    console.warn('Unexpected error in getProjects:', err);
-    return [];
+    console.warn('Notice in getProjects, using fallback:', err);
+    return fallbackProjects;
   }
 }
 
@@ -54,13 +68,13 @@ export async function getFeaturedProjects() {
       .order('created_at', { ascending: false });
 
     if (error || !data || data.length === 0) {
-      return [];
+      return fallbackProjects.filter(p => p.featured);
     }
 
     return data;
   } catch (err) {
-    console.warn('Unexpected error in getFeaturedProjects:', err);
-    return [];
+    console.warn('Notice in getFeaturedProjects, using fallback:', err);
+    return fallbackProjects.filter(p => p.featured);
   }
 }
 
@@ -73,13 +87,24 @@ export async function getPublications() {
       .order('publication_date', { ascending: false });
 
     if (error || !data || data.length === 0) {
-      return [];
+      return fallbackPublications;
     }
 
-    return data;
+    return data.map((item: any) => ({
+      ...item,
+      type: item.type || (
+        item.journal?.toLowerCase().includes('conference') || 
+        item.journal?.toLowerCase().includes('ieee') || 
+        item.journal?.toLowerCase().includes('iccraids') || 
+        item.journal?.toLowerCase().includes('ice3is') || 
+        item.journal?.toLowerCase().includes('icitcom')
+          ? 'Konferensi'
+          : 'Jurnal'
+      )
+    }));
   } catch (err) {
-    console.warn('Unexpected error in getPublications:', err);
-    return [];
+    console.warn('Notice in getPublications, using fallback:', err);
+    return fallbackPublications;
   }
 }
 
@@ -264,14 +289,14 @@ export async function getTimelineEvents() {
       .select('*')
       .order('start_date', { ascending: false });
 
-    if (error || !data) {
-      return [];
+    if (error || !data || data.length === 0) {
+      return fallbackTimeline;
     }
 
     return data;
   } catch (err) {
-    console.warn('Notice in getTimelineEvents:', err);
-    return [];
+    console.warn('Notice in getTimelineEvents, using fallback:', err);
+    return fallbackTimeline;
   }
 }
 

@@ -1,0 +1,188 @@
+{
+  "nav": {
+    "hero": "Beranda",
+    "tentang": "Tentang",
+    "karya": "Karya",
+    "riset": "Riset",
+    "perjalanan": "Perjalanan",
+    "blog": "Blog",
+    "kontak": "Kontak",
+    "language": "Bahasa",
+    "menuOpen": "Buka menu navigasi",
+    "menuClose": "Tutup menu navigasi",
+    "switchLang": "Pilih bahasa"
+  },
+  "hero": {
+    "badge": "SYSTEM ENGINEER",
+    "headlinePrefix": "Menghubungkan",
+    "headlineWord1": "instrumentasi,",
+    "headlineWord2": "data, dan",
+    "headlineWord3": "teknologi menjadi",
+    "headlineHighlight": "solusi nyata.",
+    "subtitle": "Berangkat dari instrumentasi MKG, saya merancang sistem digital dan otomasi untuk kebutuhan operasional, sains, dan lingkungan.",
+    "ctaProjects": "Lihat karya",
+    "ctaConnect": "Mari terhubung",
+    "imgAlt": "Representasi Instrumentasi Meteorologi Cuaca dan Lingkungan"
+  },
+  "marquee": [
+    "15+ Publikasi Ilmiah",
+    "S. Tr. Instrumentasi MKG",
+    "System Engineer",
+    "JEJAK",
+    "Cum Laude",
+    "STMKG",
+    "PET",
+    "Karya Cipta Madya",
+    "5+ Hak Cipta",
+    "BMKG"
+  ],
+  "about": {
+    "eyebrow": "TENTANG SAYA",
+    "greeting": "Halo, saya",
+    "name": "Ahmad Meijlan Yasir.",
+    "p1": "Saya adalah System Engineer dengan minat pada integrasi instrumentasi, pengembangan perangkat lunak, dan pengolahan data untuk menjawab kebutuhan operasional, sains, dan lingkungan.",
+    "p2": "Dengan latar belakang Instrumentasi Meteorologi, Klimatologi, dan Geofisika (STMKG), saya senang merancang, membangun, dan mengembangkan solusi teknologi yang bermanfaat dan dapat digunakan secara nyata.",
+    "focus1": "Instrumentasi",
+    "focus1b": "& Pengukuran",
+    "focus2": "Sistem Digital",
+    "focus2b": "& Otomasi",
+    "focus3": "Data &",
+    "focus3b": "Riset",
+    "role": "System Engineer",
+    "imgAlt": "Lanskap Atmosfer Pegunungan Indonesia"
+  },
+  "portfolio": {
+    "eyebrow": "PORTOFOLIO KARYA",
+    "titlePart1": "Karya & ",
+    "titleHighlight": "Proyek",
+    "subtitle": "Kumpulan solusi digital, pengembangan sistem, dan riset yang saya kerjakan.",
+    "filters": {
+      "all": "Semua",
+      "website": "Website",
+      "tools": "Tools",
+      "other": "Lainnya",
+      "iot": "IoT",
+      "microcontroller": "Mikrokontroler"
+    },
+    "viewProject": "Lihat Proyek",
+    "details": "Detail",
+    "preview": "Pratinjau Proyek",
+    "dialog": {
+      "featured": "Proyek Unggulan",
+      "challenge": "Tantangan:",
+      "contribution": "Kontribusi:",
+      "outcome": "Dampak / Hasil:",
+      "description": "Deskripsi Proyek",
+      "repository": "Repositori:",
+      "github": "Lihat di GitHub",
+      "close": "Tutup",
+      "openProject": "Buka Proyek"
+    }
+  },
+  "publications": {
+    "eyebrow": "PUBLIKASI & RISET",
+    "titlePart1": "Publikasi ",
+    "titleHighlight": "Riset",
+    "subtitle": "Kumpulan karya ilmiah dan kontribusi akademik saya.",
+    "readDetail": "Baca Detail",
+    "publication": "Publikasi",
+    "details": "Detail",
+    "dialog": {
+      "authors": "Penulis",
+      "abstract": "Abstrak",
+      "doi": "Digital Object Identifier (DOI)",
+      "close": "Tutup",
+      "openDoc": "Buka Dokumen Resmi"
+    }
+  },
+  "timeline": {
+    "eyebrow": "PERJALANAN PROFESIONAL",
+    "headingPart1": "Bertumbuh lewat praktik,",
+    "headingPart2": "riset, dan ",
+    "headingHighlight": "kolaborasi.",
+    "subtitle": "Jejak pembelajaran, pengalaman teknis, dan kepemimpinan lintas disiplin dari tahun ke tahun.",
+    "verifiedPanel": "Fokus & Capaian Terverifikasi"
+  },
+  "blog": {
+    "eyebrow": "ARTIKEL & CERITA",
+    "titlePart1": "Artikel & ",
+    "titleHighlight": "Gagasan",
+    "subtitle": "Pemikiran, pengalaman, dan berbagi pengetahuan seputar teknologi.",
+    "readArticle": "Baca Artikel",
+    "viewAll": "Lihat Semua Artikel",
+    "preview": "Pratinjau Artikel",
+    "backHome": "Kembali ke Beranda",
+    "backBlog": "Kembali ke Blog",
+    "allArticles": "Semua Artikel & ",
+    "allArticlesSubtitle": "Kumpulan pemikiran, eksplorasi riset, dan catatan rekayasa seputar teknologi, instrumentasi cuaca & lingkungan, serta arsitektur sistem digital.",
+    "allCategories": "Semua",
+    "emptyTitle": "Tidak Ada Artikel",
+    "emptySubtitle": "Belum ada artikel yang dipublikasikan pada kategori ini.",
+    "share": "Bagikan",
+    "latestArticles": "Artikel Terbaru",
+    "otherArticles": "Artikel Lainnya",
+    "categories": "Kategori",
+    "prevArticle": "Artikel Sebelumnya",
+    "nextArticle": "Artikel Selanjutnya",
+    "noLatest": "Tidak ada artikel terbaru."
+  },
+  "contact": {
+    "eyebrow": "KONTAK",
+    "headingPart1": "Mari ",
+    "headingPart2": "berkolaborasi, ",
+    "headingPart3": "berdiskusi, atau ",
+    "headingHighlight": "bertukar ide.",
+    "subtitle": "Punya pertanyaan, peluang kolaborasi, atau ide menarik? Saya terbuka untuk berdiskusi, berkolaborasi, maupun proyek baru di bidang teknologi, instrumentasi, dan riset.",
+    "nameLabel": "Nama",
+    "namePlaceholder": "Nama Anda",
+    "emailLabel": "Email",
+    "emailPlaceholder": "email@contoh.com",
+    "messageLabel": "Pesan",
+    "messagePlaceholder": "Tulis pesan Anda di sini...",
+    "sendButton": "Kirim Pesan",
+    "sendingButton": "Mengirim Pesan...",
+    "connectLabel": "Terhubung Juga di",
+    "challenge": {
+      "badge1": "Keamanan",
+      "badge2": "Verifikasi",
+      "title": "Verifikasi Keamanan",
+      "desc": "Selesaikan perhitungan matematika singkat berikut untuk memastikan Anda manusia sebelum pesan terkirim.",
+      "challengeLabel": "Tantangan",
+      "refresh": "Ganti Soal",
+      "generating": "Membuat perhitungan...",
+      "answerLabel": "Jawaban Anda",
+      "answerPlaceholder": "Masukkan angka hasil...",
+      "cancel": "Batal",
+      "submit": "Verifikasi & Kirim"
+    },
+    "success": {
+      "badge": "Status Pengiriman",
+      "title": "Pesan Berhasil Terkirim",
+      "desc": "Terima kasih telah menghubungi Yasir. Notifikasi pesan Anda sudah diterima dengan aman.",
+      "heading": "Respons Segera Dikirimkan",
+      "body": "Yasir akan meninjau pesan Anda dan segera menghubungi kembali melalui alamat email yang Anda sertakan.",
+      "button": "Selesai"
+    },
+    "error": {
+      "badge": "Pemberitahuan",
+      "title": "Kendala Pengiriman",
+      "desc": "Terdapat kendala saat memproses permintaan formulir kontak.",
+      "button": "Mengerti"
+    }
+  },
+  "footer": {
+    "backToTop": "↑ Kembali ke atas ↑"
+  },
+  "chat": {
+    "trigger": "KNOW ME!",
+    "assistantTitle": "Yasir's Assistant",
+    "assistantSubtitle": "Asisten AI Portofolio & Riset",
+    "placeholder": "Tanya seputar latar belakang, riset, atau karya Yasir...",
+    "poweredBy": "Ditenagai Gemini AI",
+    "pressEnter": "Tekan Enter untuk kirim",
+    "typing": "Mengetik jawaban...",
+    "refreshTitle": "Bersihkan riwayat percakapan",
+    "closeTitle": "Tutup asisten AI",
+    "openAria": "Buka Asisten AI (KNOW ME!)"
+  }
+}

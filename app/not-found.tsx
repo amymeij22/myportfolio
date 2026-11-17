@@ -1,6 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Halaman Tidak Ditemukan (404) | Ahmad Meijlan Yasir',
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function NotFound() {
   return (

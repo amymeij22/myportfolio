@@ -3,6 +3,8 @@ import { notFound } from "next/navigation"
 import { getBlogById, getAllBlogs, getLatestBlogs } from "@/lib/supabase"
 import BlogDetailClient, { BlogPostDetail } from "./BlogDetailClient"
 
+export const revalidate = 60
+
 interface BlogPageProps {
   params: Promise<{ id: string }>
 }
@@ -49,6 +51,11 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
     authors: [{ name: blog.author || "Ahmad Meijlan Yasir" }],
     alternates: {
       canonical: url,
+      languages: {
+        "id-ID": `https://amymeij.web.id/blog/${blog.id}`,
+        "en-US": `https://amymeij.web.id/en/blog/${blog.id}`,
+        "x-default": `https://amymeij.web.id/blog/${blog.id}`,
+      },
     },
     openGraph: {
       type: "article",
@@ -103,6 +110,8 @@ export default async function BlogDetailPage({ params }: BlogPageProps) {
   const latest = await getLatestBlogs(10)
   const filteredLatest = latest.filter((b) => b.id !== blogId)
 
+  const wordCount = blog.content ? blog.content.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length : undefined
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -111,17 +120,23 @@ export default async function BlogDetailPage({ params }: BlogPageProps) {
     "image": blog.image_url,
     "datePublished": blog.date,
     "dateModified": blog.updated_at || blog.date,
+    "inLanguage": "id-ID",
+    "articleSection": blog.blog_categories?.name || "Teknologi",
+    "wordCount": wordCount,
+    "keywords": [blog.blog_categories?.name, "Ahmad Meijlan Yasir", "System Engineer", "Teknologi"].filter(Boolean).join(", "),
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://amymeij.web.id/blog/${blog.id}`,
     },
     "author": {
       "@type": "Person",
+      "@id": "https://amymeij.web.id/#person",
       "name": blog.author || "Ahmad Meijlan Yasir",
       "url": "https://amymeij.web.id",
     },
     "publisher": {
       "@type": "Person",
+      "@id": "https://amymeij.web.id/#person",
       "name": "Ahmad Meijlan Yasir",
       "url": "https://amymeij.web.id",
     },

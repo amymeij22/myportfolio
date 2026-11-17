@@ -1,26 +1,45 @@
 {
-  "name": "Ahmad Meijlan Yasir Portfolio",
-  "short_name": "Ahmad Meijlan Yasir",
-  "description": "Personal portfolio of Ahmad Meijlan Yasir, Taruna Instrumentasi STMKG & Web Developer",
+  "name": "Ahmad Meijlan Yasir — System Engineer",
+  "short_name": "AMY",
+  "description": "Portofolio resmi Ahmad Meijlan Yasir: System Engineer yang menghubungkan instrumentasi, rekayasa perangkat lunak, sistem data, dan riset cuaca & lingkungan.",
   "start_url": "/",
+  "id": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#09090b",
-  "theme_color": "#09090b",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F7F2",
+  "theme_color": "#214A40",
+  "categories": ["portfolio", "technology", "engineering", "education"],
+  "lang": "id",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256 128x128 64x64 48x48 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ]
 }

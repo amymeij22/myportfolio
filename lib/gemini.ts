@@ -24,15 +24,19 @@ const MODULE_THESIS = `
 `;
 
 const MODULE_PUBLICATIONS = `
-[PUBLIKASI ILMIAH TERVERIFIKASI]
+[PUBLIKASI ILMIAH TERVERIFIKASI (17 PUBLIKASI)]
 Profil: [Google Scholar Yasir](https://scholar.google.com/citations?user=_8MT4mkAAAAJ&hl=id)
-1. TELKOMNIKA (2026): "Forecasting Particulate Matter Concentration Using Deep Learning and Weather Data." Vol. 24(5), 1644-1655. DOI: [10.12928/telkomnika.v24i5.27967](https://doi.org/10.12928/telkomnika.v24i5.27967).
-2. Jurnal Info Sains (2026): "Design and Evaluation of a Multichannel Information Architecture for PET-Based Thermal Comfort Dissemination in DKI Jakarta." Vol. 16(2), 404-413.
-3. JoCPES (2026): "Design and Implementation of a Web-Based RFID-Enabled Library Visitor Attendance and Management System: A Case Study at STMKG." Vol. 5(2), 129-136. DOI: [10.63581/JoCPES.v5i2.01](https://doi.org/10.63581/JoCPES.v5i2.01).
-4. IEEE ICE3IS (2025): "Comparative Performance Analysis of Firebase Realtime Database and Supabase Using Multi-Method Testing Approaches." 303-308. DOI: [10.1109/ICE3IS66769.2025.11281116](https://doi.org/10.1109/ICE3IS66769.2025.11281116).
-5. IEEE ICITCOM (2024): "Radiosonde System Using ESP32 and LoRa Ra-02 Web-Based for Upper-Air Profile Observation." 213-217. DOI: [10.1109/ICITCOM62788.2024.10762300](https://doi.org/10.1109/ICITCOM62788.2024.10762300).
-6. IEEE (2024): "IoT-Based Air Quality Monitoring System Design and Development Using ESP32." & "The Carbon Dioxide Filtration System Using Chlorella Pyrenoidosa Microalgae IoT-based for Air Quality Improvement."
-7. JoCPES: "PM2.5 Concentration Prediction Model in Jakarta Area Using Random Forest Algorithm" (2025) & "Model of Lightning Strike Risk to Humans Based on Spatial Analysis and Environmental Factors" (2023).
+1. INSTEK (2026): "An Automated Pipeline with WebGIS Dissemination for Operational PET-Based Thermal Comfort Forecasts Across Bali’s Tourism Destinations." Vol. 11(2), 578-591. DOI: [10.24252/instek.v11i2.71351](https://doi.org/10.24252/instek.v11i2.71351).
+2. TELKOMNIKA (2026): "Forecasting Particulate Matter Concentration Using Deep Learning and Weather Data." Vol. 24(5), 1644-1655. DOI: [10.12928/telkomnika.v24i5.27967](https://doi.org/10.12928/telkomnika.v24i5.27967).
+3. Jurnal Info Sains (2026): "Design and Evaluation of a Multichannel Information Architecture for PET-Based Thermal Comfort Dissemination in DKI Jakarta." Vol. 16(2), 404-413.
+4. JoCPES (2026): "INA-FOREWS: An IoT-Based Multi-Site Indonesia Forest Fire Early Warning System with Real-Time Risk Assessment and Alert Capabilities." Vol. 6(2). DOI: [10.63581/JoCPES.v6i2.03](https://doi.org/10.63581/JoCPES.v6i2.03).
+5. IEEE ICCRAIDS (2026): "Design and Prototype Development of a Dual-MCU Wireless IoT System for Multi-Gas Air Quality Monitoring in Poultry Environments." DOI: [10.1109/ICCRAIDS67816.2026.11519697](https://doi.org/10.1109/ICCRAIDS67816.2026.11519697).
+6. JoCPES (2025/2026): "Design and Implementation of a Web-Based RFID-Enabled Library Visitor Attendance and Management System: A Case Study at STMKG." Vol. 5(2), 129-136. DOI: [10.63581/JoCPES.v5i2.01](https://doi.org/10.63581/JoCPES.v5i2.01).
+7. IEEE ICE3IS (2025): "Comparative Performance Analysis of Firebase Realtime Database and Supabase Using Multi-Method Testing Approaches." 303-308. DOI: [10.1109/ICE3IS66769.2025.11281116](https://doi.org/10.1109/ICE3IS66769.2025.11281116).
+8. IEEE ICITCOM (2024): "Radiosonde System Using ESP32 and LoRa Ra-02 Web-Based for Upper-Air Profile Observation." 213-217. DOI: [10.1109/ICITCOM62788.2024.10762300](https://doi.org/10.1109/ICITCOM62788.2024.10762300).
+9. IEEE Conferences (2024–2025): "IoT-Based Air Quality Monitoring System Design and Development Using ESP32", "The Carbon Dioxide Filtration System Using Chlorella Pyrenoidosa Microalgae IoT-based", "Implementation of LSTM for Weather Prediction in Kupang City", "Integration of IoT and BMKG API for Android-based Air Quality Monitoring", "Real-Time Monitoring of Ocean Wave Parameters and Surface Currents", "A Low-Cost, Mobile System for Monitoring Solar Radiation".
+10. JoCPES (2023–2025): "PM2.5 Concentration Prediction Model in Jakarta Area Using Random Forest Algorithm", "Redesign of User Interface and Experience with Brand Identity Enhancement for the STMKG Website", "Model of Lightning Strike Risk to Humans Based on Spatial Analysis and Environmental Factors".
+Total 17 publikasi ilmiah terverifikasi.
 `;
 
 const MODULE_EXPERIENCE = `
