@@ -10,6 +10,16 @@ export const metadata: Metadata = {
     title: "Blog & Articles | Ahmad Meijlan Yasir",
     description: "Kumpulan artikel dan tulisan terbaru tentang teknologi, IoT, machine learning, dan instrumentasi.",
     url: "https://amymeij.web.id/blog",
+    images: [
+      {
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        secureUrl: "https://amymeij.web.id/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "Blog & Articles — Ahmad Meijlan Yasir",
+      },
+    ],
   },
 }
 

@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   const title = blog.title
   const description = blog.excerpt || blog.title
   const url = `https://amymeij.web.id/en/blog/${blog.id}`
-  const imageUrl = blog.image_url || "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud"
+  const imageUrl = blog.image_url || "https://amymeij.web.id/images/og-image.jpg"
 
   return {
     title: `${title} | Ahmad Meijlan Yasir`,
@@ -116,7 +116,7 @@ export default async function BlogDetailPageEn({ params }: BlogPageProps) {
     "@type": "BlogPosting",
     headline: blog.title,
     description: blog.excerpt || blog.title,
-    image: blog.image_url ? [blog.image_url] : [],
+    image: [blog.image_url || "https://amymeij.web.id/images/og-image.jpg"],
     datePublished: blog.date,
     dateModified: blog.date,
     inLanguage: "en-US",

@@ -94,10 +94,10 @@ export function getRootEntityGraph() {
         '@type': 'WebSite',
         '@id': `${BASE_URL}/#website`,
         url: BASE_URL,
-        name: 'Ahmad Meijlan Yasir — System Engineer Portfolio',
+        name: 'Ahmad Meijlan Yasir',
         alternateName: 'Portfolio Ahmad Meijlan Yasir',
         description:
-          'Portofolio resmi dan pangkalan riset Ahmad Meijlan Yasir: System Engineer, Instrumentasi Meteorologi, IoT, dan Riset BMKG.',
+          'Ahmad Meijlan Yasir, System Engineer yang fokus di instrumentasi, IoT, dan pengembangan web. Temukan karya, publikasi riset, dan catatan teknis di sini.',
         publisher: {
           '@id': `${BASE_URL}/#person`,
         },

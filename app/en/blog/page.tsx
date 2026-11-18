@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    locale: "en_US",
+    alternateLocale: "id_ID",
     url: "https://amymeij.web.id/en/blog",
     title: "Articles & Perspectives — Ahmad Meijlan Yasir",
     description:
@@ -36,9 +38,11 @@ export const metadata: Metadata = {
     siteName: "Ahmad Meijlan Yasir",
     images: [
       {
-        url: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud",
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        secureUrl: "https://amymeij.web.id/images/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "Articles & Perspectives — Ahmad Meijlan Yasir",
       },
     ],
@@ -49,7 +53,12 @@ export const metadata: Metadata = {
     description:
       "A curation of articles, technical field notes, and systems engineering insights by Ahmad Meijlan Yasir.",
     images: [
-      "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud",
+      {
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Articles & Perspectives — Ahmad Meijlan Yasir",
+      },
     ],
     creator: "@amymeij",
   },

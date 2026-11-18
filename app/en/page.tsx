@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     absolute: "Ahmad Meijlan Yasir — System Engineer | Instrumentation, IoT & BMKG Research",
   },
   description:
-    "Official portfolio of Ahmad Meijlan Yasir: System Engineer and Cum Laude STMKG (BMKG) graduate with 15+ indexed scientific publications and 5+ registered copyrights, bridging observation instrumentation, IoT telemetry, PET thermal comfort, and web systems engineering.",
+    "Ahmad Meijlan Yasir, a System Engineer working across instrumentation, IoT, and web development. Explore selected projects, research, and technical notes.",
   keywords: [
     "Ahmad Meijlan Yasir",
     "System Engineer",
@@ -39,6 +39,41 @@ export const metadata: Metadata = {
       "en-US": "https://amymeij.web.id/en",
       "x-default": "https://amymeij.web.id",
     },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    alternateLocale: "id_ID",
+    url: "https://amymeij.web.id/en",
+    title: "Ahmad Meijlan Yasir — System Engineer | Portfolio & Research",
+    description:
+      "Ahmad Meijlan Yasir, a System Engineer working across instrumentation, IoT, and web development. Explore selected projects, research, and technical notes.",
+    siteName: "Ahmad Meijlan Yasir",
+    images: [
+      {
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        secureUrl: "https://amymeij.web.id/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "Ahmad Meijlan Yasir — System Engineer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ahmad Meijlan Yasir — System Engineer",
+    description:
+      "Ahmad Meijlan Yasir, System Engineer working across instrumentation, IoT, and web engineering. Projects, research papers, and tech notes.",
+    images: [
+      {
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ahmad Meijlan Yasir — System Engineer Portfolio",
+      },
+    ],
+    creator: "@amymeij",
   },
 }
 

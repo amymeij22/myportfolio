@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    locale: "id_ID",
+    alternateLocale: "en_US",
     url: "https://amymeij.web.id/blog",
     title: "Catatan & Gagasan — Ahmad Meijlan Yasir",
     description:
@@ -36,9 +38,11 @@ export const metadata: Metadata = {
     siteName: "Ahmad Meijlan Yasir",
     images: [
       {
-        url: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud",
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        secureUrl: "https://amymeij.web.id/images/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "Catatan & Gagasan — Ahmad Meijlan Yasir",
       },
     ],
@@ -49,7 +53,12 @@ export const metadata: Metadata = {
     description:
       "Kumpulan artikel, catatan teknis, dan gagasan rekayasa sistem oleh Ahmad Meijlan Yasir.",
     images: [
-      "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud",
+      {
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Catatan & Gagasan — Ahmad Meijlan Yasir",
+      },
     ],
     creator: "@amymeij",
   },

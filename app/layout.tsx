@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     template: "%s | Ahmad Meijlan Yasir",
   },
   description:
-    "Portofolio resmi Ahmad Meijlan Yasir: System Engineer lulusan Cum Laude STMKG (BMKG) dengan 15+ publikasi ilmiah dan 5+ Hak Cipta, menghubungkan instrumentasi observasi, IoT telemetri, komputasi PET, dan rekayasa web.",
+    "Ahmad Meijlan Yasir, System Engineer yang fokus di instrumentasi, IoT, dan pengembangan web. Lihat karya, publikasi ilmiah, dan catatan teknis di sini.",
   keywords: [
     "Ahmad Meijlan Yasir",
     "Meijlan Yasir",
@@ -76,13 +76,15 @@ export const metadata: Metadata = {
     url: "https://amymeij.web.id",
     title: "Ahmad Meijlan Yasir — System Engineer | Portfolio & Research",
     description:
-      "Portofolio resmi Ahmad Meijlan Yasir: System Engineer yang menghubungkan instrumentasi, rekayasa perangkat lunak, sistem data, dan riset cuaca & lingkungan.",
+      "Ahmad Meijlan Yasir, System Engineer yang fokus di instrumentasi, IoT, dan pengembangan web. Temukan karya, publikasi riset, dan catatan teknis di sini.",
     siteName: "Ahmad Meijlan Yasir",
     images: [
       {
-        url: "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud",
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        secureUrl: "https://amymeij.web.id/images/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "Ahmad Meijlan Yasir — System Engineer Portfolio",
       },
     ],
@@ -91,9 +93,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ahmad Meijlan Yasir — System Engineer",
     description:
-      "Portofolio resmi Ahmad Meijlan Yasir: System Engineer, Instrumentasi MKG STMKG, IoT Developer, dan Periset BMKG.",
+      "Ahmad Meijlan Yasir, System Engineer di bidang instrumentasi, IoT, dan pengembangan web. Simak karya, riset, dan tulisan terbaru.",
     images: [
-      "https://1h1v9ndzh4okzjrr.public.blob.vercel-storage.com/amymeij-LB69SQ3DTpLlezoXEDVbOpdg9hG5Ud",
+      {
+        url: "https://amymeij.web.id/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ahmad Meijlan Yasir — System Engineer Portfolio",
+      },
     ],
     creator: "@amymeij",
   },
@@ -155,7 +162,7 @@ const structuredData = {
       "@type": "WebSite",
       "@id": "https://amymeij.web.id/#website",
       "url": "https://amymeij.web.id",
-      "name": "Ahmad Meijlan Yasir — System Engineer",
+      "name": "Ahmad Meijlan Yasir",
       "alternateName": [
         "Meijlan Yasir",
         "AMY",
@@ -163,7 +170,7 @@ const structuredData = {
         "amymeij.web.id",
       ],
       "description":
-        "Portofolio resmi dan pangkalan riset Ahmad Meijlan Yasir: System Engineer yang menghubungkan instrumentasi, rekayasa perangkat lunak, sistem data, dan riset cuaca & lingkungan.",
+        "Ahmad Meijlan Yasir, System Engineer yang fokus di instrumentasi, IoT, dan pengembangan web. Temukan karya, publikasi riset, dan catatan teknis di sini.",
       "inLanguage": ["id-ID", "en-US"],
       "publisher": {
         "@id": "https://amymeij.web.id/#person",
@@ -175,6 +182,12 @@ const structuredData = {
       "url": "https://amymeij.web.id",
       "name": "Ahmad Meijlan Yasir | Personal Portfolio & Research Hub",
       "isPartOf": { "@id": "https://amymeij.web.id/#website" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://amymeij.web.id/images/og-image.jpg",
+        "width": 1200,
+        "height": 630,
+      },
       "mainEntity": {
         "@type": "Person",
         "@id": "https://amymeij.web.id/#person",

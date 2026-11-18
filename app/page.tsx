@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     absolute: "Ahmad Meijlan Yasir — System Engineer | Instrumentasi, IoT & Riset BMKG",
   },
   description:
-    "Portofolio resmi Ahmad Meijlan Yasir: System Engineer lulusan Cum Laude STMKG (BMKG) dengan 15+ publikasi ilmiah terindeks dan 5+ Hak Cipta, menghubungkan instrumentasi observasi, IoT telemetri, komputasi PET, dan rekayasa web.",
+    "Ahmad Meijlan Yasir, System Engineer yang fokus di instrumentasi, IoT, dan pengembangan web. Lihat karya, publikasi ilmiah, dan catatan teknis di sini.",
   keywords: [
     "Ahmad Meijlan Yasir",
     "System Engineer",
